@@ -16130,8 +16130,7 @@ __webpack_require__.r(__webpack_exports__);
       // デフォルトのイベントをキャンセル
       e.preventDefault(); // エラーメッセージ初期化
 
-      data.message = "";
-      console.log(data); // 必須チェック
+      data.message = ""; // 必須チェック
 
       if (data.purchaseDate == null || data.purchaseDate == "") {
         data.message = "購入日が設定されていません";
@@ -16254,49 +16253,7 @@ __webpack_require__.r(__webpack_exports__);
       entry: entry
     };
   }
-})); // export default {
-//     // 関数宣言
-//     const entry = (e: Event) => {
-//       // デフォルトのイベントをキャンセルする
-//       e.preventDefault()
-//       // エラーメッセージ初期化
-//     //   if (this.erroMessage != "") {
-//     //     // 必須エラーがある場合、処理を中断する
-//     //     return
-//     //   }
-//     //   // 登録情報を設定
-//     //   const data = {
-//     //     purchaseDate: this.purchaseDate,
-//     //     grade: this.grade,
-//     //     raceCourse: this.raceCourse,
-//     //     raceName: this.raceName,
-//     //     course: this.course,
-//     //     distance: this.distance,
-//     //     purchase: this.purchase,
-//     //     returnMoney: this.returnMoney,
-//     //     balance: this.balance,
-//     //     axisHorse: this.axisHorse,
-//     //     jockey: this.jockey,
-//     //     purchaseMathod: this.purchaseMathod,
-//     //     father: this.father,
-//     //     motherFather: this.motherFather,
-//     //     condition: this.condition,
-//     //   }
-//     //   // ログイン処理
-//     //   axios.post("entry", data).then((res) => {
-//     //       if (res.data === 1) {
-//     //         // ユーザー名とパスワードが一致している場合、メニューへ遷移する
-//     //       } else {
-//     //         this.erroMessage = "ユーザー名かパスワードが誤っています"
-//     //       }
-//     //     })
-//     //     .catch((error) => {
-//     //       this.erroMessage = "ユーザー名かパスワードが誤っています"
-//     //   })
-//     // }
-//     return { data, entry }
-//   },
-// }
+}));
 
 /***/ }),
 
