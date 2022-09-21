@@ -23,6 +23,9 @@ Route::get('/test', [App\Http\Controllers\LoginController::class, 'login'])->nam
 // ログイン処理
 Route::post('/login', [App\Http\Controllers\LoginController::class, 'login']);
 
+// ユーザー登録処理
+Route::post('/entryUser', [App\Http\Controllers\EntryUserController::class, 'entryUser']);
+
 // データ登録処理
 Route::post('/entry', [App\Http\Controllers\PurchaseController::class, 'entry']);
 
