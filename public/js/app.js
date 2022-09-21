@@ -15971,18 +15971,53 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _headlessui_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @headlessui/vue */ "./node_modules/@headlessui/vue/dist/components/transitions/transition.js");
+/* harmony import */ var _headlessui_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @headlessui/vue */ "./node_modules/@headlessui/vue/dist/components/dialog/dialog.js");
+
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,vue__WEBPACK_IMPORTED_MODULE_1__.defineComponent)({
+  components: {
+    TransitionRoot: _headlessui_vue__WEBPACK_IMPORTED_MODULE_3__.TransitionRoot,
+    TransitionChild: _headlessui_vue__WEBPACK_IMPORTED_MODULE_3__.TransitionChild,
+    Dialog: _headlessui_vue__WEBPACK_IMPORTED_MODULE_4__.Dialog,
+    DialogPanel: _headlessui_vue__WEBPACK_IMPORTED_MODULE_4__.DialogPanel,
+    DialogTitle: _headlessui_vue__WEBPACK_IMPORTED_MODULE_4__.DialogTitle
+  },
   setup: function () {
     // 変数定義
     var data = (0,vue__WEBPACK_IMPORTED_MODULE_1__.reactive)({
       userName: "",
       password: "",
-      erroMessage: ""
+      erroMessage: "",
+      isOpen: false,
+      entryUserName: "",
+      entryPassword: "",
+      entryConfirmPassword: "",
+      entryEMail: "",
+      isConfirmOpen: false
     }); // 関数定義
-    // ログインボタンクリック時の処理
+    // 新規ユーザー登録クリック時の処理
+
+    var openModal = function (e) {
+      // デフォルトのイベントをキャンセル
+      e.preventDefault();
+      data.isOpen = true;
+    };
+
+    var closeModal = function (e) {
+      // デフォルトのイベントをキャンセル
+      e.preventDefault();
+      data.isOpen = false;
+    };
+
+    var closeConfirmModal = function (e) {
+      // デフォルトのイベントをキャンセル
+      e.preventDefault();
+      data.isConfirmOpen = false;
+    }; // ログインボタンクリック時の処理
+
 
     var login = function (e) {
       // デフォルトのイベントをキャンセルする
@@ -16000,10 +16035,38 @@ __webpack_require__.r(__webpack_exports__);
         password: data.password
       }; // ログイン処理
 
-      axios__WEBPACK_IMPORTED_MODULE_2___default().post('login', data).then(function (res) {
+      axios__WEBPACK_IMPORTED_MODULE_2___default().post('login', parameter).then(function (res) {
         if (res.data.result === true) {
           // ユーザー名とパスワードが一致している場合、メニューへ遷移する
           _router__WEBPACK_IMPORTED_MODULE_0__.router.push("/menu");
+          return;
+        } // ユーザー名かパスワードが一致していなかった場合
+
+
+        data.erroMessage = "ユーザー名かパスワードが誤っています";
+      });
+    }; // ユーザー登録処理
+
+
+    var entryUser = function (e) {
+      // デフォルトのイベントをキャンセルする
+      e.preventDefault(); // パスワードの確認
+      // パスワードの形式確認
+      // メールアドレスの形式確認
+      // 入力チェックが問題なかった場合
+
+      var parameter = {
+        userName: data.entryUserName,
+        password: data.entryPassword,
+        email: data.entryEMail
+      }; // ログイン処理
+
+      axios__WEBPACK_IMPORTED_MODULE_2___default().post('entryUser', parameter).then(function (res) {
+        if (res.data.result === true) {
+          // ユーザー登録ダイアログを閉じる
+          data.isOpen = false; // 確認ダイアログを開く
+
+          data.isConfirmOpen = true;
           return;
         } // ユーザー名かパスワードが一致していなかった場合
 
@@ -16014,7 +16077,11 @@ __webpack_require__.r(__webpack_exports__);
 
     return {
       data: data,
-      login: login
+      openModal: openModal,
+      closeModal: closeModal,
+      login: login,
+      entryUser: entryUser,
+      closeConfirmModal: closeConfirmModal
     };
   }
 }));
@@ -17147,15 +17214,141 @@ var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 );
 
 var _hoisted_9 = {
-  class: "flex justify-center text-x mt-4"
+  class: "flex justify-center text-x mt-2"
 };
 var _hoisted_10 = {
-  class: "flex justify-center text-2xl mt-4"
+  class: "flex justify-center text-x mt-2"
 };
 var _hoisted_11 = {
+  class: "flex justify-center text-2xl mt-3"
+};
+var _hoisted_12 = {
   class: "text-red-700"
 };
+
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  class: "fixed inset-0 bg-black bg-opacity-25"
+}, null, -1
+/* HOISTED */
+);
+
+var _hoisted_14 = {
+  class: "fixed inset-0 overflow-y-auto"
+};
+var _hoisted_15 = {
+  class: "flex min-h-full w-1/2 items-center justify-center p-4 text-center"
+};
+
+var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("ユーザー登録");
+
+var _hoisted_17 = {
+  class: "w-full bg-white shadow-md rounded"
+};
+var _hoisted_18 = {
+  class: "flex justify-center mt-3 text-xl"
+};
+
+var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  class: "w-1/3"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  for: "userName",
+  class: "block mb-2 inline-block text-gray-700"
+}, "ユーザー名*")], -1
+/* HOISTED */
+);
+
+var _hoisted_20 = {
+  class: "w-2/3"
+};
+var _hoisted_21 = {
+  class: "flex justify-center mt-3 text-xl"
+};
+
+var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  class: "w-1/3"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  for: "userPassword",
+  class: "form-label mb-3 inline-block text-gray-700"
+}, "パスワード*")], -1
+/* HOISTED */
+);
+
+var _hoisted_23 = {
+  class: "w-2/3"
+};
+var _hoisted_24 = {
+  class: "flex justify-center mt-3 text-xl"
+};
+
+var _hoisted_25 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  class: "w-1/3"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  for: "confirmPassword",
+  class: "form-label mb-3 inline-block text-gray-700"
+}, "パスワード確認*")], -1
+/* HOISTED */
+);
+
+var _hoisted_26 = {
+  class: "w-2/3"
+};
+var _hoisted_27 = {
+  class: "flex justify-center mt-3 text-xl"
+};
+
+var _hoisted_28 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  class: "w-1/3"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  for: "mailAddress",
+  class: "form-label mb-3 inline-block text-gray-700"
+}, "メールアドレス*")], -1
+/* HOISTED */
+);
+
+var _hoisted_29 = {
+  class: "w-2/3"
+};
+var _hoisted_30 = {
+  class: "flex justify-center text-x mt-2"
+};
+
+var _hoisted_31 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  class: "fixed inset-0 bg-black bg-opacity-25"
+}, null, -1
+/* HOISTED */
+);
+
+var _hoisted_32 = {
+  class: "fixed inset-0 overflow-y-auto"
+};
+var _hoisted_33 = {
+  class: "flex min-h-full items-center justify-center p-4 text-center"
+};
+
+var _hoisted_34 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("確認");
+
+var _hoisted_35 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  class: "mt-2"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
+  class: "text-sm text-gray-500"
+}, "ユーザー登録が完了しました")], -1
+/* HOISTED */
+);
+
+var _hoisted_36 = {
+  class: "mt-4 flex justify-center"
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _component_TransitionChild = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("TransitionChild");
+
+  var _component_DialogTitle = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("DialogTitle");
+
+  var _component_DialogPanel = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("DialogPanel");
+
+  var _component_Dialog = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Dialog");
+
+  var _component_TransitionRoot = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("TransitionRoot");
+
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
     id: "name",
@@ -17189,9 +17382,238 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
       return _ctx.login && _ctx.login.apply(_ctx, args);
     })
-  }, "ログイン")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.data.erroMessage), 1
+  }, "ログイン")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
+    onClick: _cache[3] || (_cache[3] = //@ts-ignore
+    function () {
+      var args = [];
+
+      for (var _i = 0; _i < arguments.length; _i++) {
+        args[_i] = arguments[_i];
+      }
+
+      return _ctx.openModal && _ctx.openModal.apply(_ctx, args);
+    })
+  }, "新規ユーザー登録はこちら")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.data.erroMessage), 1
   /* TEXT */
-  )])])])]);
+  )])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TransitionRoot, {
+    appear: "",
+    show: _ctx.data.isOpen,
+    as: "template",
+    class: "w-1/2 h-1/4"
+  }, {
+    default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dialog, {
+        as: "div",
+        onClose: _ctx.closeModal,
+        class: "relative z-10"
+      }, {
+        default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TransitionChild, {
+            as: "template",
+            enter: "duration-300 ease-out",
+            "enter-from": "opacity-0",
+            "enter-to": "opacity-100",
+            leave: "duration-200 ease-in",
+            "leave-from": "opacity-100",
+            "leave-to": "opacity-0"
+          }, {
+            default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+              return [_hoisted_13];
+            }),
+            _: 1
+            /* STABLE */
+
+          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TransitionChild, {
+            as: "template",
+            enter: "duration-300 ease-out",
+            "enter-from": "opacity-0 scale-95",
+            "enter-to": "opacity-100 scale-100",
+            leave: "duration-200 ease-in",
+            "leave-from": "opacity-100 scale-100",
+            "leave-to": "opacity-0 scale-95"
+          }, {
+            default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+              return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DialogPanel, {
+                class: "w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
+              }, {
+                default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+                  return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DialogTitle, {
+                    as: "h3",
+                    class: "text-lg font-medium leading-6 text-gray-900"
+                  }, {
+                    default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+                      return [_hoisted_16];
+                    }),
+                    _: 1
+                    /* STABLE */
+
+                  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [_hoisted_19, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+                    type: "text",
+                    id: "userName",
+                    name: "userName",
+                    class: "w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1.5 text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none",
+                    "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
+                      return _ctx.data.entryUserName = $event;
+                    }),
+                    placeholder: "山田 太郎"
+                  }, null, 512
+                  /* NEED_PATCH */
+                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.entryUserName]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [_hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+                    type: "password",
+                    id: "userPassword",
+                    name: "userPassword",
+                    class: "w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding px-1.5 py-1.5 text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none",
+                    "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
+                      return _ctx.data.entryPassword = $event;
+                    })
+                  }, null, 512
+                  /* NEED_PATCH */
+                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.entryPassword]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [_hoisted_25, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+                    type: "password",
+                    id: "confirmPassword",
+                    name: "confirmPassword",
+                    class: "w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding px-1.5 py-1.5 text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none",
+                    "onUpdate:modelValue": _cache[6] || (_cache[6] = function ($event) {
+                      return _ctx.data.entryConfirmPassword = $event;
+                    })
+                  }, null, 512
+                  /* NEED_PATCH */
+                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.entryConfirmPassword]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_27, [_hoisted_28, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+                    type: "email",
+                    id: "mailAddress",
+                    name: "mailAddress",
+                    class: "w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding px-1.5 py-1.5 text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none",
+                    "onUpdate:modelValue": _cache[7] || (_cache[7] = function ($event) {
+                      return _ctx.data.entryEMail = $event;
+                    })
+                  }, null, 512
+                  /* NEED_PATCH */
+                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.entryEMail]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_30, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+                    class: "mt-8 rounded-full bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700",
+                    onClick: _cache[8] || (_cache[8] = //@ts-ignore
+                    function () {
+                      var args = [];
+
+                      for (var _i = 0; _i < arguments.length; _i++) {
+                        args[_i] = arguments[_i];
+                      }
+
+                      return _ctx.entryUser && _ctx.entryUser.apply(_ctx, args);
+                    })
+                  }, "ユーザー登録")])])];
+                }),
+                _: 1
+                /* STABLE */
+
+              })];
+            }),
+            _: 1
+            /* STABLE */
+
+          })])])];
+        }),
+        _: 1
+        /* STABLE */
+
+      }, 8
+      /* PROPS */
+      , ["onClose"])];
+    }),
+    _: 1
+    /* STABLE */
+
+  }, 8
+  /* PROPS */
+  , ["show"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TransitionRoot, {
+    appear: "",
+    show: _ctx.data.isConfirmOpen,
+    as: "template",
+    class: "w-1/5 h-1/5"
+  }, {
+    default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dialog, {
+        as: "div",
+        onClose: _ctx.closeConfirmModal,
+        class: "relative z-10"
+      }, {
+        default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TransitionChild, {
+            as: "template",
+            enter: "duration-300 ease-out",
+            "enter-from": "opacity-0",
+            "enter-to": "opacity-100",
+            leave: "duration-200 ease-in",
+            "leave-from": "opacity-100",
+            "leave-to": "opacity-0"
+          }, {
+            default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+              return [_hoisted_31];
+            }),
+            _: 1
+            /* STABLE */
+
+          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_32, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_33, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TransitionChild, {
+            as: "template",
+            enter: "duration-300 ease-out",
+            "enter-from": "opacity-0 scale-95",
+            "enter-to": "opacity-100 scale-100",
+            leave: "duration-200 ease-in",
+            "leave-from": "opacity-100 scale-100",
+            "leave-to": "opacity-0 scale-95"
+          }, {
+            default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+              return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DialogPanel, {
+                class: "w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
+              }, {
+                default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+                  return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DialogTitle, {
+                    as: "h3",
+                    class: "text-lg font-medium leading-6 text-gray-900"
+                  }, {
+                    default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+                      return [_hoisted_34];
+                    }),
+                    _: 1
+                    /* STABLE */
+
+                  }), _hoisted_35, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_36, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+                    type: "button",
+                    class: "inline-flex justify-center rounded-md ml-4 border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2",
+                    onClick: _cache[9] || (_cache[9] = //@ts-ignore
+                    function () {
+                      var args = [];
+
+                      for (var _i = 0; _i < arguments.length; _i++) {
+                        args[_i] = arguments[_i];
+                      }
+
+                      return _ctx.closeConfirmModal && _ctx.closeConfirmModal.apply(_ctx, args);
+                    })
+                  }, "閉じる")])];
+                }),
+                _: 1
+                /* STABLE */
+
+              })];
+            }),
+            _: 1
+            /* STABLE */
+
+          })])])];
+        }),
+        _: 1
+        /* STABLE */
+
+      }, 8
+      /* PROPS */
+      , ["onClose"])];
+    }),
+    _: 1
+    /* STABLE */
+
+  }, 8
+  /* PROPS */
+  , ["show"])]);
 }
 
 /***/ }),
