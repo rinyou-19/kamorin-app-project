@@ -16,7 +16,7 @@ class LoginController extends Controller
             $password = $request->password;
 
             // データを取得
-            $item = User::where('name', $name)->where('password', $password)->first();
+            $item = User::where('name', $name)->where('password', password_verify($password, PASSWORD_BCRYPT))->first();
 
             // データの取得結果を返却する
             if ($item !== null && $item->exists === true) {

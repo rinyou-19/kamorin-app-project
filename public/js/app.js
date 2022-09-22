@@ -16032,13 +16032,16 @@ __webpack_require__.r(__webpack_exports__);
 
       var parameter = {
         userName: data.userName,
-        password: data.password
+        password: data.password,
+        email: data.entryEMail
       }; // ログイン処理
 
       axios__WEBPACK_IMPORTED_MODULE_2___default().post('login', parameter).then(function (res) {
         if (res.data.result === true) {
-          // ユーザー名とパスワードが一致している場合、メニューへ遷移する
-          _router__WEBPACK_IMPORTED_MODULE_0__.router.push("/menu");
+          // 二要素認証の認証コードを送信する
+          axios__WEBPACK_IMPORTED_MODULE_2___default().post('sendPassword'); // ユーザー名とパスワードが一致している場合、二要素認証画面へ遷移する
+
+          _router__WEBPACK_IMPORTED_MODULE_0__.router.push("/twoFactorAuth");
           return;
         } // ユーザー名かパスワードが一致していなかった場合
 
@@ -16320,6 +16323,89 @@ __webpack_require__.r(__webpack_exports__);
       closeModal: closeModal,
       openModal: openModal,
       entry: entry
+    };
+  }
+}));
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/ts-loader/index.js??clonedRuleSet-6!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/twoFactorAuth.vue?vue&type=script&lang=ts":
+/*!***********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/ts-loader/index.js??clonedRuleSet-6!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/twoFactorAuth.vue?vue&type=script&lang=ts ***!
+  \***********************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./router */ "./resources/js/router.ts");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _headlessui_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @headlessui/vue */ "./node_modules/@headlessui/vue/dist/components/transitions/transition.js");
+/* harmony import */ var _headlessui_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @headlessui/vue */ "./node_modules/@headlessui/vue/dist/components/dialog/dialog.js");
+
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,vue__WEBPACK_IMPORTED_MODULE_1__.defineComponent)({
+  components: {
+    TransitionRoot: _headlessui_vue__WEBPACK_IMPORTED_MODULE_3__.TransitionRoot,
+    TransitionChild: _headlessui_vue__WEBPACK_IMPORTED_MODULE_3__.TransitionChild,
+    Dialog: _headlessui_vue__WEBPACK_IMPORTED_MODULE_4__.Dialog,
+    DialogPanel: _headlessui_vue__WEBPACK_IMPORTED_MODULE_4__.DialogPanel,
+    DialogTitle: _headlessui_vue__WEBPACK_IMPORTED_MODULE_4__.DialogTitle
+  },
+  setup: function () {
+    // 変数定義
+    var data = (0,vue__WEBPACK_IMPORTED_MODULE_1__.reactive)({
+      password: "",
+      message: "",
+      isOpen: false
+    }); // 関数定義
+
+    var closeModal = function (e) {
+      // デフォルトのイベントをキャンセル
+      e.preventDefault();
+      data.isOpen = false;
+    }; // 認証ボタンクリック時の処理
+
+
+    var auth = function (e) {
+      // デフォルトのイベントをキャンセルする
+      e.preventDefault(); // 入力チェック
+
+      if (data.password === "") {
+        // 認証コードが入力されていない場合
+        data.message = "認証コードが入力されていません";
+        data.isOpen = true;
+        return;
+      } // 入力チェックが問題なかった場合
+
+
+      var parameter = {
+        password: data.password
+      }; // 認証処理
+
+      axios__WEBPACK_IMPORTED_MODULE_2___default().post('auth', parameter).then(function (res) {
+        if (res.data.result === true) {
+          // 認証コードが一致した場合はメニュー画面へ遷移
+          _router__WEBPACK_IMPORTED_MODULE_0__.router.push("/menu");
+          return;
+        } // 認証コードが誤っていた場合
+
+
+        data.message = "認証コードが誤っています";
+        data.isOpen = true;
+      });
+    };
+
+    return {
+      data: data,
+      closeModal: closeModal,
+      auth: auth
     };
   }
 }));
@@ -17208,7 +17294,7 @@ var _hoisted_7 = {
 
 var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   for: "password",
-  class: "form-label mb-3 inline-block text-gray-700"
+  class: "form-label mb-1 inline-block text-gray-700"
 }, "パスワード", -1
 /* HOISTED */
 );
@@ -17217,7 +17303,7 @@ var _hoisted_9 = {
   class: "flex justify-center text-x mt-2"
 };
 var _hoisted_10 = {
-  class: "flex justify-center text-x mt-2"
+  class: "flex justify-center text-x mt-3"
 };
 var _hoisted_11 = {
   class: "flex justify-center text-2xl mt-3"
@@ -18336,6 +18422,204 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/ts-loader/index.js??clonedRuleSet-6!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/twoFactorAuth.vue?vue&type=template&id=4187abf5&ts=true":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/ts-loader/index.js??clonedRuleSet-6!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/twoFactorAuth.vue?vue&type=template&id=4187abf5&ts=true ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+var _hoisted_1 = {
+  class: "w-full"
+};
+
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", {
+  class: "mt-4 flex justify-center text-3xl"
+}, "二要素認証", -1
+/* HOISTED */
+);
+
+var _hoisted_3 = {
+  class: "flex justify-center"
+};
+var _hoisted_4 = {
+  class: "w-2/3 bg-white shadow-md rounded pt-6 pb-8 mt-4 px-16"
+};
+var _hoisted_5 = {
+  class: "flex justify-center mt-8 text-xl"
+};
+
+var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  for: "name",
+  class: "block mb-2 inline-block text-gray-700"
+}, "認証コード", -1
+/* HOISTED */
+);
+
+var _hoisted_7 = {
+  class: "flex justify-center text-x mt-2"
+};
+
+var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  class: "fixed inset-0 bg-black bg-opacity-25"
+}, null, -1
+/* HOISTED */
+);
+
+var _hoisted_9 = {
+  class: "fixed inset-0 overflow-y-auto"
+};
+var _hoisted_10 = {
+  class: "flex min-h-full items-center justify-center p-4 text-center"
+};
+
+var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("確認");
+
+var _hoisted_12 = {
+  class: "mt-2"
+};
+var _hoisted_13 = {
+  class: "text-sm text-gray-500"
+};
+var _hoisted_14 = {
+  class: "mt-4 flex justify-center"
+};
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _component_TransitionChild = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("TransitionChild");
+
+  var _component_DialogTitle = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("DialogTitle");
+
+  var _component_DialogPanel = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("DialogPanel");
+
+  var _component_Dialog = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Dialog");
+
+  var _component_TransitionRoot = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("TransitionRoot");
+
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    type: "text",
+    id: "name",
+    name: "name",
+    class: "ml-6 w-1/3 rounded border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1.5 text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none",
+    "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
+      return _ctx.data.password = $event;
+    }),
+    placeholder: "******"
+  }, null, 512
+  /* NEED_PATCH */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.password]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    class: "mt-8 rounded-full bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700",
+    onClick: _cache[1] || (_cache[1] = //@ts-ignore
+    function () {
+      var args = [];
+
+      for (var _i = 0; _i < arguments.length; _i++) {
+        args[_i] = arguments[_i];
+      }
+
+      return _ctx.auth && _ctx.auth.apply(_ctx, args);
+    })
+  }, "認証")])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TransitionRoot, {
+    appear: "",
+    show: _ctx.data.isOpen,
+    as: "template",
+    class: "w-1/5 h-1/5"
+  }, {
+    default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dialog, {
+        as: "div",
+        onClose: _ctx.closeConfirmModal,
+        class: "relative z-10"
+      }, {
+        default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TransitionChild, {
+            as: "template",
+            enter: "duration-300 ease-out",
+            "enter-from": "opacity-0",
+            "enter-to": "opacity-100",
+            leave: "duration-200 ease-in",
+            "leave-from": "opacity-100",
+            "leave-to": "opacity-0"
+          }, {
+            default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+              return [_hoisted_8];
+            }),
+            _: 1
+            /* STABLE */
+
+          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TransitionChild, {
+            as: "template",
+            enter: "duration-300 ease-out",
+            "enter-from": "opacity-0 scale-95",
+            "enter-to": "opacity-100 scale-100",
+            leave: "duration-200 ease-in",
+            "leave-from": "opacity-100 scale-100",
+            "leave-to": "opacity-0 scale-95"
+          }, {
+            default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+              return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DialogPanel, {
+                class: "w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
+              }, {
+                default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+                  return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DialogTitle, {
+                    as: "h3",
+                    class: "text-lg font-medium leading-6 text-gray-900"
+                  }, {
+                    default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+                      return [_hoisted_11];
+                    }),
+                    _: 1
+                    /* STABLE */
+
+                  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.data.message), 1
+                  /* TEXT */
+                  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+                    type: "button",
+                    class: "inline-flex justify-center rounded-md ml-4 border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2",
+                    onClick: _cache[2] || (_cache[2] = //@ts-ignore
+                    function () {
+                      var args = [];
+
+                      for (var _i = 0; _i < arguments.length; _i++) {
+                        args[_i] = arguments[_i];
+                      }
+
+                      return _ctx.closemModal && _ctx.closemModal.apply(_ctx, args);
+                    })
+                  }, "閉じる")])];
+                }),
+                _: 1
+                /* STABLE */
+
+              })];
+            }),
+            _: 1
+            /* STABLE */
+
+          })])])];
+        }),
+        _: 1
+        /* STABLE */
+
+      }, 8
+      /* PROPS */
+      , ["onClose"])];
+    }),
+    _: 1
+    /* STABLE */
+
+  }, 8
+  /* PROPS */
+  , ["show"])]);
+}
+
+/***/ }),
+
 /***/ "./resources/js/app.ts":
 /*!*****************************!*\
   !*** ./resources/js/app.ts ***!
@@ -18365,13 +18649,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "router": () => (/* binding */ router)
 /* harmony export */ });
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm-bundler.js");
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm-bundler.js");
 /* harmony import */ var _login_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./login.vue */ "./resources/js/login.vue");
 /* harmony import */ var _menu_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./menu.vue */ "./resources/js/menu.vue");
 /* harmony import */ var _purchase_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./purchase.vue */ "./resources/js/purchase.vue");
 /* harmony import */ var _inquiry_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./inquiry.vue */ "./resources/js/inquiry.vue");
 /* harmony import */ var _analyse_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./analyse.vue */ "./resources/js/analyse.vue");
 /* harmony import */ var _contact_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./contact.vue */ "./resources/js/contact.vue");
+/* harmony import */ var _twoFactorAuth_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./twoFactorAuth.vue */ "./resources/js/twoFactorAuth.vue");
 
 
 
@@ -18379,13 +18664,20 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_6__.createRouter)({
-  history: (0,vue_router__WEBPACK_IMPORTED_MODULE_6__.createWebHistory)(),
+
+var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_7__.createRouter)({
+  history: (0,vue_router__WEBPACK_IMPORTED_MODULE_7__.createWebHistory)(),
   routes: [{
     path: '/',
     name: 'login',
     components: {
       default: _login_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+    }
+  }, {
+    path: '/twoFactorAuth',
+    name: 'twoFactorAuthi',
+    components: {
+      default: _twoFactorAuth_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
     }
   }, {
     path: '/menu',
@@ -18851,6 +19143,34 @@ if (false) {}
 
 /***/ }),
 
+/***/ "./resources/js/twoFactorAuth.vue":
+/*!****************************************!*\
+  !*** ./resources/js/twoFactorAuth.vue ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _twoFactorAuth_vue_vue_type_template_id_4187abf5_ts_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./twoFactorAuth.vue?vue&type=template&id=4187abf5&ts=true */ "./resources/js/twoFactorAuth.vue?vue&type=template&id=4187abf5&ts=true");
+/* harmony import */ var _twoFactorAuth_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./twoFactorAuth.vue?vue&type=script&lang=ts */ "./resources/js/twoFactorAuth.vue?vue&type=script&lang=ts");
+/* harmony import */ var C_Users_rinyou_Desktop_kamorin_app_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+
+
+
+
+;
+const __exports__ = /*#__PURE__*/(0,C_Users_rinyou_Desktop_kamorin_app_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_twoFactorAuth_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_twoFactorAuth_vue_vue_type_template_id_4187abf5_ts_true__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/twoFactorAuth.vue"]])
+/* hot reload */
+if (false) {}
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
+
+/***/ }),
+
 /***/ "./resources/js/analyse.vue?vue&type=script&lang=ts":
 /*!**********************************************************!*\
   !*** ./resources/js/analyse.vue?vue&type=script&lang=ts ***!
@@ -18963,6 +19283,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/twoFactorAuth.vue?vue&type=script&lang=ts":
+/*!****************************************************************!*\
+  !*** ./resources/js/twoFactorAuth.vue?vue&type=script&lang=ts ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_ts_loader_index_js_clonedRuleSet_6_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_twoFactorAuth_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_ts_loader_index_js_clonedRuleSet_6_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_twoFactorAuth_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../node_modules/ts-loader/index.js??clonedRuleSet-6!../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./twoFactorAuth.vue?vue&type=script&lang=ts */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/ts-loader/index.js??clonedRuleSet-6!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/twoFactorAuth.vue?vue&type=script&lang=ts");
+ 
+
+/***/ }),
+
 /***/ "./resources/js/analyse.vue?vue&type=template&id=a677fe36&ts=true":
 /*!************************************************************************!*\
   !*** ./resources/js/analyse.vue?vue&type=template&id=a677fe36&ts=true ***!
@@ -19071,6 +19407,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_ts_loader_index_js_clonedRuleSet_6_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_purchase_vue_vue_type_template_id_1ef75202_ts_true__WEBPACK_IMPORTED_MODULE_0__.render)
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_ts_loader_index_js_clonedRuleSet_6_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_purchase_vue_vue_type_template_id_1ef75202_ts_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../node_modules/ts-loader/index.js??clonedRuleSet-6!../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[3]!../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./purchase.vue?vue&type=template&id=1ef75202&ts=true */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/ts-loader/index.js??clonedRuleSet-6!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/purchase.vue?vue&type=template&id=1ef75202&ts=true");
+
+
+/***/ }),
+
+/***/ "./resources/js/twoFactorAuth.vue?vue&type=template&id=4187abf5&ts=true":
+/*!******************************************************************************!*\
+  !*** ./resources/js/twoFactorAuth.vue?vue&type=template&id=4187abf5&ts=true ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_ts_loader_index_js_clonedRuleSet_6_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_twoFactorAuth_vue_vue_type_template_id_4187abf5_ts_true__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_ts_loader_index_js_clonedRuleSet_6_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_twoFactorAuth_vue_vue_type_template_id_4187abf5_ts_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../node_modules/ts-loader/index.js??clonedRuleSet-6!../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[3]!../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./twoFactorAuth.vue?vue&type=template&id=4187abf5&ts=true */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/ts-loader/index.js??clonedRuleSet-6!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/twoFactorAuth.vue?vue&type=template&id=4187abf5&ts=true");
 
 
 /***/ }),

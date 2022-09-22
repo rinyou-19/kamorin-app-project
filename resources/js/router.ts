@@ -5,6 +5,7 @@ import purchase from './purchase.vue'
 import inquiry from './inquiry.vue'
 import analyse from './analyse.vue'
 import contact from './contact.vue'
+import twoFactorAuth from './twoFactorAuth.vue'
 
 export const router = createRouter({
     history: createWebHistory(),
@@ -14,6 +15,13 @@ export const router = createRouter({
             name: 'login',
             components: {
                 default: login,
+            }
+        },
+        {
+            path: '/twoFactorAuth',
+            name: 'twoFactorAuthi',
+            components: {
+                default: twoFactorAuth,
             }
         },
         {

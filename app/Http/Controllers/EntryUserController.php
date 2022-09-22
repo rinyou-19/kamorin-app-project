@@ -15,7 +15,7 @@ class EntryUserController extends Controller
             // ユーザー名とパスワードを取得
             $userName = $request->userName;
             $password = $request->password;
-            $email = $request->password;
+            $email = $request->email;
 
             // トランザクション開始
             DB::beginTransaction();
@@ -23,28 +23,12 @@ class EntryUserController extends Controller
             // modelクラスのインスタンスを生成
             $user = new User();
 
-            // 暗号化方式
-            $method = 'aes-128-cbc';
-
-            // パスワード
-            $password = 'password1234';
-
-            // 方式に応じたIV(初期化ベクトル)に必要な長さを取得
-            $ivLength = openssl_cipher_iv_length($method);
- 
-            // IV を自動生成
-            $iv = openssl_random_pseudo_bytes($ivLength);
-
-            // OPENSSL_RAW_DATA と OPENSSL_ZERO_PADDING を指定可
-            $options = 0;
- 
-            // 暗号化
-            $encrypted = openssl_encrypt($password, $method, $password, $options, $iv);
+            $hashPassowrd = password_hash($password, PASSWORD_BCRYPT);
 
             // データベースにデータを登録
             $user->create([
                 "name" => $userName,
-                "password" => $encrypted,
+                "password" => $hashPassowrd,
                 "email" => $email,
             ]);
 

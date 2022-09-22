@@ -26,6 +26,12 @@ Route::post('/login', [App\Http\Controllers\LoginController::class, 'login']);
 // ユーザー登録処理
 Route::post('/entryUser', [App\Http\Controllers\EntryUserController::class, 'entryUser']);
 
+// 二要素認証メール送信
+Route::post('/sendPassword', [App\Http\Controllers\TwoFactorAuthController::class, 'sendPassword']);
+
+// 二要素認証処理
+Route::post('/auth', [App\Http\Controllers\TwoFactorAuthController::class, 'auth']);
+
 // データ登録処理
 Route::post('/entry', [App\Http\Controllers\PurchaseController::class, 'entry']);
 
