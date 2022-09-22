@@ -166,13 +166,16 @@ export default defineComponent({
       const parameter = {
         userName: data.userName,
         password: data.password,
+        email: data.entryEMail,
       }
 
       // ログイン処理
       axios.post('login', parameter).then(res => {
         if(res.data.result === true) {
-          // ユーザー名とパスワードが一致している場合、メニューへ遷移する
-          router.push("/menu")
+          // 二要素認証の認証コードを送信する
+          axios.post('sendPassword')
+          // ユーザー名とパスワードが一致している場合、二要素認証画面へ遷移する
+          router.push("/twoFactorAuth")
           return
         }
         // ユーザー名かパスワードが一致していなかった場合
