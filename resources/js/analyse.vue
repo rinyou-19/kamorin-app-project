@@ -122,6 +122,7 @@ export default defineComponent({
       const parameter = {
         monthFrom: data.monthFrom,
         monthTo: data.monthTo,
+        userName: sessionStorage.getItem('userName')
       }
 
       // データ取得処理

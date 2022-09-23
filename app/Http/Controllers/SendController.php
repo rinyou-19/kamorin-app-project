@@ -34,9 +34,9 @@ class SendController extends Controller
                 "email" => $email,
                 "detail" => $detail,
             ]);
-
+            
             // メール送信
-            Mail::send(new SendMail($name, $email));
+            Mail::send(new SendMail($name, $email, env('MAIL_FROM_ADDRESS')));
 
             // コミット
             DB::commit();

@@ -15611,7 +15611,8 @@ __webpack_require__.r(__webpack_exports__);
 
       var parameter = {
         monthFrom: data.monthFrom,
-        monthTo: data.monthTo
+        monthTo: data.monthTo,
+        userName: sessionStorage.getItem('userName')
       }; // データ取得処理
 
       axios__WEBPACK_IMPORTED_MODULE_1___default().post("summary", parameter).then(function (res) {
@@ -15824,19 +15825,45 @@ __webpack_require__.r(__webpack_exports__);
       dateFrom: "",
       dateTo: "",
       message: "",
-      isOpen: false
-    });
+      isOpen: false,
+      purchaseDate: "",
+      grade: "",
+      raceCourse: "",
+      raceName: "",
+      course: "",
+      distance: "",
+      purchase: "",
+      returnMoney: "",
+      balance: "",
+      axisHorse: "",
+      jockey: "",
+      purchaseMathod: "",
+      father: "",
+      motherFather: "",
+      condition: "",
+      isDataDialogOpen: false,
+      id: "",
+      butonShow: false,
+      dataProcess: ""
+    }); // 関数宣言
+    // 確認ダイアログを閉じる処理
 
     var closeModal = function (e) {
       // デフォルトのイベントをキャンセル
       e.preventDefault();
       data.isOpen = false;
-    }; // 関数宣言
+    }; // 購入情報修正ダイアログを閉じる処理
+
+
+    var confirmCloseModal = function (e) {
+      // デフォルトのイベントをキャンセル
+      e.preventDefault();
+      data.isDataDialogOpen = false;
+    }; // データを取得する処理
 
 
     var getData = function (e) {
       // デフォルトのイベントをキャンセルする
-      console.log(1);
       e.preventDefault(); // 入力チェック
 
       if (data.dateFrom !== "" && typeof data.dateFrom === "number" && data.dateFrom.toString().length !== 8) {
@@ -15852,10 +15879,10 @@ __webpack_require__.r(__webpack_exports__);
       } // 入力チェックが問題なかった場合
 
 
-      console.log(2);
       var parameter = {
         dateFrom: data.dateFrom,
-        dateTo: data.dateTo
+        dateTo: data.dateTo,
+        userName: sessionStorage.getItem('userName')
       }; // データ取得処理
 
       axios__WEBPACK_IMPORTED_MODULE_1___default().post("getData", parameter).then(function (res) {
@@ -15868,75 +15895,243 @@ __webpack_require__.r(__webpack_exports__);
             while (element === null || element === void 0 ? void 0 : element.firstChild) {
               element.removeChild(element.firstChild);
             }
-          }
+          } // レコード数のループ
+
+
+          var rowCount = 1;
 
           for (var _i = 0, _a = res.data.data; _i < _a.length; _i++) {
             var value = _a[_i]; // テーブルに表示する要素
 
             var tableParantElememt = document.createElement("tr");
-            var talbleChildElement = document.createElement("td");
-            talbleChildElement.classList.add("border");
-            talbleChildElement.classList.add("px-2");
-            talbleChildElement.classList.add("py-2");
-            talbleChildElement.classList.add("w-32");
-            talbleChildElement.innerHTML = value.race_day;
-            tableParantElememt.appendChild(talbleChildElement);
-            var talbleChildElement2 = document.createElement("td");
-            talbleChildElement2.classList.add("border");
-            talbleChildElement2.classList.add("px-2");
-            talbleChildElement2.classList.add("py-2");
-            talbleChildElement2.classList.add("w-28");
-            talbleChildElement2.innerHTML = value.race_course;
-            tableParantElememt.appendChild(talbleChildElement2);
-            var talbleChildElement3 = document.createElement("td");
-            talbleChildElement3.classList.add("border");
-            talbleChildElement3.classList.add("px-2");
-            talbleChildElement3.classList.add("py-2");
-            talbleChildElement3.classList.add("w-28");
-            talbleChildElement3.innerHTML = value.grade;
-            tableParantElememt.appendChild(talbleChildElement3);
-            var talbleChildElement4 = document.createElement("td");
-            talbleChildElement4.classList.add("border");
-            talbleChildElement4.classList.add("px-2");
-            talbleChildElement4.classList.add("py-2");
-            talbleChildElement4.classList.add("w-48");
-            talbleChildElement4.innerHTML = value.race_name;
-            tableParantElememt.appendChild(talbleChildElement4);
-            var talbleChildElement5 = document.createElement("td");
-            talbleChildElement5.classList.add("border");
-            talbleChildElement5.classList.add("px-2");
-            talbleChildElement5.classList.add("py-2");
-            talbleChildElement5.classList.add("w-24");
-            talbleChildElement5.innerHTML = value.dirt_or_turf;
-            tableParantElememt.appendChild(talbleChildElement5);
-            var talbleChildElement6 = document.createElement("td");
-            talbleChildElement6.classList.add("border");
-            talbleChildElement6.classList.add("px-2");
-            talbleChildElement6.classList.add("py-2");
-            talbleChildElement6.classList.add("w-24");
-            talbleChildElement6.innerHTML = value.distance;
-            tableParantElememt.appendChild(talbleChildElement6);
-            var talbleChildElement7 = document.createElement("td");
-            talbleChildElement7.classList.add("border");
-            talbleChildElement7.classList.add("px-2");
-            talbleChildElement7.classList.add("py-2");
-            talbleChildElement7.classList.add("w-24");
-            talbleChildElement7.innerHTML = value.purchase_m;
-            tableParantElememt.appendChild(talbleChildElement7);
-            var talbleChildElement8 = document.createElement("td");
-            talbleChildElement8.classList.add("border");
-            talbleChildElement8.classList.add("px-2");
-            talbleChildElement8.classList.add("py-2");
-            talbleChildElement8.classList.add("w-24");
-            talbleChildElement8.innerHTML = value.return_m;
-            tableParantElememt.appendChild(talbleChildElement8);
-            var talbleChildElement9 = document.createElement("td");
-            talbleChildElement9.classList.add("border");
-            talbleChildElement9.classList.add("px-2");
-            talbleChildElement9.classList.add("py-2");
-            talbleChildElement9.classList.add("w-24");
-            talbleChildElement9.innerHTML = value.balance_m;
-            tableParantElememt.appendChild(talbleChildElement9);
+            tableParantElememt.setAttribute("id", "row-number-".concat(rowCount)); // レコードごとのループ
+
+            for (var key in value) {
+              var talbleChildElement = document.createElement("td");
+              talbleChildElement.classList.add("border");
+              talbleChildElement.classList.add("px-2");
+              talbleChildElement.classList.add("py-2");
+              talbleChildElement.setAttribute("id", "key-".concat(key, "-").concat(rowCount));
+              talbleChildElement.onclick = getRowData;
+              talbleChildElement.innerHTML = value[key];
+
+              switch (key) {
+                case 'race_day':
+                  talbleChildElement.classList.add("w-32");
+                  break;
+
+                case 'race_course':
+                case 'grade':
+                  talbleChildElement.classList.add("w-28");
+                  break;
+
+                case 'race_name':
+                  talbleChildElement.classList.add("w-48");
+                  break;
+
+                case 'dirt_or_turf':
+                case 'distance':
+                case 'purchase_m':
+                case 'return_m':
+                case 'balance_m':
+                  talbleChildElement.classList.add("w-24");
+                  break;
+
+                default:
+                  talbleChildElement.style.display = 'none';
+                  break;
+              }
+
+              tableParantElememt.appendChild(talbleChildElement);
+            }
+
+            rowCount = rowCount + 1;
+            element === null || element === void 0 ? void 0 : element.appendChild(tableParantElememt);
+          }
+        } else {
+          data.message = "データの取得に失敗しました";
+          data.isOpen = true;
+        }
+      });
+    }; // 行のデータを取得する
+    // 型は直したい
+
+
+    var getRowData = function (e) {
+      var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5; // テーブルのデータを設定
+
+
+      data.id = (_a = e.path[1]) === null || _a === void 0 ? void 0 : _a.children.item(0).innerHTML;
+      data.purchaseDate = (_b = e.path[1]) === null || _b === void 0 ? void 0 : _b.children.item(1).innerHTML;
+      data.raceCourse = (_d = (_c = e.path[1]) === null || _c === void 0 ? void 0 : _c.children.item(2)) === null || _d === void 0 ? void 0 : _d.innerHTML;
+      data.grade = (_f = (_e = e.path[1]) === null || _e === void 0 ? void 0 : _e.children.item(3)) === null || _f === void 0 ? void 0 : _f.innerHTML;
+      data.raceName = (_h = (_g = e.path[1]) === null || _g === void 0 ? void 0 : _g.children.item(4)) === null || _h === void 0 ? void 0 : _h.innerHTML;
+      data.course = (_k = (_j = e.path[1]) === null || _j === void 0 ? void 0 : _j.children.item(5)) === null || _k === void 0 ? void 0 : _k.innerHTML;
+      data.distance = (_m = (_l = e.path[1]) === null || _l === void 0 ? void 0 : _l.children.item(6)) === null || _m === void 0 ? void 0 : _m.innerHTML;
+      data.purchase = (_p = (_o = e.path[1]) === null || _o === void 0 ? void 0 : _o.children.item(7)) === null || _p === void 0 ? void 0 : _p.innerHTML;
+      data.returnMoney = (_r = (_q = e.path[1]) === null || _q === void 0 ? void 0 : _q.children.item(8)) === null || _r === void 0 ? void 0 : _r.innerHTML;
+      data.balance = (_t = (_s = e.path[1]) === null || _s === void 0 ? void 0 : _s.children.item(9)) === null || _t === void 0 ? void 0 : _t.innerHTML;
+      data.axisHorse = (_v = (_u = e.path[1]) === null || _u === void 0 ? void 0 : _u.children.item(10)) === null || _v === void 0 ? void 0 : _v.innerHTML;
+      data.jockey = (_x = (_w = e.path[1]) === null || _w === void 0 ? void 0 : _w.children.item(11)) === null || _x === void 0 ? void 0 : _x.innerHTML;
+      data.purchaseMathod = (_z = (_y = e.path[1]) === null || _y === void 0 ? void 0 : _y.children.item(12)) === null || _z === void 0 ? void 0 : _z.innerHTML;
+      data.father = (_1 = (_0 = e.path[1]) === null || _0 === void 0 ? void 0 : _0.children.item(13)) === null || _1 === void 0 ? void 0 : _1.innerHTML;
+      data.motherFather = (_3 = (_2 = e.path[1]) === null || _2 === void 0 ? void 0 : _2.children.item(14)) === null || _3 === void 0 ? void 0 : _3.innerHTML;
+      data.condition = (_5 = (_4 = e.path[1]) === null || _4 === void 0 ? void 0 : _4.children.item(16)) === null || _5 === void 0 ? void 0 : _5.innerHTML; // 購入情報修正ダイアログを表示
+
+      data.isDataDialogOpen = true;
+    }; // 更新ボタン押下時の処理
+
+
+    var confirmUpdateModal = function (e) {
+      // デフォルトのイベントをキャンセルする
+      e.preventDefault();
+      data.butonShow = true;
+      data.dataProcess = "更新";
+      data.message = "データを更新しますか？"; // 確認ダイアログを表示する
+
+      data.isOpen = true;
+    }; // 削除ボタン押下時の処理
+
+
+    var confirmDeleteModal = function (e) {
+      // デフォルトのイベントをキャンセルする
+      e.preventDefault();
+      data.butonShow = true;
+      data.dataProcess = "削除";
+      data.message = "データを削除しますか？"; // 確認ダイアログを表示する
+
+      data.isOpen = true;
+    }; // データ操作処理
+
+
+    var dataProcess = function (e) {
+      // 確認ダイアログを閉じる
+      data.isOpen = false;
+      var parameter = {
+        id: data.id,
+        purchaseDate: data.purchaseDate,
+        raceCourse: data.raceCourse,
+        grade: data.grade,
+        raceName: data.raceName,
+        course: data.course,
+        distance: data.distance,
+        purchase: data.purchase,
+        returnMoney: data.returnMoney,
+        balance: data.balance,
+        axisHorse: data.axisHorse,
+        jockey: data.jockey,
+        purchaseMathod: data.purchaseMathod,
+        father: data.father,
+        motherFather: data.motherFather,
+        condition: data.condition
+      };
+      var process = "";
+
+      if (data.dataProcess === "更新") {
+        // 更新処理
+        process = "update";
+      } else {
+        // 削除処理
+        process = "delete";
+      }
+
+      axios__WEBPACK_IMPORTED_MODULE_1___default().post(process, parameter).then(function (res) {
+        data.butonShow = false;
+        data.isDataDialogOpen = false;
+
+        if (res.data.result === false) {
+          data.message = "処理に失敗しました";
+          data.isOpen = true;
+          return;
+        }
+
+        data.message = "処理に成功しました";
+        data.isOpen = true; // データを初期化
+
+        data.id = "";
+        data.purchaseDate = "";
+        data.raceCourse = "";
+        data.grade = "";
+        data.raceName = "";
+        data.course = "";
+        data.distance = "";
+        data.purchase = "";
+        data.returnMoney = "";
+        data.balance = "";
+        data.axisHorse = "";
+        data.jockey = "";
+        data.purchaseMathod = "";
+        data.father = "";
+        data.motherFather = "";
+        data.condition = "";
+      });
+      var readParameter = {
+        dateFrom: data.dateFrom,
+        dateTo: data.dateTo,
+        userName: sessionStorage.getItem('userName')
+      }; // データの再取得
+
+      axios__WEBPACK_IMPORTED_MODULE_1___default().post("getData", readParameter).then(function (res) {
+        if (res.data.result === true) {
+          // テーブルの要素を取得
+          var element = document.querySelector("tbody");
+
+          if ((element === null || element === void 0 ? void 0 : element.firstChild) !== undefined && (element === null || element === void 0 ? void 0 : element.firstChild) !== null) {
+            // 子要素を削除する
+            while (element === null || element === void 0 ? void 0 : element.firstChild) {
+              element.removeChild(element.firstChild);
+            }
+          } // レコード数のループ
+
+
+          var rowCount = 1;
+
+          for (var _i = 0, _a = res.data.data; _i < _a.length; _i++) {
+            var value = _a[_i]; // テーブルに表示する要素
+
+            var tableParantElememt = document.createElement("tr");
+            tableParantElememt.setAttribute("id", "row-number-".concat(rowCount)); // レコードごとのループ
+
+            for (var key in value) {
+              var talbleChildElement = document.createElement("td");
+              talbleChildElement.classList.add("border");
+              talbleChildElement.classList.add("px-2");
+              talbleChildElement.classList.add("py-2");
+              talbleChildElement.setAttribute("id", "key-".concat(key, "-").concat(rowCount));
+              talbleChildElement.onclick = getRowData;
+              talbleChildElement.innerHTML = value[key];
+
+              switch (key) {
+                case 'race_day':
+                  talbleChildElement.classList.add("w-32");
+                  break;
+
+                case 'race_course':
+                case 'grade':
+                  talbleChildElement.classList.add("w-28");
+                  break;
+
+                case 'race_name':
+                  talbleChildElement.classList.add("w-48");
+                  break;
+
+                case 'dirt_or_turf':
+                case 'distance':
+                case 'purchase_m':
+                case 'return_m':
+                case 'balance_m':
+                  talbleChildElement.classList.add("w-24");
+                  break;
+
+                default:
+                  talbleChildElement.style.display = 'none';
+                  break;
+              }
+
+              tableParantElememt.appendChild(talbleChildElement);
+            }
+
+            rowCount = rowCount + 1;
             element === null || element === void 0 ? void 0 : element.appendChild(tableParantElememt);
           }
         } else {
@@ -15949,7 +16144,12 @@ __webpack_require__.r(__webpack_exports__);
     return {
       data: data,
       closeModal: closeModal,
-      getData: getData
+      getData: getData,
+      getRowData: getRowData,
+      confirmCloseModal: confirmCloseModal,
+      confirmDeleteModal: confirmDeleteModal,
+      confirmUpdateModal: confirmUpdateModal,
+      dataProcess: dataProcess
     };
   }
 }));
@@ -16249,7 +16449,8 @@ __webpack_require__.r(__webpack_exports__);
       errorMessage: "",
       message: "",
       isOpen: false,
-      isEntry: true
+      isEntry: true,
+      userName: ""
     }); // 関数宣言
 
     var closeModal = function (e) {
@@ -16318,6 +16519,13 @@ __webpack_require__.r(__webpack_exports__);
         data.message = "収支金額が設定されていません";
         data.isOpen = true;
         return;
+      } // 購入日の桁数チェック
+
+
+      if (data.purchaseDate !== "" && typeof data.purchaseDate === "number" && data.purchaseDate.toString().length !== 8) {
+        data.message = "購入日の入力形式が正しくありません";
+        data.isOpen = true;
+        return;
       } // ダイアログのメッセージを設定
 
 
@@ -16347,7 +16555,8 @@ __webpack_require__.r(__webpack_exports__);
         purchaseMathod: data.purchaseMathod,
         father: data.father,
         motherFather: data.motherFather,
-        condition: data.condition
+        condition: data.condition,
+        userName: sessionStorage.getItem('userName')
       }; // データ登録処理
 
       axios__WEBPACK_IMPORTED_MODULE_1___default().post("entry", parameter).then(function (res) {
@@ -16431,6 +16640,7 @@ __webpack_require__.r(__webpack_exports__);
     var closeModal = function (e) {
       // デフォルトのイベントをキャンセル
       e.preventDefault();
+      console.log(1);
       data.isOpen = false;
     }; // 認証ボタンクリック時の処理
 
@@ -17143,31 +17353,548 @@ var _hoisted_7 = {
 var _hoisted_8 = {
   class: "flex justify-center text-xl"
 };
+var _hoisted_9 = {
+  class: "mt-1 ml-12 flex items-center w-11/12"
+};
+var _hoisted_10 = {
+  class: "w-full"
+};
+var _hoisted_11 = {
+  style: {
+    "display": "block"
+  }
+};
+var _hoisted_12 = {
+  class: "px-2 py-2 w-32"
+};
 
-var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"mt-1 ml-12 flex items-center w-11/12\"><table class=\"w-full\"><thead style=\"display:block;\"><tr><th class=\"px-2 py-2 w-32\">日付</th><th class=\"px-2 py-2 w-28\">競馬場</th><th class=\"px-2 py-2 w-28\">グレード</th><th class=\"px-2 py-2 w-48\">レース名</th><th class=\"px-2 py-2 w-24\">芝/ダ</th><th class=\"px-2 py-2 w-24\">距離</th><th class=\"px-2 py-2 w-24\">購入金額</th><th class=\"px-2 py-2 w-24\">払戻金額</th><th class=\"px-2 py-2 w-24\">収支金額</th></tr></thead><tbody style=\"display:block;overflow:scroll;height:340px;\"></tbody></table></div>", 1);
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+  class: "px-2 py-2 w-32"
+}, "日付", -1
+/* HOISTED */
+);
 
-var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+  class: "px-2 py-2 w-28"
+}, "競馬場", -1
+/* HOISTED */
+);
+
+var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+  class: "px-2 py-2 w-28"
+}, "グレード", -1
+/* HOISTED */
+);
+
+var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+  class: "px-2 py-2 w-48"
+}, "レース名", -1
+/* HOISTED */
+);
+
+var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+  class: "px-2 py-2 w-24"
+}, "芝/ダ", -1
+/* HOISTED */
+);
+
+var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+  class: "px-2 py-2 w-24"
+}, "距離", -1
+/* HOISTED */
+);
+
+var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+  class: "px-2 py-2 w-24"
+}, "購入金額", -1
+/* HOISTED */
+);
+
+var _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+  class: "px-2 py-2 w-24"
+}, "払戻金額", -1
+/* HOISTED */
+);
+
+var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+  class: "px-2 py-2 w-24"
+}, "収支金額", -1
+/* HOISTED */
+);
+
+var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", {
+  style: {
+    "display": "block",
+    "overflow": "scroll",
+    "height": "340px"
+  }
+}, null, -1
+/* HOISTED */
+);
+
+var _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "fixed inset-0 bg-black bg-opacity-25"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_11 = {
+var _hoisted_24 = {
   class: "fixed inset-0 overflow-y-auto"
 };
-var _hoisted_12 = {
+var _hoisted_25 = {
+  class: "flex min-h-full w-full items-center justify-center p-4 text-center"
+};
+
+var _hoisted_26 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("購入情報修正");
+
+var _hoisted_27 = {
+  class: "w-full bg-white shadow-md rounded p-4"
+};
+var _hoisted_28 = {
+  class: "mb-7 flex items-center"
+};
+var _hoisted_29 = {
+  class: "flex w-1/3"
+};
+
+var _hoisted_30 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  class: "w-1/3"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  for: "purchase-date"
+}, "購入日*")], -1
+/* HOISTED */
+);
+
+var _hoisted_31 = {
+  class: "w-2/3"
+};
+var _hoisted_32 = {
+  class: "flex w-1/3"
+};
+
+var _hoisted_33 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  class: "w-1/3"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  for: "grade"
+}, "格付*")], -1
+/* HOISTED */
+);
+
+var _hoisted_34 = {
+  class: "w-2/3"
+};
+
+var _hoisted_35 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "G1"
+}, "G1", -1
+/* HOISTED */
+);
+
+var _hoisted_36 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "G2"
+}, "G2", -1
+/* HOISTED */
+);
+
+var _hoisted_37 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "G3"
+}, "G3", -1
+/* HOISTED */
+);
+
+var _hoisted_38 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "オープン"
+}, "オープン", -1
+/* HOISTED */
+);
+
+var _hoisted_39 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "3勝"
+}, "3勝", -1
+/* HOISTED */
+);
+
+var _hoisted_40 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "2勝"
+}, "2勝", -1
+/* HOISTED */
+);
+
+var _hoisted_41 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "1勝"
+}, "1勝", -1
+/* HOISTED */
+);
+
+var _hoisted_42 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "未勝利"
+}, "未勝利", -1
+/* HOISTED */
+);
+
+var _hoisted_43 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "新馬"
+}, "新馬", -1
+/* HOISTED */
+);
+
+var _hoisted_44 = [_hoisted_35, _hoisted_36, _hoisted_37, _hoisted_38, _hoisted_39, _hoisted_40, _hoisted_41, _hoisted_42, _hoisted_43];
+var _hoisted_45 = {
+  class: "flex w-1/3"
+};
+
+var _hoisted_46 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  class: "w-1/3"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  for: "race-course"
+}, "競馬場*")], -1
+/* HOISTED */
+);
+
+var _hoisted_47 = {
+  class: "w-2/3"
+};
+
+var _hoisted_48 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "東京"
+}, "東京", -1
+/* HOISTED */
+);
+
+var _hoisted_49 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "中山"
+}, "中山", -1
+/* HOISTED */
+);
+
+var _hoisted_50 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "阪神"
+}, "阪神", -1
+/* HOISTED */
+);
+
+var _hoisted_51 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "京都"
+}, "京都", -1
+/* HOISTED */
+);
+
+var _hoisted_52 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "中京"
+}, "中京", -1
+/* HOISTED */
+);
+
+var _hoisted_53 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "札幌"
+}, "札幌", -1
+/* HOISTED */
+);
+
+var _hoisted_54 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "函館"
+}, "函館", -1
+/* HOISTED */
+);
+
+var _hoisted_55 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "福島"
+}, "福島", -1
+/* HOISTED */
+);
+
+var _hoisted_56 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "新潟"
+}, "新潟", -1
+/* HOISTED */
+);
+
+var _hoisted_57 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "小倉"
+}, "小倉", -1
+/* HOISTED */
+);
+
+var _hoisted_58 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "地方"
+}, "地方", -1
+/* HOISTED */
+);
+
+var _hoisted_59 = [_hoisted_48, _hoisted_49, _hoisted_50, _hoisted_51, _hoisted_52, _hoisted_53, _hoisted_54, _hoisted_55, _hoisted_56, _hoisted_57, _hoisted_58];
+var _hoisted_60 = {
+  class: "mb-7 flex items-center"
+};
+var _hoisted_61 = {
+  class: "flex w-1/3"
+};
+
+var _hoisted_62 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  class: "w-1/3"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  for: "race-name"
+}, "レース名*")], -1
+/* HOISTED */
+);
+
+var _hoisted_63 = {
+  class: "w-2/3"
+};
+var _hoisted_64 = {
+  class: "flex w-1/3"
+};
+
+var _hoisted_65 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  class: "w-1/3"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  for: "race-course"
+}, "コース*")], -1
+/* HOISTED */
+);
+
+var _hoisted_66 = {
+  class: "w-2/3"
+};
+
+var _hoisted_67 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "芝"
+}, "芝", -1
+/* HOISTED */
+);
+
+var _hoisted_68 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "ダート"
+}, "ダート", -1
+/* HOISTED */
+);
+
+var _hoisted_69 = [_hoisted_67, _hoisted_68];
+var _hoisted_70 = {
+  class: "flex w-1/3"
+};
+
+var _hoisted_71 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  class: "w-1/3"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  for: "distance"
+}, "距離*")], -1
+/* HOISTED */
+);
+
+var _hoisted_72 = {
+  class: "w-2/3"
+};
+var _hoisted_73 = {
+  class: "mb-7 flex items-center"
+};
+var _hoisted_74 = {
+  class: "flex w-1/3"
+};
+
+var _hoisted_75 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  class: "w-1/3"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  for: "purchase"
+}, "購入金額*")], -1
+/* HOISTED */
+);
+
+var _hoisted_76 = {
+  class: "w-2/3"
+};
+var _hoisted_77 = {
+  class: "flex w-1/3"
+};
+
+var _hoisted_78 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  class: "w-1/3"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  for: "return-money"
+}, "払戻金額*")], -1
+/* HOISTED */
+);
+
+var _hoisted_79 = {
+  class: "w-2/3"
+};
+var _hoisted_80 = {
+  class: "flex w-1/3"
+};
+
+var _hoisted_81 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  class: "w-1/3"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  for: "balance"
+}, "収支金額*")], -1
+/* HOISTED */
+);
+
+var _hoisted_82 = {
+  class: "w-2/3"
+};
+var _hoisted_83 = {
+  class: "mb-7 flex items-center"
+};
+var _hoisted_84 = {
+  class: "flex w-1/3"
+};
+
+var _hoisted_85 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  class: "w-1/3"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  for: "axis-horse"
+}, "軸馬")], -1
+/* HOISTED */
+);
+
+var _hoisted_86 = {
+  class: "w-2/3"
+};
+var _hoisted_87 = {
+  class: "flex w-1/3"
+};
+
+var _hoisted_88 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  class: "w-1/3"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  for: "jockey"
+}, "騎手")], -1
+/* HOISTED */
+);
+
+var _hoisted_89 = {
+  class: "w-2/3"
+};
+var _hoisted_90 = {
+  class: "flex w-1/3"
+};
+
+var _hoisted_91 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  class: "w-1/3"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  for: "purchase-mathod"
+}, "購入方法")], -1
+/* HOISTED */
+);
+
+var _hoisted_92 = {
+  class: "w-2/3"
+};
+var _hoisted_93 = {
+  class: "mb-7 flex items-center"
+};
+var _hoisted_94 = {
+  class: "flex w-1/3"
+};
+
+var _hoisted_95 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  class: "w-1/3"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  for: "father"
+}, "父親")], -1
+/* HOISTED */
+);
+
+var _hoisted_96 = {
+  class: "w-2/3"
+};
+var _hoisted_97 = {
+  class: "flex w-1/3"
+};
+
+var _hoisted_98 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  class: "w-1/3"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  for: "mother-father"
+}, "母父")], -1
+/* HOISTED */
+);
+
+var _hoisted_99 = {
+  class: "w-2/3"
+};
+var _hoisted_100 = {
+  class: "flex w-1/3"
+};
+
+var _hoisted_101 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  class: "w-1/3"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  for: "condition"
+}, "コンディション")], -1
+/* HOISTED */
+);
+
+var _hoisted_102 = {
+  class: "w-2/3"
+};
+
+var _hoisted_103 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "良"
+}, "良", -1
+/* HOISTED */
+);
+
+var _hoisted_104 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "稍重"
+}, "稍重", -1
+/* HOISTED */
+);
+
+var _hoisted_105 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "重"
+}, "重", -1
+/* HOISTED */
+);
+
+var _hoisted_106 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "不良"
+}, "不良", -1
+/* HOISTED */
+);
+
+var _hoisted_107 = [_hoisted_103, _hoisted_104, _hoisted_105, _hoisted_106];
+var _hoisted_108 = {
+  class: "flex justify-center text-xl"
+};
+
+var _hoisted_109 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  class: "fixed inset-0 bg-black bg-opacity-25"
+}, null, -1
+/* HOISTED */
+);
+
+var _hoisted_110 = {
+  class: "fixed inset-0 overflow-y-auto"
+};
+var _hoisted_111 = {
   class: "flex min-h-full items-center justify-center p-4 text-center"
 };
 
-var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("確認");
+var _hoisted_112 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("確認");
 
-var _hoisted_14 = {
+var _hoisted_113 = {
   class: "mt-2"
 };
-var _hoisted_15 = {
+var _hoisted_114 = {
   class: "text-sm text-gray-500"
 };
-var _hoisted_16 = {
+var _hoisted_115 = {
   class: "mt-4 flex justify-center"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -17215,7 +17942,286 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
       return _ctx.getData && _ctx.getData.apply(_ctx, args);
     })
-  }, "検索")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" ヘッダーと表示内容の位置がずれるのは、幅を固定するしかないかも"), _hoisted_9]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TransitionRoot, {
+  }, "検索")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" ヘッダーと表示内容の位置がずれるのは、幅を固定するしかないかも"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_12, "id", 512
+  /* NEED_PATCH */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, false]]), _hoisted_13, _hoisted_14, _hoisted_15, _hoisted_16, _hoisted_17, _hoisted_18, _hoisted_19, _hoisted_20, _hoisted_21])]), _hoisted_22])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" データ更新ダイアログ "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TransitionRoot, {
+    appear: "",
+    show: _ctx.data.isDataDialogOpen,
+    as: "template"
+  }, {
+    default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dialog, {
+        as: "div",
+        onClose: _ctx.closeModal,
+        class: "relative z-10"
+      }, {
+        default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TransitionChild, {
+            as: "template",
+            enter: "duration-300 ease-out",
+            "enter-from": "opacity-0",
+            "enter-to": "opacity-100",
+            leave: "duration-200 ease-in",
+            "leave-from": "opacity-100",
+            "leave-to": "opacity-0"
+          }, {
+            default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+              return [_hoisted_23];
+            }),
+            _: 1
+            /* STABLE */
+
+          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TransitionChild, {
+            as: "template",
+            enter: "duration-300 ease-out",
+            "enter-from": "opacity-0 scale-95",
+            "enter-to": "opacity-100 scale-100",
+            leave: "duration-200 ease-in",
+            "leave-from": "opacity-100 scale-100",
+            "leave-to": "opacity-0 scale-95"
+          }, {
+            default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+              return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DialogPanel, {
+                class: "transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
+              }, {
+                default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+                  return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DialogTitle, {
+                    as: "h3",
+                    class: "text-lg font-medium leading-6 text-gray-900"
+                  }, {
+                    default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+                      return [_hoisted_26];
+                    }),
+                    _: 1
+                    /* STABLE */
+
+                  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", _hoisted_27, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 購入日・格付・競馬場のブロック"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_28, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 購入日 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [_hoisted_30, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+                    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+                    id: "purchase-date",
+                    name: "purchase-date",
+                    type: "number",
+                    placeholder: "20220101",
+                    "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
+                      return _ctx.data.purchaseDate = $event;
+                    })
+                  }, null, 512
+                  /* NEED_PATCH */
+                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.purchaseDate]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 格付 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_32, [_hoisted_33, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_34, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+                    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+                    id: "grade",
+                    name: "grade",
+                    "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
+                      return _ctx.data.grade = $event;
+                    })
+                  }, _hoisted_44, 512
+                  /* NEED_PATCH */
+                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, _ctx.data.grade]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 競馬場 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_45, [_hoisted_46, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_47, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+                    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+                    id: "race-course",
+                    name: "race-course",
+                    "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
+                      return _ctx.data.raceCourse = $event;
+                    })
+                  }, _hoisted_59, 512
+                  /* NEED_PATCH */
+                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, _ctx.data.raceCourse]])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" レース名・コース・距離のブロック"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_60, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" レース名 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_61, [_hoisted_62, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_63, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+                    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+                    id: "race-name",
+                    name: "race-name",
+                    type: "text",
+                    placeholder: "日本ダービー",
+                    "onUpdate:modelValue": _cache[6] || (_cache[6] = function ($event) {
+                      return _ctx.data.raceName = $event;
+                    })
+                  }, null, 512
+                  /* NEED_PATCH */
+                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.raceName]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" コース "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_64, [_hoisted_65, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_66, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+                    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+                    id: "course",
+                    name: "course",
+                    "onUpdate:modelValue": _cache[7] || (_cache[7] = function ($event) {
+                      return _ctx.data.course = $event;
+                    })
+                  }, _hoisted_69, 512
+                  /* NEED_PATCH */
+                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, _ctx.data.course]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 距離 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_70, [_hoisted_71, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_72, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+                    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+                    id: "distance",
+                    name: "distance",
+                    type: "number",
+                    placeholder: "1600",
+                    "onUpdate:modelValue": _cache[8] || (_cache[8] = function ($event) {
+                      return _ctx.data.distance = $event;
+                    })
+                  }, null, 512
+                  /* NEED_PATCH */
+                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.distance]])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 購入金額・払戻金額・収支金額のブロック"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_73, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 購入金額"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_74, [_hoisted_75, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_76, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+                    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+                    id: "purchase",
+                    name: "purchase",
+                    type: "number",
+                    placeholder: "1000",
+                    "onUpdate:modelValue": _cache[9] || (_cache[9] = function ($event) {
+                      return _ctx.data.purchase = $event;
+                    })
+                  }, null, 512
+                  /* NEED_PATCH */
+                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.purchase]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 払戻金額"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_77, [_hoisted_78, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_79, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+                    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+                    id: "return-money",
+                    name: "return-money",
+                    type: "number",
+                    placeholder: "1000",
+                    "onUpdate:modelValue": _cache[10] || (_cache[10] = function ($event) {
+                      return _ctx.data.returnMoney = $event;
+                    })
+                  }, null, 512
+                  /* NEED_PATCH */
+                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.returnMoney]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 収支金額"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_80, [_hoisted_81, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_82, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+                    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+                    id: "balance",
+                    name: "balance",
+                    type: "number",
+                    placeholder: "1000",
+                    "onUpdate:modelValue": _cache[11] || (_cache[11] = function ($event) {
+                      return _ctx.data.balance = $event;
+                    })
+                  }, null, 512
+                  /* NEED_PATCH */
+                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.balance]])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 軸馬・騎手・購入方法のブロック"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_83, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 軸馬 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_84, [_hoisted_85, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_86, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+                    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+                    id: "axis-horse",
+                    name: "axis-horse",
+                    type: "text",
+                    placeholder: "ディープインパクト",
+                    "onUpdate:modelValue": _cache[12] || (_cache[12] = function ($event) {
+                      return _ctx.data.axisHorse = $event;
+                    })
+                  }, null, 512
+                  /* NEED_PATCH */
+                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.axisHorse]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 騎手 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_87, [_hoisted_88, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_89, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+                    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+                    id: "jockey",
+                    name: "jockey",
+                    type: "text",
+                    placeholder: "武豊",
+                    "onUpdate:modelValue": _cache[13] || (_cache[13] = function ($event) {
+                      return _ctx.data.jockey = $event;
+                    })
+                  }, null, 512
+                  /* NEED_PATCH */
+                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.jockey]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 購入方法 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_90, [_hoisted_91, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_92, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+                    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+                    id: "purchase-mathod",
+                    name: "purchase-mathod",
+                    type: "text",
+                    placeholder: "単複ワイド",
+                    "onUpdate:modelValue": _cache[14] || (_cache[14] = function ($event) {
+                      return _ctx.data.purchaseMathod = $event;
+                    })
+                  }, null, 512
+                  /* NEED_PATCH */
+                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.purchaseMathod]])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 父親・母父・コンディションのブロック"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_93, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 父親 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_94, [_hoisted_95, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_96, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+                    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+                    id: "father",
+                    name: "father",
+                    type: "text",
+                    placeholder: "ディープインパクト",
+                    "onUpdate:modelValue": _cache[15] || (_cache[15] = function ($event) {
+                      return _ctx.data.father = $event;
+                    })
+                  }, null, 512
+                  /* NEED_PATCH */
+                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.father]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 母父 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_97, [_hoisted_98, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_99, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+                    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+                    id: "mother-father",
+                    name: "mother-father",
+                    type: "text",
+                    placeholder: "キングカメハメハ",
+                    "onUpdate:modelValue": _cache[16] || (_cache[16] = function ($event) {
+                      return _ctx.data.motherFather = $event;
+                    })
+                  }, null, 512
+                  /* NEED_PATCH */
+                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.motherFather]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" コンディション "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_100, [_hoisted_101, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_102, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+                    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+                    id: "condition",
+                    name: "condition",
+                    "onUpdate:modelValue": _cache[17] || (_cache[17] = function ($event) {
+                      return _ctx.data.condition = $event;
+                    })
+                  }, _hoisted_107, 512
+                  /* NEED_PATCH */
+                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, _ctx.data.condition]])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+                    type: "hidden",
+                    id: "purchase-id",
+                    name: "purchase-id",
+                    "onUpdate:modelValue": _cache[18] || (_cache[18] = function ($event) {
+                      return _ctx.data.id = $event;
+                    })
+                  }, null, 512
+                  /* NEED_PATCH */
+                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.id]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 登録ボタンのブロック "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_108, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+                    class: "mt-3 mb-3 rounded-full bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700",
+                    onClick: _cache[19] || (_cache[19] = //@ts-ignore
+                    function () {
+                      var args = [];
+
+                      for (var _i = 0; _i < arguments.length; _i++) {
+                        args[_i] = arguments[_i];
+                      }
+
+                      return _ctx.confirmUpdateModal && _ctx.confirmUpdateModal.apply(_ctx, args);
+                    })
+                  }, "更新"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+                    class: "mt-3 mb-3 rounded-full bg-blue-500 py-2 px-4 ml-4 font-bold text-white hover:bg-blue-700",
+                    onClick: _cache[20] || (_cache[20] = //@ts-ignore
+                    function () {
+                      var args = [];
+
+                      for (var _i = 0; _i < arguments.length; _i++) {
+                        args[_i] = arguments[_i];
+                      }
+
+                      return _ctx.confirmDeleteModal && _ctx.confirmDeleteModal.apply(_ctx, args);
+                    })
+                  }, "削除"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+                    class: "mt-3 mb-3 rounded-full bg-blue-500 py-2 px-4 ml-4 font-bold text-white hover:bg-blue-700",
+                    onClick: _cache[21] || (_cache[21] = //@ts-ignore
+                    function () {
+                      var args = [];
+
+                      for (var _i = 0; _i < arguments.length; _i++) {
+                        args[_i] = arguments[_i];
+                      }
+
+                      return _ctx.confirmCloseModal && _ctx.confirmCloseModal.apply(_ctx, args);
+                    })
+                  }, "閉じる")])])];
+                }),
+                _: 1
+                /* STABLE */
+
+              })];
+            }),
+            _: 1
+            /* STABLE */
+
+          })])])];
+        }),
+        _: 1
+        /* STABLE */
+
+      }, 8
+      /* PROPS */
+      , ["onClose"])];
+    }),
+    _: 1
+    /* STABLE */
+
+  }, 8
+  /* PROPS */
+  , ["show"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 確認ダイアログ "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TransitionRoot, {
     appear: "",
     show: _ctx.data.isOpen,
     as: "template",
@@ -17238,12 +18244,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             "leave-to": "opacity-0"
           }, {
             default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-              return [_hoisted_10];
+              return [_hoisted_109];
             }),
             _: 1
             /* STABLE */
 
-          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TransitionChild, {
+          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_110, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_111, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TransitionChild, {
             as: "template",
             enter: "duration-300 ease-out",
             "enter-from": "opacity-0 scale-95",
@@ -17262,17 +18268,32 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                     class: "text-lg font-medium leading-6 text-gray-900"
                   }, {
                     default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-                      return [_hoisted_13];
+                      return [_hoisted_112];
                     }),
                     _: 1
                     /* STABLE */
 
-                  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.data.message), 1
+                  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_113, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_114, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.data.message), 1
                   /* TEXT */
-                  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+                  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_115, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
                     type: "button",
                     class: "inline-flex justify-center rounded-md ml-4 border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2",
-                    onClick: _cache[3] || (_cache[3] = //@ts-ignore
+                    onClick: _cache[22] || (_cache[22] = //@ts-ignore
+                    function () {
+                      var args = [];
+
+                      for (var _i = 0; _i < arguments.length; _i++) {
+                        args[_i] = arguments[_i];
+                      }
+
+                      return _ctx.dataProcess && _ctx.dataProcess.apply(_ctx, args);
+                    })
+                  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.data.dataProcess), 513
+                  /* TEXT, NEED_PATCH */
+                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, _ctx.data.butonShow]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+                    type: "button",
+                    class: "inline-flex justify-center rounded-md ml-4 border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2",
+                    onClick: _cache[23] || (_cache[23] = //@ts-ignore
                     function () {
                       var args = [];
 
@@ -18609,7 +19630,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dialog, {
         as: "div",
-        onClose: _ctx.closeConfirmModal,
+        onClose: _ctx.closeModal,
         class: "relative z-10"
       }, {
         default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -18665,7 +19686,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                         args[_i] = arguments[_i];
                       }
 
-                      return _ctx.closemModal && _ctx.closemModal.apply(_ctx, args);
+                      return _ctx.closeModal && _ctx.closeModal.apply(_ctx, args);
                     })
                   }, "閉じる")])];
                 }),

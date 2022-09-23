@@ -16,10 +16,11 @@ class SendMail extends Mailable
      *
      * @return void
      */
-    public function __construct($name, $email)
+    public function __construct($name, $email, $fromAddress)
     {
         $this->name = $name;
         $this->email = $email;
+        $this->fromAddress = $fromAddress;
     }
 
     /**
@@ -29,6 +30,10 @@ class SendMail extends Mailable
      */
     public function build()
     {
-        return $this->to($this->email)->subject('テストタイトル')->view('mail')->with(['name' => $this->name]);
+        return $this->from($this->fromAddress, 'kamorin\'site')
+            ->to($this->email)
+            ->subject('【kamorin\'s site】お問い合わせを受付ました')
+            ->view('mail')
+            ->with('name', $this->name);
     }
 }

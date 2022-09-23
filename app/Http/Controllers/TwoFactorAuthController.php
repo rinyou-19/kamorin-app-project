@@ -8,7 +8,6 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use SebastianBergmann\Type\FalseType;
 
 class TwoFactorAuthController extends Controller
 {

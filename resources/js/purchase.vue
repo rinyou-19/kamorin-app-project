@@ -222,7 +222,28 @@ export default defineComponent({
   components: { TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle },
   setup() {
     // 変数宣言
-    const data = reactive({
+    const data: {
+      purchaseDate: number | string;
+      grade: string;
+      raceCourse: string;
+      raceName: string;
+      course: string;
+      distance: number | string;
+      purchase: number | string;
+      returnMoney: number | string;
+      balance: number | string;
+      axisHorse: string;
+      jockey: string;
+      purchaseMathod: string;
+      father: string;
+      motherFather: string;
+      condition: string;
+      errorMessage: string;
+      message: string;
+      isOpen: boolean;
+      isEntry: boolean;
+      userName: string;
+    } = reactive({
       purchaseDate: "",
       grade: "",
       raceCourse: "",
@@ -242,6 +263,7 @@ export default defineComponent({
       message: "",
       isOpen: false,
       isEntry: true,
+      userName: "",
     })
     // 関数宣言
     const closeModal = (e: Event) => {
@@ -305,6 +327,13 @@ export default defineComponent({
         return
       }
 
+      // 購入日の桁数チェック
+      if (data.purchaseDate !== "" && typeof data.purchaseDate === "number" && data.purchaseDate.toString().length !== 8) {
+        data.message = "購入日の入力形式が正しくありません"
+        data.isOpen = true
+        return
+      }
+
       // ダイアログのメッセージを設定
       data.message = "データを登録しますか？"
       // ダイアログを表示
@@ -335,6 +364,7 @@ export default defineComponent({
         father: data.father,
         motherFather: data.motherFather,
         condition: data.condition,
+        userName: sessionStorage.getItem('userName')
       }
 
       // データ登録処理

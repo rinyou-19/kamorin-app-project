@@ -16,6 +16,7 @@ class AnalyseController extends Controller
             // 検索条件を取得
             $monthFrom = $request->monthFrom === null ? 200001 : $request->monthFrom;
             $monthTo = $request->monthTo === null ? 219912 : $request->monthTo;
+            $userName = $request->userName;
 
             // SQLを直接実行する
             $summarys = DB::select('select sum(purchase_m) as total_purchase,
@@ -23,9 +24,10 @@ class AnalyseController extends Controller
                                            sum(balance_m) as total_balance,
                                            substring(race_day, 1, 6) as purchase_month
                                     from purchases
-                                    where substring(race_day, 1, 6) between ? and ?
+                                    where user = ?
+                                    AND   substring(race_day, 1, 6) between ? and ?
                                     group by substring(race_day, 1, 6)
-                                    order by purchase_month', [$monthFrom, $monthTo]);
+                                    order by purchase_month', [$userName, $monthFrom, $monthTo]);
 
 
             return response()->json(['result' => true, 'data' => $summarys]);
