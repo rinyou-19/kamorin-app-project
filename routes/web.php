@@ -47,3 +47,9 @@ Route::post('/summary', [App\Http\Controllers\AnalyseController::class, 'summary
 // メール送信処理
 Route::post('/send', [App\Http\Controllers\SendController::class, 'send']);
 
+// データ更新処理
+Route::post('/update', [App\Http\Controllers\updateController::class, 'update']);
+
+// データ削除処理
+Route::post('/delete', [App\Http\Controllers\DeleteController::class, 'delete']);
+

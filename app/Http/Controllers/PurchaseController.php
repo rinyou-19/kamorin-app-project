@@ -28,6 +28,7 @@ class PurchaseController extends Controller
             $father = $request->father;
             $motherFather = $request->motherFather;
             $condition = $request->condition;
+            $userName = $request->userName;
 
             // トランザクション開始
             DB::beginTransaction();
@@ -52,6 +53,7 @@ class PurchaseController extends Controller
                 "father" => $father,
                 "mother_father" => $motherFather,
                 "condition_course" => $condition,
+                "user" => $userName,
             ]);
 
             // コミット
