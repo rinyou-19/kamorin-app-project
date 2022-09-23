@@ -9,6 +9,25 @@ use Illuminate\Support\Facades\DB;
 
 class EntryUserController extends Controller
 {
+    public function userConflictcheck(Request $request)
+    {
+        try {
+            // ユーザー名とパスワードを取得
+            $userName = $request->userName;
+
+            // データを取得
+            $item = User::where('name', $userName)->first();
+
+            // データの取得結果を返却する
+            if ($item !== null && $item->exists === true) {
+                return response()->json(['result' => false]);
+            }
+            return response()->json(['result' => true]);
+        } catch (Exception $e) {
+            return response()->json(['result' => false]);
+        }
+    }
+
     public function entryUser(Request $request)
     {
         try {

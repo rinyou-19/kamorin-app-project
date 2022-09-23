@@ -15990,7 +15990,7 @@ __webpack_require__.r(__webpack_exports__);
     var data = (0,vue__WEBPACK_IMPORTED_MODULE_1__.reactive)({
       userName: "",
       password: "",
-      erroMessage: "",
+      message: "",
       isOpen: false,
       entryUserName: "",
       entryPassword: "",
@@ -16004,13 +16004,15 @@ __webpack_require__.r(__webpack_exports__);
       // デフォルトのイベントをキャンセル
       e.preventDefault();
       data.isOpen = true;
-    };
+    }; // 新規ユーザー登録ダイアログを閉じる処理
+
 
     var closeModal = function (e) {
       // デフォルトのイベントをキャンセル
       e.preventDefault();
       data.isOpen = false;
-    };
+    }; // 確認ダイアログを閉じる処理
+
 
     var closeConfirmModal = function (e) {
       // デフォルトのイベントをキャンセル
@@ -16024,8 +16026,10 @@ __webpack_require__.r(__webpack_exports__);
       e.preventDefault(); // 入力チェック
 
       if (data.userName === "" || data.password === "") {
-        // ユーザー名かパスワードが入力されていない場合、エラーメッセージを設定して処理を抜ける
-        data.erroMessage = "ユーザー名かパスワードが入力されていません";
+        // ユーザー名かパスワードが入力されていない場合
+        // 確認ダイアログを開く
+        data.message = "ユーザー名かパスワードが入力されていません";
+        data.isConfirmOpen = true;
         return;
       } // 入力チェックが問題なかった場合
 
@@ -16038,43 +16042,100 @@ __webpack_require__.r(__webpack_exports__);
 
       axios__WEBPACK_IMPORTED_MODULE_2___default().post('login', parameter).then(function (res) {
         if (res.data.result === true) {
-          // 二要素認証の認証コードを送信する
-          axios__WEBPACK_IMPORTED_MODULE_2___default().post('sendPassword'); // ユーザー名とパスワードが一致している場合、二要素認証画面へ遷移する
+          var mailParameter = {
+            userName: data.userName
+          }; // 二要素認証の認証コードを送信する
 
+          axios__WEBPACK_IMPORTED_MODULE_2___default().post('sendPassword', mailParameter).catch(function (e) {
+            // 確認ダイアログを開く
+            data.message = "二要素認証のメールの送信に失敗しました";
+            data.isConfirmOpen = true;
+          }); // 二要素認証画面へ遷移する
+
+          sessionStorage.setItem('userName', data.userName);
           _router__WEBPACK_IMPORTED_MODULE_0__.router.push("/twoFactorAuth");
           return;
         } // ユーザー名かパスワードが一致していなかった場合
 
 
-        data.erroMessage = "ユーザー名かパスワードが誤っています";
+        data.message = "ユーザー名かパスワードが誤っています";
+        data.isConfirmOpen = true;
+      });
+    }; // ユーザー登録チェック
+
+
+    var entryUserCheck = function (e) {
+      // デフォルトのイベントをキャンセルする
+      e.preventDefault(); // 入力チェック
+
+      if (data.entryUserName === "" || data.entryPassword === "" || data.entryConfirmPassword === "" || data.entryEMail === "") {
+        // 入力されていない項目がある場合
+        data.message = "全ての項目が入力されていません";
+        data.isConfirmOpen = true;
+        return;
+      } // パスワードが一致しているか確認
+
+
+      if (data.entryPassword !== data.entryConfirmPassword) {
+        // パスワードが一致していない場合
+        data.message = "パスワードが一致していません";
+        data.isConfirmOpen = true;
+        return;
+      } // パスワードの形式チェック
+
+
+      var regex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])[a-zA-Z0-9]{8,24}$/;
+
+      if (regex.test(data.entryPassword) === false) {
+        // パスワードの形式を満たしていない場合
+        data.message = "パスワードの形式要件を満たしていません";
+        data.isConfirmOpen = true;
+        return;
+      }
+
+      var checkParameter = {
+        userName: data.entryUserName
+      }; // ユーザー名の重複チェック
+
+      axios__WEBPACK_IMPORTED_MODULE_2___default().post('userConflictcheck', checkParameter).then(function (res) {
+        if (res.data.result === false) {
+          // ユーザー名が重複している場合
+          data.message = "登録できないユーザー名です";
+          data.isConfirmOpen = true;
+          return;
+        } else {
+          // ユーザー登録処理
+          entryUser();
+        }
       });
     }; // ユーザー登録処理
 
 
-    var entryUser = function (e) {
-      // デフォルトのイベントをキャンセルする
-      e.preventDefault(); // パスワードの確認
-      // パスワードの形式確認
-      // メールアドレスの形式確認
-      // 入力チェックが問題なかった場合
-
+    var entryUser = function () {
+      // パラメーターのセット
       var parameter = {
         userName: data.entryUserName,
         password: data.entryPassword,
         email: data.entryEMail
-      }; // ログイン処理
+      }; // ユーザー登録
 
       axios__WEBPACK_IMPORTED_MODULE_2___default().post('entryUser', parameter).then(function (res) {
         if (res.data.result === true) {
           // ユーザー登録ダイアログを閉じる
+          data.entryUserName = "";
+          data.entryPassword = "";
+          data.entryConfirmPassword = "";
+          data.entryEMail = "";
           data.isOpen = false; // 確認ダイアログを開く
 
+          data.message = "ユーザー登録が完了しました";
           data.isConfirmOpen = true;
           return;
-        } // ユーザー名かパスワードが一致していなかった場合
+        } // ユーザーの登録に失敗した場合
 
 
-        data.erroMessage = "ユーザー名かパスワードが誤っています";
+        data.message = "ユーザーの登録に失敗しました";
+        data.isConfirmOpen = true;
       });
     };
 
@@ -16083,6 +16144,7 @@ __webpack_require__.r(__webpack_exports__);
       openModal: openModal,
       closeModal: closeModal,
       login: login,
+      entryUserCheck: entryUserCheck,
       entryUser: entryUser,
       closeConfirmModal: closeConfirmModal
     };
@@ -16386,7 +16448,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
       var parameter = {
-        password: data.password
+        password: data.password,
+        userName: sessionStorage.getItem('userName')
       }; // 認証処理
 
       axios__WEBPACK_IMPORTED_MODULE_2___default().post('auth', parameter).then(function (res) {
@@ -17303,124 +17366,125 @@ var _hoisted_9 = {
   class: "flex justify-center text-x mt-2"
 };
 var _hoisted_10 = {
-  class: "flex justify-center text-x mt-3"
-};
-var _hoisted_11 = {
-  class: "flex justify-center text-2xl mt-3"
-};
-var _hoisted_12 = {
-  class: "text-red-700"
+  class: "flex justify-center text-x mt-4"
 };
 
-var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "fixed inset-0 bg-black bg-opacity-25"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_14 = {
+var _hoisted_12 = {
   class: "fixed inset-0 overflow-y-auto"
 };
+var _hoisted_13 = {
+  class: "flex min-h-full w-full items-center justify-center p-4 text-center"
+};
+
+var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("ユーザー登録");
+
 var _hoisted_15 = {
-  class: "flex min-h-full w-1/2 items-center justify-center p-4 text-center"
+  class: "w-full bg-white shadow-md rounded p-4"
 };
-
-var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("ユーザー登録");
-
-var _hoisted_17 = {
-  class: "w-full bg-white shadow-md rounded"
-};
-var _hoisted_18 = {
+var _hoisted_16 = {
   class: "flex justify-center mt-3 text-xl"
 };
 
-var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "w-1/3"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   for: "userName",
-  class: "block mb-2 inline-block text-gray-700"
+  class: "block mb-2 inline-block text-gray-700 px-4 py-2"
 }, "ユーザー名*")], -1
 /* HOISTED */
 );
 
-var _hoisted_20 = {
+var _hoisted_18 = {
   class: "w-2/3"
 };
-var _hoisted_21 = {
-  class: "flex justify-center mt-3 text-xl"
+var _hoisted_19 = {
+  class: "flex justify-center text-xl"
 };
 
-var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "w-1/3"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   for: "userPassword",
-  class: "form-label mb-3 inline-block text-gray-700"
+  class: "form-label mb-2 inline-block text-gray-700 px-4 py-2"
 }, "パスワード*")], -1
 /* HOISTED */
 );
 
-var _hoisted_23 = {
+var _hoisted_21 = {
   class: "w-2/3"
 };
-var _hoisted_24 = {
-  class: "flex justify-center mt-3 text-xl"
+var _hoisted_22 = {
+  class: "flex justify-center text-xl"
 };
 
-var _hoisted_25 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "w-1/3"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   for: "confirmPassword",
-  class: "form-label mb-3 inline-block text-gray-700"
+  class: "form-label mb-1 inline-block text-gray-700 px-4 py-2"
 }, "パスワード確認*")], -1
 /* HOISTED */
 );
 
-var _hoisted_26 = {
+var _hoisted_24 = {
   class: "w-2/3"
 };
-var _hoisted_27 = {
-  class: "flex justify-center mt-3 text-xl"
+
+var _hoisted_25 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  class: "flex justify-center text-lg"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
+  class: "text-red-500 px-4 py-2"
+}, "※パスワードは8文字以上24文字以内、数値と大文字・小文字アルファベットを含んでください")], -1
+/* HOISTED */
+);
+
+var _hoisted_26 = {
+  class: "flex justify-center text-xl"
 };
 
-var _hoisted_28 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_27 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "w-1/3"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   for: "mailAddress",
-  class: "form-label mb-3 inline-block text-gray-700"
+  class: "form-label mb-3 inline-block text-gray-700 px-4 py-2"
 }, "メールアドレス*")], -1
 /* HOISTED */
 );
 
-var _hoisted_29 = {
+var _hoisted_28 = {
   class: "w-2/3"
 };
-var _hoisted_30 = {
-  class: "flex justify-center text-x mt-2"
+var _hoisted_29 = {
+  class: "flex justify-center text-x mt-1"
 };
 
-var _hoisted_31 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_30 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "fixed inset-0 bg-black bg-opacity-25"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_32 = {
+var _hoisted_31 = {
   class: "fixed inset-0 overflow-y-auto"
 };
-var _hoisted_33 = {
+var _hoisted_32 = {
   class: "flex min-h-full items-center justify-center p-4 text-center"
 };
 
-var _hoisted_34 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("確認");
+var _hoisted_33 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("確認");
 
-var _hoisted_35 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_34 = {
   class: "mt-2"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
+};
+var _hoisted_35 = {
   class: "text-sm text-gray-500"
-}, "ユーザー登録が完了しました")], -1
-/* HOISTED */
-);
-
+};
 var _hoisted_36 = {
   class: "mt-4 flex justify-center"
 };
@@ -17469,6 +17533,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return _ctx.login && _ctx.login.apply(_ctx, args);
     })
   }, "ログイン")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
+    class: "cursor-pointer text-sky-500",
     onClick: _cache[3] || (_cache[3] = //@ts-ignore
     function () {
       var args = [];
@@ -17479,13 +17544,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
       return _ctx.openModal && _ctx.openModal.apply(_ctx, args);
     })
-  }, "新規ユーザー登録はこちら")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.data.erroMessage), 1
-  /* TEXT */
-  )])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TransitionRoot, {
+  }, "新規ユーザー登録はこちら")])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" ユーザー登録ダイアログ "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TransitionRoot, {
     appear: "",
     show: _ctx.data.isOpen,
-    as: "template",
-    class: "w-1/2 h-1/4"
+    as: "template"
   }, {
     default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dialog, {
@@ -17504,12 +17566,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             "leave-to": "opacity-0"
           }, {
             default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-              return [_hoisted_13];
+              return [_hoisted_11];
             }),
             _: 1
             /* STABLE */
 
-          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TransitionChild, {
+          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TransitionChild, {
             as: "template",
             enter: "duration-300 ease-out",
             "enter-from": "opacity-0 scale-95",
@@ -17520,7 +17582,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           }, {
             default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
               return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DialogPanel, {
-                class: "w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
+                class: "transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
               }, {
                 default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
                   return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DialogTitle, {
@@ -17528,54 +17590,54 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                     class: "text-lg font-medium leading-6 text-gray-900"
                   }, {
                     default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-                      return [_hoisted_16];
+                      return [_hoisted_14];
                     }),
                     _: 1
                     /* STABLE */
 
-                  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [_hoisted_19, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+                  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [_hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
                     type: "text",
                     id: "userName",
                     name: "userName",
-                    class: "w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1.5 text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none",
+                    class: "w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding p-1 text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none",
                     "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
                       return _ctx.data.entryUserName = $event;
                     }),
                     placeholder: "山田 太郎"
                   }, null, 512
                   /* NEED_PATCH */
-                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.entryUserName]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [_hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.entryUserName]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [_hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
                     type: "password",
                     id: "userPassword",
                     name: "userPassword",
-                    class: "w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding px-1.5 py-1.5 text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none",
+                    class: "w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding p-1 text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none",
                     "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
                       return _ctx.data.entryPassword = $event;
                     })
                   }, null, 512
                   /* NEED_PATCH */
-                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.entryPassword]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [_hoisted_25, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.entryPassword]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [_hoisted_23, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
                     type: "password",
                     id: "confirmPassword",
                     name: "confirmPassword",
-                    class: "w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding px-1.5 py-1.5 text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none",
+                    class: "w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding p-1 text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none",
                     "onUpdate:modelValue": _cache[6] || (_cache[6] = function ($event) {
                       return _ctx.data.entryConfirmPassword = $event;
                     })
                   }, null, 512
                   /* NEED_PATCH */
-                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.entryConfirmPassword]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_27, [_hoisted_28, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.entryConfirmPassword]])])]), _hoisted_25, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_26, [_hoisted_27, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_28, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
                     type: "email",
                     id: "mailAddress",
                     name: "mailAddress",
-                    class: "w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding px-1.5 py-1.5 text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none",
+                    class: "w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding p-1 text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none",
                     "onUpdate:modelValue": _cache[7] || (_cache[7] = function ($event) {
                       return _ctx.data.entryEMail = $event;
                     })
                   }, null, 512
                   /* NEED_PATCH */
-                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.entryEMail]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_30, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-                    class: "mt-8 rounded-full bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700",
+                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.entryEMail]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+                    class: "rounded-full bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700",
                     onClick: _cache[8] || (_cache[8] = //@ts-ignore
                     function () {
                       var args = [];
@@ -17584,9 +17646,21 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                         args[_i] = arguments[_i];
                       }
 
-                      return _ctx.entryUser && _ctx.entryUser.apply(_ctx, args);
+                      return _ctx.entryUserCheck && _ctx.entryUserCheck.apply(_ctx, args);
                     })
-                  }, "ユーザー登録")])])];
+                  }, "ユーザー登録"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+                    class: "rounded-full bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700 ml-4",
+                    onClick: _cache[9] || (_cache[9] = //@ts-ignore
+                    function () {
+                      var args = [];
+
+                      for (var _i = 0; _i < arguments.length; _i++) {
+                        args[_i] = arguments[_i];
+                      }
+
+                      return _ctx.closeModal && _ctx.closeModal.apply(_ctx, args);
+                    })
+                  }, "閉じる")])])];
                 }),
                 _: 1
                 /* STABLE */
@@ -17610,7 +17684,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   }, 8
   /* PROPS */
-  , ["show"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TransitionRoot, {
+  , ["show"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 確認ダイアログ "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TransitionRoot, {
     appear: "",
     show: _ctx.data.isConfirmOpen,
     as: "template",
@@ -17633,12 +17707,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             "leave-to": "opacity-0"
           }, {
             default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-              return [_hoisted_31];
+              return [_hoisted_30];
             }),
             _: 1
             /* STABLE */
 
-          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_32, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_33, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TransitionChild, {
+          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_32, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TransitionChild, {
             as: "template",
             enter: "duration-300 ease-out",
             "enter-from": "opacity-0 scale-95",
@@ -17657,15 +17731,17 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                     class: "text-lg font-medium leading-6 text-gray-900"
                   }, {
                     default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-                      return [_hoisted_34];
+                      return [_hoisted_33];
                     }),
                     _: 1
                     /* STABLE */
 
-                  }), _hoisted_35, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_36, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+                  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_34, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_35, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.data.message), 1
+                  /* TEXT */
+                  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_36, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
                     type: "button",
                     class: "inline-flex justify-center rounded-md ml-4 border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2",
-                    onClick: _cache[9] || (_cache[9] = //@ts-ignore
+                    onClick: _cache[10] || (_cache[10] = //@ts-ignore
                     function () {
                       var args = [];
 
@@ -18457,7 +18533,7 @@ var _hoisted_5 = {
 
 var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   for: "name",
-  class: "block mb-2 inline-block text-gray-700"
+  class: "block mt-2 inline-block text-gray-700"
 }, "認証コード", -1
 /* HOISTED */
 );

@@ -30,13 +30,15 @@
     },
     "dependencies": {
         "@headlessui/vue": "^1.7.2",
+        "@types/store": "^2.0.2",
         "cheetah-grid": "^1.7.6",
         "gridjs": "^5.0.2",
         "igniteui-webcomponents-core": "^3.2.2",
         "igniteui-webcomponents-grids": "^3.2.2",
         "igniteui-webcomponents-inputs": "^3.2.2",
         "vue-router": "^4.0.13",
-        "vue3-charts": "^1.1.31"
+        "vue3-charts": "^1.1.31",
+        "vuex": "^4.0.2"
     },
     "jest": {
         "roots": [
