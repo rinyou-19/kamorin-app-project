@@ -14,69 +14,71 @@
         <div class="flex justify-center text-x mt-2">
           <button class="mt-8 rounded-full bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700" v-on:click="login">ログイン</button>
         </div>
-        <div class="flex justify-center text-x mt-3">
-          <p @click="openModal">新規ユーザー登録はこちら</p>
-        </div>
-        <div class="flex justify-center text-2xl mt-3">
-          <p class="text-red-700">{{ data.erroMessage }}</p>
+        <div class="flex justify-center text-x mt-4">
+          <p class="cursor-pointer text-sky-500" @click="openModal">新規ユーザー登録はこちら</p>
         </div>
       </form>
-      
     </div>
-    <TransitionRoot appear :show="data.isOpen" as="template" class="w-1/2 h-1/4">
+    <!-- ユーザー登録ダイアログ -->
+    <TransitionRoot appear :show="data.isOpen" as="template">
       <Dialog as="div" @close="closeModal" class="relative z-10">
         <TransitionChild as="template" enter="duration-300 ease-out" enter-from="opacity-0" enter-to="opacity-100" leave="duration-200 ease-in" leave-from="opacity-100" leave-to="opacity-0">
           <div class="fixed inset-0 bg-black bg-opacity-25" />
         </TransitionChild>
         <div class="fixed inset-0 overflow-y-auto">
-          <div class="flex min-h-full w-1/2 items-center justify-center p-4 text-center">
+          <div class="flex min-h-full w-full items-center justify-center p-4 text-center">
             <TransitionChild as="template" enter="duration-300 ease-out" enter-from="opacity-0 scale-95" enter-to="opacity-100 scale-100" leave="duration-200 ease-in" leave-from="opacity-100 scale-100" leave-to="opacity-0 scale-95">
-              <DialogPanel class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+              <DialogPanel class="transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                 <DialogTitle as="h3" class="text-lg font-medium leading-6 text-gray-900">ユーザー登録</DialogTitle>
-                <form class="w-full bg-white shadow-md rounded">
+                <form class="w-full bg-white shadow-md rounded p-4">
                   <div class="flex justify-center mt-3 text-xl">
                     <div class="w-1/3">
-                      <label for="userName" class="block mb-2 inline-block text-gray-700">ユーザー名*</label>
+                      <label for="userName" class="block mb-2 inline-block text-gray-700 px-4 py-2">ユーザー名*</label>
                     </div>
                     <div class="w-2/3">
-                      <input type="text" id="userName" name="userName" class="w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1.5 text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none" v-model="data.entryUserName" placeholder="山田 太郎" />
+                      <input type="text" id="userName" name="userName" class="w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding p-1 text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none" v-model="data.entryUserName" placeholder="山田 太郎" />
                     </div>
                   </div>
-                  <div class="flex justify-center mt-3 text-xl">
+                  <div class="flex justify-center text-xl">
                     <div class="w-1/3">
-                      <label for="userPassword" class="form-label mb-3 inline-block text-gray-700">パスワード*</label>
+                      <label for="userPassword" class="form-label mb-2 inline-block text-gray-700 px-4 py-2">パスワード*</label>
                     </div>
                     <div class="w-2/3">
-                      <input type="password" id="userPassword" name="userPassword" class="w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding px-1.5 py-1.5 text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none" v-model="data.entryPassword" />
+                      <input type="password" id="userPassword" name="userPassword" class="w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding p-1 text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none" v-model="data.entryPassword" />
                     </div>       
                   </div>
-                  <div class="flex justify-center mt-3 text-xl">
+                  <div class="flex justify-center text-xl">
                     <div class="w-1/3">
-                      <label for="confirmPassword" class="form-label mb-3 inline-block text-gray-700">パスワード確認*</label>
+                      <label for="confirmPassword" class="form-label mb-1 inline-block text-gray-700 px-4 py-2">パスワード確認*</label>
                     </div>
                     <div class="w-2/3">
-                      <input type="password" id="confirmPassword" name="confirmPassword" class="w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding px-1.5 py-1.5 text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none" v-model="data.entryConfirmPassword" />
+                      <input type="password" id="confirmPassword" name="confirmPassword" class="w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding p-1 text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none" v-model="data.entryConfirmPassword" />
                     </div>            
                   </div>
-                  <div class="flex justify-center mt-3 text-xl">
+                  <div class="flex justify-center text-lg">
+                    <p class="text-red-500 px-4 py-2">※パスワードは8文字以上24文字以内、数値と大文字・小文字アルファベットを含んでください</p>
+                  </div>
+                  <div class="flex justify-center text-xl">
                     <div class="w-1/3">
-                      <label for="mailAddress" class="form-label mb-3 inline-block text-gray-700">メールアドレス*</label>
+                      <label for="mailAddress" class="form-label mb-3 inline-block text-gray-700 px-4 py-2">メールアドレス*</label>
                     </div>
                     <div class="w-2/3">
-                      <input type="email" id="mailAddress" name="mailAddress" class="w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding px-1.5 py-1.5 text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none" v-model="data.entryEMail" />
+                      <input type="email" id="mailAddress" name="mailAddress" class="w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding p-1 text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none" v-model="data.entryEMail" />
                     </div>         
                   </div>
-                  <div class="flex justify-center text-x mt-2">
-                    <button class="mt-8 rounded-full bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700" v-on:click="entryUser">ユーザー登録</button>
+                  <div class="flex justify-center text-x mt-1">
+                    <button class="rounded-full bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700" v-on:click="entryUserCheck">ユーザー登録</button>
+                    <button class="rounded-full bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700 ml-4" v-on:click="closeModal">閉じる</button>
                   </div>
                 </form>
               </DialogPanel>
             </TransitionChild>
           </div>
         </div>
-      </Dialog>
+      </Dialog> 
     </TransitionRoot>
-      <TransitionRoot appear :show="data.isConfirmOpen" as="template" class="w-1/5 h-1/5">
+    <!-- 確認ダイアログ -->
+    <TransitionRoot appear :show="data.isConfirmOpen" as="template" class="w-1/5 h-1/5">
       <Dialog as="div" @close="closeConfirmModal" class="relative z-10">
         <TransitionChild as="template" enter="duration-300 ease-out" enter-from="opacity-0" enter-to="opacity-100" leave="duration-200 ease-in" leave-from="opacity-100" leave-to="opacity-0">
           <div class="fixed inset-0 bg-black bg-opacity-25" />
@@ -87,7 +89,7 @@
               <DialogPanel class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                 <DialogTitle as="h3" class="text-lg font-medium leading-6 text-gray-900">確認</DialogTitle>
                 <div class="mt-2">
-                  <p class="text-sm text-gray-500">ユーザー登録が完了しました</p>
+                  <p class="text-sm text-gray-500">{{ data.message }}</p>
                 </div>
                 <div class="mt-4 flex justify-center">
                   <button type="button" class="inline-flex justify-center rounded-md ml-4 border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2" @click="closeConfirmModal">閉じる</button>
@@ -114,7 +116,7 @@ export default defineComponent({
     const data : {
       userName: string,
       password: string,
-      erroMessage: string,
+      message: string,
       isOpen: boolean,
       entryUserName: string,
       entryPassword: string,
@@ -124,7 +126,7 @@ export default defineComponent({
     }  = reactive({
       userName: "",
       password: "",
-      erroMessage: "",
+      message: "",
       isOpen: false,
       entryUserName: "",
       entryPassword: "",
@@ -140,16 +142,21 @@ export default defineComponent({
       e.preventDefault()
       data.isOpen = true
     }
+
+    // 新規ユーザー登録ダイアログを閉じる処理
     const closeModal = (e: Event) => {
       // デフォルトのイベントをキャンセル
       e.preventDefault()
       data.isOpen = false
     }
+
+    // 確認ダイアログを閉じる処理
     const closeConfirmModal = (e: Event) => {
       // デフォルトのイベントをキャンセル
       e.preventDefault()
       data.isConfirmOpen = false
     }
+
     // ログインボタンクリック時の処理
     const login = (e: Event) => {
       // デフォルトのイベントをキャンセルする
@@ -157,8 +164,10 @@ export default defineComponent({
 
       // 入力チェック
       if (data.userName === "" || data.password === "") {
-        // ユーザー名かパスワードが入力されていない場合、エラーメッセージを設定して処理を抜ける
-        data.erroMessage = "ユーザー名かパスワードが入力されていません"
+        // ユーザー名かパスワードが入力されていない場合
+        // 確認ダイアログを開く
+        data.message = "ユーザー名かパスワードが入力されていません"
+        data.isConfirmOpen = true
         return
       }
 
@@ -172,46 +181,102 @@ export default defineComponent({
       // ログイン処理
       axios.post('login', parameter).then(res => {
         if(res.data.result === true) {
+          const mailParameter = {
+            userName: data.userName,
+          }
           // 二要素認証の認証コードを送信する
-          axios.post('sendPassword')
-          // ユーザー名とパスワードが一致している場合、二要素認証画面へ遷移する
+          axios.post('sendPassword', mailParameter).catch(e => {
+            // 確認ダイアログを開く
+            data.message = "二要素認証のメールの送信に失敗しました"
+            data.isConfirmOpen = true
+          })
+          // 二要素認証画面へ遷移する
+          sessionStorage.setItem('userName', data.userName)
           router.push("/twoFactorAuth")
           return
         }
         // ユーザー名かパスワードが一致していなかった場合
-        data.erroMessage = "ユーザー名かパスワードが誤っています"
+        data.message = "ユーザー名かパスワードが誤っています"
+        data.isConfirmOpen = true
       })
     }
-    // ユーザー登録処理
-    const entryUser = (e: Event) => {
+
+    // ユーザー登録チェック
+    const entryUserCheck = (e: Event) => {
       // デフォルトのイベントをキャンセルする
       e.preventDefault()
 
-      // パスワードの確認
-      // パスワードの形式確認
-      // メールアドレスの形式確認
-      // 入力チェックが問題なかった場合
+      // 入力チェック
+      if (data.entryUserName === "" || data.entryPassword === "" || data.entryConfirmPassword === "" || data.entryEMail === "") {
+        // 入力されていない項目がある場合
+        data.message = "全ての項目が入力されていません"
+        data.isConfirmOpen = true
+        return
+      }
+      // パスワードが一致しているか確認
+      if (data.entryPassword !== data.entryConfirmPassword) {
+        // パスワードが一致していない場合
+        data.message = "パスワードが一致していません"
+        data.isConfirmOpen = true
+        return
+      }
+      // パスワードの形式チェック
+      const regex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])[a-zA-Z0-9]{8,24}$/;
+      if(regex.test(data.entryPassword) === false) {
+        // パスワードの形式を満たしていない場合
+        data.message = "パスワードの形式要件を満たしていません"
+        data.isConfirmOpen = true
+        return
+      }
+
+      const checkParameter = {
+        userName: data.entryUserName
+      }
+
+      // ユーザー名の重複チェック
+      axios.post('userConflictcheck', checkParameter).then(res => {
+        if(res.data.result === false) {
+          // ユーザー名が重複している場合
+          data.message = "登録できないユーザー名です"
+          data.isConfirmOpen = true
+          return
+        } else {
+          // ユーザー登録処理
+          entryUser()
+        }
+      })
+    }
+
+    // ユーザー登録処理
+    const entryUser = () => {
+      // パラメーターのセット
       const parameter = {
         userName: data.entryUserName,
         password: data.entryPassword,
         email: data.entryEMail
       }
 
-      // ログイン処理
+      // ユーザー登録
       axios.post('entryUser', parameter).then(res => {
         if(res.data.result === true) {
           // ユーザー登録ダイアログを閉じる
+          data.entryUserName = ""
+          data.entryPassword = ""
+          data.entryConfirmPassword =""
+          data.entryEMail = ""
           data.isOpen = false
           // 確認ダイアログを開く
+          data.message = "ユーザー登録が完了しました"
           data.isConfirmOpen = true
           return
         }
-        // ユーザー名かパスワードが一致していなかった場合
-        data.erroMessage = "ユーザー名かパスワードが誤っています"
+        // ユーザーの登録に失敗した場合
+        data.message = "ユーザーの登録に失敗しました"
+        data.isConfirmOpen = true
       })
     }
 
-    return { data, openModal, closeModal, login, entryUser, closeConfirmModal }
+    return { data, openModal, closeModal, login, entryUserCheck, entryUser, closeConfirmModal }
   }
 })
 </script>

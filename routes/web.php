@@ -26,6 +26,9 @@ Route::post('/login', [App\Http\Controllers\LoginController::class, 'login']);
 // ユーザー登録処理
 Route::post('/entryUser', [App\Http\Controllers\EntryUserController::class, 'entryUser']);
 
+// ユーザーの重複チェック
+Route::post('/userConflictcheck', [App\Http\Controllers\EntryUserController::class, 'userConflictcheck']);
+
 // 二要素認証メール送信
 Route::post('/sendPassword', [App\Http\Controllers\TwoFactorAuthController::class, 'sendPassword']);
 

@@ -15,6 +15,7 @@ class TwoFactorAuthController extends Controller
     public function sendPassword(Request $request) {
 
         try {
+            $userName = $request->userName;
             // ランダムのパスワード
             $random_password = '';
 
@@ -23,7 +24,7 @@ class TwoFactorAuthController extends Controller
                 $random_password .= strval(rand(0, 9));
             }
 
-            $user = User::where('id', 16)->first();
+            $user = User::where('name', $userName)->first();
             // ランダムの文字列と有効期限をセット
             $user->tfa_token = $random_password;
             // 有効期限を3分に設定
@@ -31,7 +32,7 @@ class TwoFactorAuthController extends Controller
             $user->save();
 
             // メール送信
-            Mail::send(new TwoFactorAuthPassword($random_password, 'long_drive19@yahoo.co.jp'));
+            Mail::send(new TwoFactorAuthPassword($random_password, $user->email, $user->name));
             return true;
         } catch(Exception $e) {
             return false;
@@ -41,8 +42,8 @@ class TwoFactorAuthController extends Controller
     public function auth(Request $request) {
 
         try {
-   
-            $user = User::where('id', 16)->first();
+            $userName = $request->userName;
+            $user = User::where('name', $userName)->first();
             $expiration = new Carbon($user->tfa_expiration);
 
             if ($user->tfa_token == $request->password && $expiration > now()) {

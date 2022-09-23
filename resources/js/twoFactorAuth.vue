@@ -4,7 +4,7 @@
     <div class="flex justify-center">
       <form class="w-2/3 bg-white shadow-md rounded pt-6 pb-8 mt-4 px-16">
         <div class="flex justify-center mt-8 text-xl">
-          <label for="name" class="block mb-2 inline-block text-gray-700">認証コード</label>
+          <label for="name" class="block mt-2 inline-block text-gray-700">認証コード</label>
           <input type="text" id="name" name="name" class="ml-6 w-1/3 rounded border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1.5 text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none" v-model="data.password" placeholder="******" />
         </div>
         <div class="flex justify-center text-x mt-2">
@@ -63,6 +63,7 @@ export default defineComponent({
       e.preventDefault()
       data.isOpen = false
     }
+
     // 認証ボタンクリック時の処理
     const auth = (e: Event) => {
       // デフォルトのイベントをキャンセルする
@@ -79,6 +80,7 @@ export default defineComponent({
       // 入力チェックが問題なかった場合
       const parameter = {
         password: data.password,
+        userName: sessionStorage.getItem('userName')
       }
 
       // 認証処理

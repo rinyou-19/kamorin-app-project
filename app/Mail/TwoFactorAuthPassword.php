@@ -18,10 +18,11 @@ class TwoFactorAuthPassword extends Mailable
      *
      * @return void
      */
-    public function __construct($tfa_token, $email)
+    public function __construct($tfa_token, $email, $name)
     {
         $this->tfa_token = $tfa_token;
         $this->email = $email;
+        $this->name = $name;
     }
 
     /**
@@ -33,8 +34,9 @@ class TwoFactorAuthPassword extends Mailable
     {
         return $this->from($this->email, 'kamorin\'site')
             ->to($this->email)
-            ->subject('２段階認証のパスワード')
+            ->subject('【kamorin\'s site】２要素認証のパスワード')
             ->view('password')
-            ->with('tfa_token', $this->tfa_token);
+            ->with('tfa_token', $this->tfa_token)
+            ->with('name', $this->name);
     }
 }
