@@ -1,21 +1,24 @@
 <template>
   <div class="w-full">
-    <h1 class="mt-4 flex justify-center text-3xl">ログイン</h1>
+    <h1 class="mt-4 flex justify-center text-2xl md:text-3xl">ログイン</h1>
     <div class="flex justify-center">
-      <form class="w-2/3 bg-white shadow-md rounded pt-6 pb-8 mt-4 px-16">
-        <div class="flex justify-center mt-8 text-xl">
-          <label for="name" class="block mb-2 inline-block text-gray-700">ユーザー名</label>
-          <input type="text" id="name" name="name" class="ml-6 w-1/3 rounded border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1.5 text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none" v-model="data.userName" placeholder="山田 太郎" />
+      <form class="w-5/6 md:w-2/3 lg:w-1/2 bg-white shadow-md rounded px-2 md:px-8 lg:px-16 pt-2 md:pt-4 lg:pt-6 md:pb-4 lg:pb-8 mt-4">
+        <div class="flex justify-center mt-1 sm:mt-8 text-sm sm:text-xl">
+          <label for="name" class="mb-2 md:ml-4 lg:ml-8 xl:ml-12 inline-block text-gray-700 w-1/4 md:w-1/3">ユーザー名</label>
+          <input type="text" id="name" name="name" class="ml-1 md:ml-4 w-3/4 md:w-2/3 rounded border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1.5 text-sm sm:text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none" v-model="data.userName" placeholder="山田 太郎" />
         </div>
-        <div class="flex justify-center mt-5 text-xl">
-          <label for="password" class="form-label mb-1 inline-block text-gray-700">パスワード</label>
-          <input type="password" id="password" name="password" class="ml-6 w-1/3 rounded border border-solid border-gray-300 bg-white bg-clip-padding px-1.5 py-1.5 text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none" v-model="data.password" />
+        <div class="flex justify-center mt-1 sm:mt-5 text-sm sm:text-xl">
+          <label for="password" class="mb-2 md:ml-4 lg:ml-8 xl:ml-12 inline-block text-gray-700 w-1/4 md:w-1/3">パスワード</label>
+          <input type="password" id="password" name="password" class="ml-1 md:ml-4 w-3/4 md:w-2/3 rounded border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1.5 text-sm sm:text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none" v-model="data.password" />
         </div>
-        <div class="flex justify-center text-x mt-2">
-          <button class="mt-8 rounded-full bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700" v-on:click="login">ログイン</button>
+        <div class="flex justify-center mt-2 sm:mt-4 sm:mb-4">
+          <button class="mt-3 rounded-full bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700" v-on:click="login">ログイン</button>
         </div>
-        <div class="flex justify-center text-x mt-4">
-          <p class="cursor-pointer text-sky-500" @click="openModal">新規ユーザー登録はこちら</p>
+        <div class="flex justify-center mt-2 mb-2 sm:mt-4 sm:mb-4">
+          <p class="cursor-pointer text-sky-500 text-sm sm:text-base" @click="openModal">新規ユーザー登録はこちら</p>
+        </div>
+        <div class="flex justify-center mt-2 mb-2 sm:mt-4 sm:mb-4">
+          <p class="cursor-pointer text-sky-500 text-sm sm:text-base" @click="openReleasNote">リリースノートへ</p>
         </div>
       </form>
     </div>
@@ -78,7 +81,7 @@
       </Dialog> 
     </TransitionRoot>
     <!-- 確認ダイアログ -->
-    <TransitionRoot appear :show="data.isConfirmOpen" as="template" class="w-1/5 h-1/5">
+        <TransitionRoot appear :show="data.isConfirmOpen" as="template" class="w-1/5 h-1/5">
       <Dialog as="div" @close="closeConfirmModal" class="relative z-10">
         <TransitionChild as="template" enter="duration-300 ease-out" enter-from="opacity-0" enter-to="opacity-100" leave="duration-200 ease-in" leave-from="opacity-100" leave-to="opacity-0">
           <div class="fixed inset-0 bg-black bg-opacity-25" />
@@ -105,34 +108,34 @@
 
 <script lang="ts">
 import { router } from "./router"
-import { defineComponent, reactive } from "vue"
+import { defineComponent, reactive, ref } from "vue"
 import axios from "axios"
-import { TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle, } from '@headlessui/vue';
+import { TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle, } from '@headlessui/vue'
 
 export default defineComponent({
   components: { TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle },
-  setup() {
+  setup(context) {
     // 変数定義
     const data : {
       userName: string,
       password: string,
       message: string,
-      isOpen: boolean,
       entryUserName: string,
       entryPassword: string,
       entryConfirmPassword: string,
       entryEMail: string,
+      isOpen: boolean,
       isConfirmOpen: boolean,
     }  = reactive({
       userName: "",
       password: "",
       message: "",
-      isOpen: false,
       entryUserName: "",
       entryPassword: "",
       entryConfirmPassword: "",
       entryEMail: "",
       isConfirmOpen: false,
+      isOpen: false,
     })
 
     // 関数定義
@@ -221,7 +224,7 @@ export default defineComponent({
         return
       }
       // パスワードの形式チェック
-      const regex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])[a-zA-Z0-9]{8,24}$/;
+      const regex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])[a-zA-Z0-9]{8,24}$/
       if(regex.test(data.entryPassword) === false) {
         // パスワードの形式を満たしていない場合
         data.message = "パスワードの形式要件を満たしていません"
@@ -237,7 +240,7 @@ export default defineComponent({
       axios.post('userConflictcheck', checkParameter).then(res => {
         if(res.data.result === false) {
           // ユーザー名が重複している場合
-          data.message = "登録できないユーザー名です"
+          data.message = "データの登録に失敗しました"
           data.isConfirmOpen = true
           return
         } else {
@@ -260,11 +263,13 @@ export default defineComponent({
       axios.post('entryUser', parameter).then(res => {
         if(res.data.result === true) {
           // ユーザー登録ダイアログを閉じる
+          data.isOpen = false
+          // 変数を初期化
           data.entryUserName = ""
           data.entryPassword = ""
           data.entryConfirmPassword =""
           data.entryEMail = ""
-          data.isOpen = false
+          
           // 確認ダイアログを開く
           data.message = "ユーザー登録が完了しました"
           data.isConfirmOpen = true
@@ -276,7 +281,12 @@ export default defineComponent({
       })
     }
 
-    return { data, openModal, closeModal, login, entryUserCheck, entryUser, closeConfirmModal }
+    // リリースノートへ
+    const openReleasNote = () => {
+      router.push("/releaseNote")
+    }
+
+    return { data, openModal, closeModal, login, entryUserCheck, entryUser, closeConfirmModal, openReleasNote }
   }
 })
 </script>
