@@ -454,8 +454,8 @@ export default defineComponent({
       data.returnMoney = e.path[1]?.children.item(8)?.innerHTML
       data.balance = e.path[1]?.children.item(9)?.innerHTML
       data.axisHorse = e.path[1]?.children.item(10)?.innerHTML
-      data.jockey = e.path[1]?.children.item(11)?.innerHTML
-      data.purchaseMathod = e.path[1]?.children.item(12)?.innerHTML
+      data.jockey = e.path[1]?.children.item(12)?.innerHTML
+      data.purchaseMathod = e.path[1]?.children.item(11)?.innerHTML
       data.father = e.path[1]?.children.item(13)?.innerHTML
       data.motherFather = e.path[1]?.children.item(14)?.innerHTML
       data.condition = e.path[1]?.children.item(16)?.innerHTML
