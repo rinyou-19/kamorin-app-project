@@ -20,6 +20,9 @@
         <div class="flex justify-center mt-2 mb-2 sm:mt-4 sm:mb-4">
           <p class="cursor-pointer text-sky-500 text-sm sm:text-base" @click="openReleasNote">リリースノートへ</p>
         </div>
+        <div class="flex justify-center mt-2 mb-2 sm:mt-4 sm:mb-4">
+          <p class="text-red-500 text-sm sm:text-base">↑ご一読ください</p>
+        </div>
       </form>
     </div>
     <!-- ユーザー登録ダイアログ -->
@@ -34,42 +37,42 @@
               <DialogPanel class="transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                 <DialogTitle as="h3" class="text-lg font-medium leading-6 text-gray-900">ユーザー登録</DialogTitle>
                 <form class="w-full bg-white shadow-md rounded p-4">
-                  <div class="flex justify-center mt-3 text-xl">
+                  <div class="flex justify-center mt-3 mb-1 sm:mb-3 text-xxs sm:text-base md:text-xl">
                     <div class="w-1/3">
-                      <label for="userName" class="block mb-2 inline-block text-gray-700 px-4 py-2">ユーザー名*</label>
+                      <label for="userName" class="block inline-block text-gray-700 px2 sm:px-4 py-1 sm:py-2">ユーザー名*</label>
                     </div>
                     <div class="w-2/3">
                       <input type="text" id="userName" name="userName" class="w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding p-1 text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none" v-model="data.entryUserName" placeholder="山田 太郎" />
                     </div>
                   </div>
-                  <div class="flex justify-center text-xl">
+                  <div class="flex justify-center mb-1 sm:mb-3 text-xxs sm:text-base md:text-xl">
                     <div class="w-1/3">
-                      <label for="userPassword" class="form-label mb-2 inline-block text-gray-700 px-4 py-2">パスワード*</label>
+                      <label for="userPassword" class="form-label inline-block text-gray-700 px2 sm:px-4 py-1 sm:py-2">パスワード*</label>
                     </div>
                     <div class="w-2/3">
                       <input type="password" id="userPassword" name="userPassword" class="w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding p-1 text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none" v-model="data.entryPassword" />
                     </div>       
                   </div>
-                  <div class="flex justify-center text-xl">
+                  <div class="flex justify-center mb-1 sm:mb-3 text-xxs sm:text-base md:text-xl">
                     <div class="w-1/3">
-                      <label for="confirmPassword" class="form-label mb-1 inline-block text-gray-700 px-4 py-2">パスワード確認*</label>
+                      <label for="confirmPassword" class="form-labelinline-block text-gray-700 px2 sm:px-4 py-1 sm:py-2">パスワード確認*</label>
                     </div>
                     <div class="w-2/3">
                       <input type="password" id="confirmPassword" name="confirmPassword" class="w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding p-1 text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none" v-model="data.entryConfirmPassword" />
                     </div>            
                   </div>
-                  <div class="flex justify-center text-lg">
-                    <p class="text-red-500 px-4 py-2">※パスワードは8文字以上24文字以内、数値と大文字・小文字アルファベットを含んでください</p>
+                  <div class="flex justify-center  mb-1 sm:mb-3 text-xs sm:text-base md:text-lg">
+                    <p class="text-red-500 px2 sm:px-4 py-1 sm:py-2">※パスワードは8文字以上24文字以内、数値と大文字・小文字アルファベットを含んでください</p>
                   </div>
-                  <div class="flex justify-center text-xl">
+                  <div class="flex justify-center mb-1 sm:mb-3 text-xxs sm:text-base md:text-xl">
                     <div class="w-1/3">
-                      <label for="mailAddress" class="form-label mb-3 inline-block text-gray-700 px-4 py-2">メールアドレス*</label>
+                      <label for="mailAddress" class="form-label inline-block text-gray-700 px2 sm:px-4 py-1 sm:py-2">メールアドレス*</label>
                     </div>
                     <div class="w-2/3">
                       <input type="email" id="mailAddress" name="mailAddress" class="w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding p-1 text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none" v-model="data.entryEMail" />
                     </div>         
                   </div>
-                  <div class="flex justify-center text-x mt-1">
+                  <div class="flex justify-center text-xs sm:text-base mt-1">
                     <button class="rounded-full bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700" v-on:click="entryUserCheck">ユーザー登録</button>
                     <button class="rounded-full bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700 ml-4" v-on:click="closeModal">閉じる</button>
                   </div>
