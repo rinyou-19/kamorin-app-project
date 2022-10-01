@@ -15574,6 +15574,16 @@ __webpack_require__.r(__webpack_exports__);
       monthTo: "",
       message: "",
       isOpen: false
+    }); // チャートのサイズを設定
+
+    var windowWidth = window.innerWidth;
+    var windowHeight = window.innerHeight;
+    var height = 0; // 画面の解像度に応じて高さを調整
+
+    height = windowWidth <= 1024 ? windowHeight * 0.25 : windowHeight * 0.45;
+    var size = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)({
+      width: windowWidth * 0.7,
+      height: height
     }); // チャートの設定
 
     var direction = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)("horizontal");
@@ -15640,6 +15650,7 @@ __webpack_require__.r(__webpack_exports__);
       data: data,
       direction: direction,
       margin: margin,
+      size: size,
       closeModal: closeModal,
       summary: summary
     };
@@ -15911,6 +15922,9 @@ __webpack_require__.r(__webpack_exports__);
               talbleChildElement.classList.add("border");
               talbleChildElement.classList.add("px-2");
               talbleChildElement.classList.add("py-2");
+              talbleChildElement.classList.add("text-xxxs");
+              talbleChildElement.classList.add("sm:text-sm");
+              talbleChildElement.classList.add("md:text-base");
               talbleChildElement.setAttribute("id", "key-".concat(key, "-").concat(rowCount));
               talbleChildElement.onclick = getRowData;
               talbleChildElement.innerHTML = value[key];
@@ -15929,8 +15943,6 @@ __webpack_require__.r(__webpack_exports__);
                   talbleChildElement.classList.add("w-48");
                   break;
 
-                case 'dirt_or_turf':
-                case 'distance':
                 case 'purchase_m':
                 case 'return_m':
                 case 'balance_m':
@@ -16736,7 +16748,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  class: "w-5/6"
+  class: "w-full h-full lg:w-5/6 lg:inline-block lg:align-top"
 };
 
 var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h5", {
@@ -16752,7 +16764,7 @@ var _hoisted_3 = {
 var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "w-1/6"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  class: "text-black-400 mb-1 block pr-4 text-xxxs sm:text-sm md:text-base text-right font-bold",
   for: "purchase-month-from"
 }, "集計月")], -1
 /* HOISTED */
@@ -16763,7 +16775,7 @@ var _hoisted_5 = {
 };
 
 var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  class: "w-1/8 px-4"
+  class: "w-1/8 px-4 text-xxxs sm:text-sm md:text-base"
 }, "～", -1
 /* HOISTED */
 );
@@ -16775,7 +16787,7 @@ var _hoisted_8 = {
   class: "flex justify-center text-xl"
 };
 var _hoisted_9 = {
-  class: "mt-1 flex justify-center text-xl"
+  class: "mt-1 flex justify-center"
 };
 
 var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
@@ -16820,7 +16832,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_TransitionRoot = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("TransitionRoot");
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 集計月のブロック"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-xxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
     id: "purchase-month-from",
     name: "purchase-month-from",
     type: "number",
@@ -16831,7 +16843,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 512
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.monthFrom]])]), _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tigh text-xxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
     id: "purchase-month-to",
     name: "purchase-month-to",
     type: "number",
@@ -16854,10 +16866,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return _ctx.summary && _ctx.summary.apply(_ctx, args);
     })
   }, "集計")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Chart, {
-    size: {
-      width: 1000,
-      height: 350
-    },
+    size: _ctx.size,
     data: _ctx.data.summaryData,
     margin: _ctx.margin,
     direction: _ctx.direction
@@ -16887,7 +16896,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   }, 8
   /* PROPS */
-  , ["data", "margin", "direction"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TransitionRoot, {
+  , ["size", "data", "margin", "direction"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TransitionRoot, {
     appear: "",
     show: _ctx.data.isOpen,
     as: "template",
@@ -16997,10 +17006,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  class: "w-full h-full"
+  class: "w-full h-1/6 lg:h-full"
 };
 var _hoisted_2 = {
-  class: "flex flex-row h-full"
+  class: "h-full"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_router_view = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-view");
@@ -17026,7 +17035,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  class: "w-5/6"
+  class: "w-full h-full lg:w-5/6 lg:inline-block lg:align-top"
 };
 
 var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
@@ -17036,13 +17045,13 @@ var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 );
 
 var _hoisted_3 = {
-  class: "mb-6 flex items-center"
+  class: "mb-2 lg:mb-6 flex items-center"
 };
 
 var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "w-1/5"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  class: "text-black-400 mb-1 block pr-4 text-xxxs sm:text-sm md:text-base text-right font-bold",
   for: "contact-name"
 }, "お名前*")], -1
 /* HOISTED */
@@ -17052,13 +17061,13 @@ var _hoisted_5 = {
   class: "w-4/5"
 };
 var _hoisted_6 = {
-  class: "mb-6 flex items-center"
+  class: "mb-2 lg:mb-6 flex items-center"
 };
 
 var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "w-1/5"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  class: "text-black-400 mb-1 block pr-4 text-xxxs sm:text-sm md:text-base text-right font-bold",
   for: "mail-address"
 }, "ご連絡先*")], -1
 /* HOISTED */
@@ -17068,15 +17077,15 @@ var _hoisted_8 = {
   class: "w-4/5"
 };
 var _hoisted_9 = {
-  class: "mb-6 flex items-center"
+  class: "mb-2 lg:mb-6 flex items-center"
 };
 
 var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "w-1/5"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  class: "text-black-400 mb-1 block pr-4 text-xxxs sm:text-sm md:text-base text-right font-bold",
   for: "category"
-}, "お問い合わせ分類*")], -1
+}, "分類*")], -1
 /* HOISTED */
 );
 
@@ -17110,15 +17119,15 @@ var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 
 var _hoisted_16 = [_hoisted_12, _hoisted_13, _hoisted_14, _hoisted_15];
 var _hoisted_17 = {
-  class: "mb-3 flex items-center"
+  class: "mb-2 flex items-center h-1/3 lg:h-1/2"
 };
 
 var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "w-1/5"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  class: "text-black-400 mb-1 block pr-4 text-xxxs sm:text-sm md:text-base text-right font-bold",
   for: "detail"
-}, "お問い合わせ詳細*")], -1
+}, "詳細*")], -1
 /* HOISTED */
 );
 
@@ -17171,7 +17180,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_TransitionRoot = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("TransitionRoot");
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" お問い合わせ件名 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" お名前 "), _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-xxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
     id: "contact-name",
     name: "contact-name",
     type: "text",
@@ -17182,7 +17191,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 512
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.sentName]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" ご連絡先 "), _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-xxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
     id: "mail-address",
     name: "mail-address",
     type: "email",
@@ -17193,7 +17202,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 512
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.email]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" お問い合わせ分類 "), _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
-    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-xxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
     id: "category",
     name: "category",
     "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
@@ -17204,9 +17213,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, _ctx.data.category]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" お問い合わせ詳細 "), _hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
     name: "detail",
     id: "detail",
-    c: "",
-    rows: "10",
-    class: "block p-2.5 w-full rounded border-2 border-gray-200 bg-gray-200 focus:border-purple-500 focus:bg-white focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500",
+    rows: "7",
+    class: "block p-2.5 w-full rounded border-2 border-gray-200 bg-gray-200 text-xxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500",
     placeholder: "Your message...",
     "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
       return _ctx.data.detail = $event;
@@ -17352,7 +17360,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  class: "w-5/6"
+  class: "w-full h-full lg:w-5/6 lg:inline-block lg:align-top"
 };
 
 var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h5", {
@@ -17368,7 +17376,7 @@ var _hoisted_3 = {
 var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "w-1/6"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  class: "text-black-400 mb-1 block pr-4 text-xxxs sm:text-sm md:text-base text-right font-bold",
   for: "purchase-date-from"
 }, "購入日")], -1
 /* HOISTED */
@@ -17379,7 +17387,7 @@ var _hoisted_5 = {
 };
 
 var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  class: "w-1/8 px-4"
+  class: "w-1/8 px-4 text-xxxs sm:text-sm md:text-base"
 }, "～", -1
 /* HOISTED */
 );
@@ -17402,536 +17410,524 @@ var _hoisted_11 = {
   }
 };
 var _hoisted_12 = {
-  class: "px-2 py-2 w-32"
+  class: "px-2 py-2 w-32 text-xxxs sm:text-sm md:text-base"
 };
 
 var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-  class: "px-2 py-2 w-32"
+  class: "px-2 py-2 w-32 text-xxxs sm:text-sm md:text-base"
 }, "日付", -1
 /* HOISTED */
 );
 
 var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-  class: "px-2 py-2 w-28"
+  class: "px-2 py-2 w-28 text-xxxs sm:text-sm md:text-base"
 }, "競馬場", -1
 /* HOISTED */
 );
 
 var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-  class: "px-2 py-2 w-28"
+  class: "px-2 py-2 w-28 text-xxxs sm:text-sm md:text-base"
 }, "グレード", -1
 /* HOISTED */
 );
 
 var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-  class: "px-2 py-2 w-48"
+  class: "px-2 py-2 w-48 text-xxxs sm:text-sm md:text-base"
 }, "レース名", -1
 /* HOISTED */
 );
 
 var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-  class: "px-2 py-2 w-24"
-}, "芝/ダ", -1
-/* HOISTED */
-);
-
-var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-  class: "px-2 py-2 w-24"
-}, "距離", -1
-/* HOISTED */
-);
-
-var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-  class: "px-2 py-2 w-24"
+  class: "px-2 py-2 w-24 text-xxxs sm:text-sm md:text-base"
 }, "購入金額", -1
 /* HOISTED */
 );
 
-var _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-  class: "px-2 py-2 w-24"
+var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+  class: "px-2 py-2 w-24 text-xxxs sm:text-sm md:text-base"
 }, "払戻金額", -1
 /* HOISTED */
 );
 
-var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-  class: "px-2 py-2 w-24"
+var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+  class: "px-2 py-2 w-24 text-xxxs sm:text-sm md:text-base"
 }, "収支金額", -1
 /* HOISTED */
 );
 
-var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", {
+var _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", {
   style: {
     "display": "block",
-    "overflow": "scroll",
-    "height": "340px"
-  }
+    "overflow": "scroll"
+  },
+  class: "h-1/4 max-h-56 lg:h-1/3 lg:max-h-96"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "fixed inset-0 bg-black bg-opacity-25"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_24 = {
+var _hoisted_22 = {
   class: "fixed inset-0 overflow-y-auto"
 };
+var _hoisted_23 = {
+  class: "flex min-h-full w-full items-center justify-center p-1 lg:p-6 text-center"
+};
+
+var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("購入情報修正");
+
 var _hoisted_25 = {
-  class: "flex min-h-full w-full items-center justify-center p-4 text-center"
+  class: "w-full bg-white shadow-md rounded p-2 lg:p-4"
 };
-
-var _hoisted_26 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("購入情報修正");
-
+var _hoisted_26 = {
+  class: "mb-3 lg:mb-7 flex items-center"
+};
 var _hoisted_27 = {
-  class: "w-full bg-white shadow-md rounded p-4"
-};
-var _hoisted_28 = {
-  class: "mb-7 flex items-center"
-};
-var _hoisted_29 = {
   class: "flex w-1/3"
 };
 
-var _hoisted_30 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_28 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "w-1/3"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  class: "text-black-400 mb-1 block pr-1 sm:pr-4 text-xxxxs sm:text-sm md:text-base text-right font-bold",
   for: "purchase-date"
 }, "購入日*")], -1
 /* HOISTED */
 );
 
-var _hoisted_31 = {
+var _hoisted_29 = {
   class: "w-2/3"
 };
-var _hoisted_32 = {
+var _hoisted_30 = {
   class: "flex w-1/3"
 };
 
-var _hoisted_33 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_31 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "w-1/3"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  class: "text-black-400 mb-1 block pr-1 sm:pr-4 text-xxxxs sm:text-sm md:text-base text-right font-bold",
   for: "grade"
 }, "格付*")], -1
 /* HOISTED */
 );
 
-var _hoisted_34 = {
+var _hoisted_32 = {
   class: "w-2/3"
 };
 
-var _hoisted_35 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+var _hoisted_33 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   value: "G1"
 }, "G1", -1
 /* HOISTED */
 );
 
-var _hoisted_36 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+var _hoisted_34 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   value: "G2"
 }, "G2", -1
 /* HOISTED */
 );
 
-var _hoisted_37 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+var _hoisted_35 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   value: "G3"
 }, "G3", -1
 /* HOISTED */
 );
 
-var _hoisted_38 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+var _hoisted_36 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   value: "オープン"
 }, "オープン", -1
 /* HOISTED */
 );
 
-var _hoisted_39 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+var _hoisted_37 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   value: "3勝"
 }, "3勝", -1
 /* HOISTED */
 );
 
-var _hoisted_40 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+var _hoisted_38 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   value: "2勝"
 }, "2勝", -1
 /* HOISTED */
 );
 
-var _hoisted_41 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+var _hoisted_39 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   value: "1勝"
 }, "1勝", -1
 /* HOISTED */
 );
 
-var _hoisted_42 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+var _hoisted_40 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   value: "未勝利"
 }, "未勝利", -1
 /* HOISTED */
 );
 
-var _hoisted_43 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+var _hoisted_41 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   value: "新馬"
 }, "新馬", -1
 /* HOISTED */
 );
 
-var _hoisted_44 = [_hoisted_35, _hoisted_36, _hoisted_37, _hoisted_38, _hoisted_39, _hoisted_40, _hoisted_41, _hoisted_42, _hoisted_43];
-var _hoisted_45 = {
+var _hoisted_42 = [_hoisted_33, _hoisted_34, _hoisted_35, _hoisted_36, _hoisted_37, _hoisted_38, _hoisted_39, _hoisted_40, _hoisted_41];
+var _hoisted_43 = {
   class: "flex w-1/3"
 };
 
-var _hoisted_46 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_44 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "w-1/3"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  class: "text-black-400 mb-1 block pr-1 sm:pr-4 text-xxxxs sm:text-sm md:text-base text-right font-bold",
   for: "race-course"
 }, "競馬場*")], -1
 /* HOISTED */
 );
 
-var _hoisted_47 = {
+var _hoisted_45 = {
   class: "w-2/3"
 };
 
-var _hoisted_48 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+var _hoisted_46 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   value: "東京"
 }, "東京", -1
 /* HOISTED */
 );
 
-var _hoisted_49 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+var _hoisted_47 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   value: "中山"
 }, "中山", -1
 /* HOISTED */
 );
 
-var _hoisted_50 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+var _hoisted_48 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   value: "阪神"
 }, "阪神", -1
 /* HOISTED */
 );
 
-var _hoisted_51 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+var _hoisted_49 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   value: "京都"
 }, "京都", -1
 /* HOISTED */
 );
 
-var _hoisted_52 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+var _hoisted_50 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   value: "中京"
 }, "中京", -1
 /* HOISTED */
 );
 
-var _hoisted_53 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+var _hoisted_51 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   value: "札幌"
 }, "札幌", -1
 /* HOISTED */
 );
 
-var _hoisted_54 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+var _hoisted_52 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   value: "函館"
 }, "函館", -1
 /* HOISTED */
 );
 
-var _hoisted_55 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+var _hoisted_53 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   value: "福島"
 }, "福島", -1
 /* HOISTED */
 );
 
-var _hoisted_56 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+var _hoisted_54 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   value: "新潟"
 }, "新潟", -1
 /* HOISTED */
 );
 
-var _hoisted_57 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+var _hoisted_55 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   value: "小倉"
 }, "小倉", -1
 /* HOISTED */
 );
 
-var _hoisted_58 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+var _hoisted_56 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   value: "地方"
 }, "地方", -1
 /* HOISTED */
 );
 
-var _hoisted_59 = [_hoisted_48, _hoisted_49, _hoisted_50, _hoisted_51, _hoisted_52, _hoisted_53, _hoisted_54, _hoisted_55, _hoisted_56, _hoisted_57, _hoisted_58];
-var _hoisted_60 = {
-  class: "mb-7 flex items-center"
+var _hoisted_57 = [_hoisted_46, _hoisted_47, _hoisted_48, _hoisted_49, _hoisted_50, _hoisted_51, _hoisted_52, _hoisted_53, _hoisted_54, _hoisted_55, _hoisted_56];
+var _hoisted_58 = {
+  class: "mb-3 lg:mb-7 flex items-center"
 };
-var _hoisted_61 = {
+var _hoisted_59 = {
   class: "flex w-1/3"
 };
 
-var _hoisted_62 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_60 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "w-1/3"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  class: "text-black-400 mb-1 block pr-1 sm:pr-4 text-xxxxs sm:text-sm md:text-base text-right font-bold",
   for: "race-name"
 }, "レース名*")], -1
 /* HOISTED */
 );
 
-var _hoisted_63 = {
+var _hoisted_61 = {
   class: "w-2/3"
 };
-var _hoisted_64 = {
+var _hoisted_62 = {
   class: "flex w-1/3"
 };
 
-var _hoisted_65 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_63 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "w-1/3"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  class: "text-black-400 mb-1 block pr-1 sm:pr-4 text-xxxxs sm:text-sm md:text-base text-right font-bold",
   for: "race-course"
 }, "コース*")], -1
 /* HOISTED */
 );
 
-var _hoisted_66 = {
+var _hoisted_64 = {
   class: "w-2/3"
 };
 
-var _hoisted_67 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+var _hoisted_65 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   value: "芝"
 }, "芝", -1
 /* HOISTED */
 );
 
-var _hoisted_68 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+var _hoisted_66 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   value: "ダート"
 }, "ダート", -1
 /* HOISTED */
 );
 
-var _hoisted_69 = [_hoisted_67, _hoisted_68];
-var _hoisted_70 = {
+var _hoisted_67 = [_hoisted_65, _hoisted_66];
+var _hoisted_68 = {
   class: "flex w-1/3"
 };
 
-var _hoisted_71 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_69 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "w-1/3"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  class: "text-black-400 mb-1 block pr-1 sm:pr-4 text-xxxxs sm:text-sm md:text-base text-right font-bold",
   for: "distance"
 }, "距離*")], -1
 /* HOISTED */
 );
 
-var _hoisted_72 = {
+var _hoisted_70 = {
   class: "w-2/3"
 };
-var _hoisted_73 = {
-  class: "mb-7 flex items-center"
+var _hoisted_71 = {
+  class: "mb-3 lg:mb-7 flex items-center"
 };
-var _hoisted_74 = {
+var _hoisted_72 = {
   class: "flex w-1/3"
 };
 
-var _hoisted_75 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_73 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "w-1/3"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  class: "text-black-400 mb-1 block pr-1 sm:pr-4 text-xxxxs sm:text-sm md:text-base text-right font-bold",
   for: "purchase"
 }, "購入金額*")], -1
 /* HOISTED */
 );
 
-var _hoisted_76 = {
+var _hoisted_74 = {
   class: "w-2/3"
 };
-var _hoisted_77 = {
+var _hoisted_75 = {
   class: "flex w-1/3"
 };
 
-var _hoisted_78 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_76 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "w-1/3"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  class: "text-black-400 mb-1 block pr-1 sm:pr-4 text-xxxxs sm:text-sm md:text-base text-right font-bold",
   for: "return-money"
 }, "払戻金額*")], -1
 /* HOISTED */
 );
 
-var _hoisted_79 = {
+var _hoisted_77 = {
   class: "w-2/3"
 };
-var _hoisted_80 = {
+var _hoisted_78 = {
   class: "flex w-1/3"
 };
 
-var _hoisted_81 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_79 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "w-1/3"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  class: "text-black-400 mb-1 block pr-1 sm:pr-4 text-xxxxs sm:text-sm md:text-base text-right font-bold",
   for: "balance"
 }, "収支金額*")], -1
 /* HOISTED */
 );
 
-var _hoisted_82 = {
+var _hoisted_80 = {
   class: "w-2/3"
 };
-var _hoisted_83 = {
-  class: "mb-7 flex items-center"
+var _hoisted_81 = {
+  class: "mb-3 lg:mb-7 flex items-center"
 };
-var _hoisted_84 = {
+var _hoisted_82 = {
   class: "flex w-1/3"
 };
 
-var _hoisted_85 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_83 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "w-1/3"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  class: "text-black-400 mb-1 block pr-1 sm:pr-4 text-xxxxs sm:text-sm md:text-base text-right font-bold",
   for: "axis-horse"
 }, "軸馬")], -1
 /* HOISTED */
 );
 
-var _hoisted_86 = {
+var _hoisted_84 = {
   class: "w-2/3"
 };
-var _hoisted_87 = {
+var _hoisted_85 = {
   class: "flex w-1/3"
 };
 
-var _hoisted_88 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_86 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "w-1/3"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  class: "text-black-400 mb-1 block pr-1 sm:pr-4 text-xxxxs sm:text-sm md:text-base text-right font-bold",
   for: "jockey"
 }, "騎手")], -1
 /* HOISTED */
 );
 
-var _hoisted_89 = {
+var _hoisted_87 = {
   class: "w-2/3"
 };
-var _hoisted_90 = {
+var _hoisted_88 = {
   class: "flex w-1/3"
 };
 
-var _hoisted_91 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_89 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "w-1/3"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  class: "text-black-400 mb-1 block pr-1 sm:pr-4 text-xxxxs sm:text-sm md:text-base text-right font-bold",
   for: "purchase-mathod"
 }, "購入方法")], -1
 /* HOISTED */
 );
 
-var _hoisted_92 = {
+var _hoisted_90 = {
   class: "w-2/3"
 };
-var _hoisted_93 = {
-  class: "mb-7 flex items-center"
+var _hoisted_91 = {
+  class: "mb-3 lg:mb-7 flex items-center"
 };
-var _hoisted_94 = {
+var _hoisted_92 = {
   class: "flex w-1/3"
 };
 
-var _hoisted_95 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_93 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "w-1/3"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  class: "text-black-400 mb-1 block pr-1 sm:pr-4 text-xxxxs sm:text-sm md:text-base text-right font-bold",
   for: "father"
 }, "父親")], -1
 /* HOISTED */
 );
 
-var _hoisted_96 = {
+var _hoisted_94 = {
   class: "w-2/3"
 };
-var _hoisted_97 = {
+var _hoisted_95 = {
   class: "flex w-1/3"
 };
 
-var _hoisted_98 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_96 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "w-1/3"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  class: "text-black-400 mb-1 block pr-1 sm:pr-4 text-xxxxs sm:text-sm md:text-base text-right font-bold",
   for: "mother-father"
 }, "母父")], -1
 /* HOISTED */
 );
 
-var _hoisted_99 = {
+var _hoisted_97 = {
   class: "w-2/3"
 };
-var _hoisted_100 = {
+var _hoisted_98 = {
   class: "flex w-1/3"
 };
 
-var _hoisted_101 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_99 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "w-1/3"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  class: "text-black-400 mb-1 block pr-1 sm:pr-4 text-xxxxs sm:text-sm md:text-base text-right font-bold",
   for: "condition"
-}, "コンディション")], -1
+}, "馬場状態")], -1
 /* HOISTED */
 );
 
-var _hoisted_102 = {
+var _hoisted_100 = {
   class: "w-2/3"
 };
 
-var _hoisted_103 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+var _hoisted_101 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   value: "良"
 }, "良", -1
 /* HOISTED */
 );
 
-var _hoisted_104 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+var _hoisted_102 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   value: "稍重"
 }, "稍重", -1
 /* HOISTED */
 );
 
-var _hoisted_105 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+var _hoisted_103 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   value: "重"
 }, "重", -1
 /* HOISTED */
 );
 
-var _hoisted_106 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+var _hoisted_104 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   value: "不良"
 }, "不良", -1
 /* HOISTED */
 );
 
-var _hoisted_107 = [_hoisted_103, _hoisted_104, _hoisted_105, _hoisted_106];
-var _hoisted_108 = {
-  class: "flex justify-center text-xl"
+var _hoisted_105 = [_hoisted_101, _hoisted_102, _hoisted_103, _hoisted_104];
+var _hoisted_106 = {
+  class: "flex justify-center text-base lg:text-xl"
 };
 
-var _hoisted_109 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_107 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "fixed inset-0 bg-black bg-opacity-25"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_110 = {
+var _hoisted_108 = {
   class: "fixed inset-0 overflow-y-auto"
 };
-var _hoisted_111 = {
+var _hoisted_109 = {
   class: "flex min-h-full items-center justify-center p-4 text-center"
 };
 
-var _hoisted_112 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("確認");
+var _hoisted_110 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("確認");
 
-var _hoisted_113 = {
+var _hoisted_111 = {
   class: "mt-2"
 };
-var _hoisted_114 = {
+var _hoisted_112 = {
   class: "text-sm text-gray-500"
 };
-var _hoisted_115 = {
+var _hoisted_113 = {
   class: "mt-4 flex justify-center"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -17946,7 +17942,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_TransitionRoot = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("TransitionRoot");
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 購入日のブロック"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-xxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
     id: "purchase-date-from",
     name: "purchase-date-from",
     type: "number",
@@ -17957,7 +17953,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 512
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.dateFrom]])]), _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-xxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
     id: "purchase-date-to",
     name: "purchase-date-to",
     type: "number",
@@ -17981,7 +17977,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   }, "検索")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" ヘッダーと表示内容の位置がずれるのは、幅を固定するしかないかも"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_12, "id", 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, false]]), _hoisted_13, _hoisted_14, _hoisted_15, _hoisted_16, _hoisted_17, _hoisted_18, _hoisted_19, _hoisted_20, _hoisted_21])]), _hoisted_22])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" データ更新ダイアログ "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TransitionRoot, {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, false]]), _hoisted_13, _hoisted_14, _hoisted_15, _hoisted_16, _hoisted_17, _hoisted_18, _hoisted_19])]), _hoisted_20])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" データ更新ダイアログ "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TransitionRoot, {
     appear: "",
     show: _ctx.data.isDataDialogOpen,
     as: "template"
@@ -18003,12 +17999,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             "leave-to": "opacity-0"
           }, {
             default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-              return [_hoisted_23];
+              return [_hoisted_21];
             }),
             _: 1
             /* STABLE */
 
-          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TransitionChild, {
+          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TransitionChild, {
             as: "template",
             enter: "duration-300 ease-out",
             "enter-from": "opacity-0 scale-95",
@@ -18019,7 +18015,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           }, {
             default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
               return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DialogPanel, {
-                class: "transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
+                class: "transform overflow-hidden rounded-2xl bg-white p-1 lg:p-6 text-left align-middle shadow-xl transition-all"
               }, {
                 default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
                   return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DialogTitle, {
@@ -18027,13 +18023,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                     class: "text-lg font-medium leading-6 text-gray-900"
                   }, {
                     default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-                      return [_hoisted_26];
+                      return [_hoisted_24];
                     }),
                     _: 1
                     /* STABLE */
 
-                  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", _hoisted_27, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 購入日・格付・競馬場のブロック"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_28, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 購入日 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [_hoisted_30, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-                    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+                  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 購入日・格付・競馬場のブロック"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 購入日 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_27, [_hoisted_28, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+                    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-1 px-2 sm:py-2 sm:px-4 leading-tight text-xxxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
                     id: "purchase-date",
                     name: "purchase-date",
                     type: "number",
@@ -18043,26 +18039,26 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                     })
                   }, null, 512
                   /* NEED_PATCH */
-                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.purchaseDate]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 格付 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_32, [_hoisted_33, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_34, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
-                    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.purchaseDate]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 格付 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_30, [_hoisted_31, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_32, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+                    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-1 px-2 sm:py-2 sm:px-4 leading-tight text-xxxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
                     id: "grade",
                     name: "grade",
                     "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
                       return _ctx.data.grade = $event;
                     })
-                  }, _hoisted_44, 512
+                  }, _hoisted_42, 512
                   /* NEED_PATCH */
-                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, _ctx.data.grade]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 競馬場 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_45, [_hoisted_46, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_47, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
-                    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, _ctx.data.grade]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 競馬場 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_43, [_hoisted_44, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_45, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+                    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-1 px-2 sm:py-2 sm:px-4 leading-tight text-xxxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
                     id: "race-course",
                     name: "race-course",
                     "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
                       return _ctx.data.raceCourse = $event;
                     })
-                  }, _hoisted_59, 512
+                  }, _hoisted_57, 512
                   /* NEED_PATCH */
-                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, _ctx.data.raceCourse]])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" レース名・コース・距離のブロック"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_60, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" レース名 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_61, [_hoisted_62, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_63, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-                    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, _ctx.data.raceCourse]])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" レース名・コース・距離のブロック"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_58, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" レース名 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_59, [_hoisted_60, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_61, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+                    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-1 px-2 sm:py-2 sm:px-4 leading-tight text-xxxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
                     id: "race-name",
                     name: "race-name",
                     type: "text",
@@ -18072,17 +18068,17 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                     })
                   }, null, 512
                   /* NEED_PATCH */
-                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.raceName]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" コース "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_64, [_hoisted_65, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_66, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
-                    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.raceName]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" コース "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_62, [_hoisted_63, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_64, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+                    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-1 px-2 sm:py-2 sm:px-4 leading-tight text-xxxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
                     id: "course",
                     name: "course",
                     "onUpdate:modelValue": _cache[7] || (_cache[7] = function ($event) {
                       return _ctx.data.course = $event;
                     })
-                  }, _hoisted_69, 512
+                  }, _hoisted_67, 512
                   /* NEED_PATCH */
-                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, _ctx.data.course]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 距離 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_70, [_hoisted_71, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_72, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-                    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, _ctx.data.course]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 距離 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_68, [_hoisted_69, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_70, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+                    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-1 px-2 sm:py-2 sm:px-4 leading-tight text-xxxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
                     id: "distance",
                     name: "distance",
                     type: "number",
@@ -18092,8 +18088,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                     })
                   }, null, 512
                   /* NEED_PATCH */
-                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.distance]])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 購入金額・払戻金額・収支金額のブロック"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_73, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 購入金額"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_74, [_hoisted_75, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_76, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-                    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.distance]])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 購入金額・払戻金額・収支金額のブロック"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_71, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 購入金額"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_72, [_hoisted_73, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_74, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+                    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-1 px-2 sm:py-2 sm:px-4 leading-tight text-xxxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
                     id: "purchase",
                     name: "purchase",
                     type: "number",
@@ -18103,8 +18099,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                     })
                   }, null, 512
                   /* NEED_PATCH */
-                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.purchase]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 払戻金額"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_77, [_hoisted_78, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_79, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-                    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.purchase]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 払戻金額"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_75, [_hoisted_76, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_77, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+                    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-1 px-2 sm:py-2 sm:px-4 leading-tight text-xxxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
                     id: "return-money",
                     name: "return-money",
                     type: "number",
@@ -18114,8 +18110,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                     })
                   }, null, 512
                   /* NEED_PATCH */
-                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.returnMoney]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 収支金額"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_80, [_hoisted_81, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_82, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-                    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.returnMoney]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 収支金額"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_78, [_hoisted_79, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_80, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+                    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-1 px-2 sm:py-2 sm:px-4 leading-tight text-xxxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
                     id: "balance",
                     name: "balance",
                     type: "number",
@@ -18125,8 +18121,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                     })
                   }, null, 512
                   /* NEED_PATCH */
-                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.balance]])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 軸馬・騎手・購入方法のブロック"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_83, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 軸馬 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_84, [_hoisted_85, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_86, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-                    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.balance]])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 軸馬・騎手・購入方法のブロック"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_81, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 軸馬 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_82, [_hoisted_83, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_84, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+                    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-1 px-2 sm:py-2 sm:px-4 leading-tight text-xxxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
                     id: "axis-horse",
                     name: "axis-horse",
                     type: "text",
@@ -18136,8 +18132,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                     })
                   }, null, 512
                   /* NEED_PATCH */
-                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.axisHorse]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 騎手 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_87, [_hoisted_88, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_89, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-                    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.axisHorse]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 騎手 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_85, [_hoisted_86, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_87, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+                    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-1 px-2 sm:py-2 sm:px-4 leading-tight text-xxxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
                     id: "jockey",
                     name: "jockey",
                     type: "text",
@@ -18147,8 +18143,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                     })
                   }, null, 512
                   /* NEED_PATCH */
-                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.jockey]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 購入方法 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_90, [_hoisted_91, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_92, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-                    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.jockey]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 購入方法 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_88, [_hoisted_89, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_90, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+                    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-1 px-2 sm:py-2 sm:px-4 leading-tight text-xxxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
                     id: "purchase-mathod",
                     name: "purchase-mathod",
                     type: "text",
@@ -18158,8 +18154,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                     })
                   }, null, 512
                   /* NEED_PATCH */
-                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.purchaseMathod]])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 父親・母父・コンディションのブロック"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_93, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 父親 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_94, [_hoisted_95, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_96, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-                    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.purchaseMathod]])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 父親・母父・コンディションのブロック"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_91, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 父親 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_92, [_hoisted_93, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_94, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+                    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-1 px-2 sm:py-2 sm:px-4 leading-tight text-xxxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
                     id: "father",
                     name: "father",
                     type: "text",
@@ -18169,8 +18165,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                     })
                   }, null, 512
                   /* NEED_PATCH */
-                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.father]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 母父 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_97, [_hoisted_98, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_99, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-                    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.father]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 母父 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_95, [_hoisted_96, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_97, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+                    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-1 px-2 sm:py-2 sm:px-4 leading-tight text-xxxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
                     id: "mother-father",
                     name: "mother-father",
                     type: "text",
@@ -18180,14 +18176,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                     })
                   }, null, 512
                   /* NEED_PATCH */
-                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.motherFather]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" コンディション "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_100, [_hoisted_101, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_102, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
-                    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.motherFather]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" コンディション "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_98, [_hoisted_99, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_100, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+                    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-1 px-2 sm:py-2 sm:px-4 leading-tight text-xxxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
                     id: "condition",
                     name: "condition",
                     "onUpdate:modelValue": _cache[17] || (_cache[17] = function ($event) {
                       return _ctx.data.condition = $event;
                     })
-                  }, _hoisted_107, 512
+                  }, _hoisted_105, 512
                   /* NEED_PATCH */
                   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, _ctx.data.condition]])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
                     type: "hidden",
@@ -18198,7 +18194,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                     })
                   }, null, 512
                   /* NEED_PATCH */
-                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.id]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 登録ボタンのブロック "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_108, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+                  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.id]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 登録ボタンのブロック "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_106, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
                     class: "mt-3 mb-3 rounded-full bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700",
                     onClick: _cache[19] || (_cache[19] = //@ts-ignore
                     function () {
@@ -18281,12 +18277,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             "leave-to": "opacity-0"
           }, {
             default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-              return [_hoisted_109];
+              return [_hoisted_107];
             }),
             _: 1
             /* STABLE */
 
-          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_110, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_111, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TransitionChild, {
+          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_108, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_109, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TransitionChild, {
             as: "template",
             enter: "duration-300 ease-out",
             "enter-from": "opacity-0 scale-95",
@@ -18305,14 +18301,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                     class: "text-lg font-medium leading-6 text-gray-900"
                   }, {
                     default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-                      return [_hoisted_112];
+                      return [_hoisted_110];
                     }),
                     _: 1
                     /* STABLE */
 
-                  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_113, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_114, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.data.message), 1
+                  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_111, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_112, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.data.message), 1
                   /* TEXT */
-                  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_115, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+                  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_113, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
                     type: "button",
                     class: "inline-flex justify-center rounded-md ml-4 border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2",
                     onClick: _cache[22] || (_cache[22] = //@ts-ignore
@@ -18875,14 +18871,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  class: "side-menu bg-green-200 w-1/6 h-full"
-};
-var _hoisted_2 = {
-  class: "h-full"
+  class: "flex flex-row lg:inline-block lg:side-menu bg-green-200 w-full lg:w-1/6 lg:h-full"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    class: "border-b-4 border-dotted border-gray-400 bg-green-200 h-1/4 text-2xl text-center align-center py-16",
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    class: "border-r-4 lg:border-r-0 lg:border-b-4 border-dotted border-gray-400 bg-green-200 h-full lg:h-1/4 w-1/4 text-sm sm:text-lg lg:w-full md:text-2xl text-center align-center py-4 lg:py-5",
     onClick: _cache[0] || (_cache[0] = //@ts-ignore
     function () {
       var args = [];
@@ -18894,7 +18887,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $setup.showPurchase && $setup.showPurchase.apply($setup, args);
     })
   }, "購入情報入力"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    class: "border-b-4 border-dotted border-gray-400 bg-green-200 h-1/4 text-2xl text-center align-center py-16",
+    class: "border-r-4 lg:border-r-0 lg:border-b-4 border-dotted border-gray-400 bg-green-200 h-full lg:h-1/4 w-1/4 text-sm sm:text-lg lg:w-full md:text-2xl text-center align-center py-4 lg:py-5",
     onClick: _cache[1] || (_cache[1] = //@ts-ignore
     function () {
       var args = [];
@@ -18906,7 +18899,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $setup.showInquiry && $setup.showInquiry.apply($setup, args);
     })
   }, "購入情報照会"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    class: "border-b-4 border-dotted border-gray-400 bg-green-200 h-1/4 text-2xl text-center align-center py-16",
+    class: "border-r-4 lg:border-r-0 lg:border-b-4 border-dotted border-gray-400 bg-green-200 h-full lg:h-1/4 w-1/4 text-sm sm:text-lg lg:w-full md:text-2xl text-center align-center py-4 lg:py-5",
     onClick: _cache[2] || (_cache[2] = //@ts-ignore
     function () {
       var args = [];
@@ -18918,7 +18911,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $setup.showAnalyse && $setup.showAnalyse.apply($setup, args);
     })
   }, "購入情報分析"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    class: "bg-green-200 h-1/4 text-2xl text-center align-center py-16",
+    class: "border-gray-400 lg:border-none bg-green-200 h-full lg:h-1/4 w-1/4 lg:w-full text-sm sm:text-lg md:text-2xl text-center align-center py-4 lg:py-5",
     onClick: _cache[3] || (_cache[3] = //@ts-ignore
     function () {
       var args = [];
@@ -18929,7 +18922,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
       return $setup.showContact && $setup.showContact.apply($setup, args);
     })
-  }, "お問い合わせ")])]);
+  }, "お問い合わせ")]);
 }
 
 /***/ }),
@@ -18948,7 +18941,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  class: "w-5/6"
+  class: "w-full h-full lg:w-5/6 lg:inline-block lg:align-top"
 };
 
 var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h5", {
@@ -18967,7 +18960,7 @@ var _hoisted_4 = {
 var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "w-1/3"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  class: "text-black-400 mb-1 block pr-4 text-right text-xxxs sm:text-sm md:text-base font-bold",
   for: "purchase-date"
 }, "購入日*")], -1
 /* HOISTED */
@@ -18983,7 +18976,7 @@ var _hoisted_7 = {
 var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "w-1/3"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  class: "text-black-400 mb-1 block pr-4 text-xxxs sm:text-sm md:text-base text-right font-bold",
   for: "grade"
 }, "格付*")], -1
 /* HOISTED */
@@ -19003,7 +18996,7 @@ var _hoisted_20 = {
 var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "w-1/3"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  class: "text-black-400 mb-1 block pr-4 text-xxxs sm:text-sm md:text-base text-right font-bold",
   for: "race-course"
 }, "競馬場*")], -1
 /* HOISTED */
@@ -19026,7 +19019,7 @@ var _hoisted_36 = {
 var _hoisted_37 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "w-1/3"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  class: "text-black-400 mb-1 block pr-4 text-xxxs sm:text-sm md:text-base text-right font-bold",
   for: "race-name"
 }, "レース名*")], -1
 /* HOISTED */
@@ -19042,7 +19035,7 @@ var _hoisted_39 = {
 var _hoisted_40 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "w-1/3"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  class: "text-black-400 mb-1 block pr-4 text-xxxs sm:text-sm md:text-base text-right font-bold",
   for: "race-course"
 }, "コース*")], -1
 /* HOISTED */
@@ -19072,7 +19065,7 @@ var _hoisted_45 = {
 var _hoisted_46 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "w-1/3"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  class: "text-black-400 mb-1 block pr-4 text-xxxs sm:text-sm md:text-base text-right font-bold",
   for: "distance"
 }, "距離*")], -1
 /* HOISTED */
@@ -19091,7 +19084,7 @@ var _hoisted_49 = {
 var _hoisted_50 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "w-1/3"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  class: "text-black-400 mb-1 block pr-4 text-right font-bold text-xxxs sm:text-sm md:text-base",
   for: "purchase"
 }, "購入金額*")], -1
 /* HOISTED */
@@ -19107,7 +19100,7 @@ var _hoisted_52 = {
 var _hoisted_53 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "w-1/3"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  class: "text-black-400 mb-1 block pr-4 text-xxxs sm:text-sm md:text-base text-right font-bold",
   for: "return-money"
 }, "払戻金額*")], -1
 /* HOISTED */
@@ -19123,7 +19116,7 @@ var _hoisted_55 = {
 var _hoisted_56 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "w-1/3"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  class: "text-black-400 mb-1 block pr-4 text-xxxs sm:text-sm md:text-base text-right font-bold",
   for: "balance"
 }, "収支金額*")], -1
 /* HOISTED */
@@ -19142,7 +19135,7 @@ var _hoisted_59 = {
 var _hoisted_60 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "w-1/3"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  class: "text-black-400 mb-1 block pr-4 text-xxxs sm:text-sm md:text-base text-right font-bold",
   for: "axis-horse"
 }, "軸馬")], -1
 /* HOISTED */
@@ -19158,7 +19151,7 @@ var _hoisted_62 = {
 var _hoisted_63 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "w-1/3"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  class: "text-black-400 mb-1 block pr-4 text-xxxs sm:text-sm md:text-base text-right font-bold",
   for: "jockey"
 }, "騎手")], -1
 /* HOISTED */
@@ -19174,7 +19167,7 @@ var _hoisted_65 = {
 var _hoisted_66 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "w-1/3"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  class: "text-black-400 mb-1 block pr-4 text-xxxs sm:text-sm md:text-base text-right font-bold",
   for: "purchase-mathod"
 }, "購入方法")], -1
 /* HOISTED */
@@ -19193,7 +19186,7 @@ var _hoisted_69 = {
 var _hoisted_70 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "w-1/3"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  class: "text-black-400 mb-1 block pr-4 text-xxxs sm:text-sm md:text-base text-right font-bold",
   for: "father"
 }, "父親")], -1
 /* HOISTED */
@@ -19209,7 +19202,7 @@ var _hoisted_72 = {
 var _hoisted_73 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "w-1/3"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  class: "text-black-400 mb-1 block pr-4 text-xxxs sm:text-sm md:text-base text-right font-bold",
   for: "mother-father"
 }, "母父")], -1
 /* HOISTED */
@@ -19225,9 +19218,9 @@ var _hoisted_75 = {
 var _hoisted_76 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "w-1/3"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  class: "text-black-400 mb-1 block pr-4 text-right font-bold",
+  class: "text-black-400 mb-1 block pr-4 text-xxxs sm:text-sm md:text-base text-right font-bold",
   for: "condition"
-}, "コンディション")], -1
+}, "馬場状態")], -1
 /* HOISTED */
 );
 
@@ -19300,7 +19293,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_TransitionRoot = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("TransitionRoot");
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 購入日・格付・競馬場のブロック"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 購入日 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-xxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
     id: "purchase-date",
     name: "purchase-date",
     type: "number",
@@ -19311,7 +19304,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 512
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.purchaseDate]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 格付 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
-    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-xxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
     id: "grade",
     name: "grade",
     "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
@@ -19320,7 +19313,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, _hoisted_19, 512
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, _ctx.data.grade]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 競馬場 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [_hoisted_21, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
-    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-xxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
     id: "race-course",
     name: "race-course",
     "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
@@ -19329,7 +19322,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, _hoisted_34, 512
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, _ctx.data.raceCourse]])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" レース名・コース・距離のブロック"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_35, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" レース名 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_36, [_hoisted_37, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_38, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-xxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
     id: "race-name",
     name: "race-name",
     type: "text",
@@ -19340,7 +19333,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 512
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.raceName]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" コース "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_39, [_hoisted_40, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_41, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
-    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-xxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
     id: "course",
     name: "course",
     "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
@@ -19349,7 +19342,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, _hoisted_44, 512
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, _ctx.data.course]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 距離 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_45, [_hoisted_46, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_47, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-xxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
     id: "distance",
     name: "distance",
     type: "number",
@@ -19360,7 +19353,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 512
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.distance]])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 購入金額・払戻金額・収支金額のブロック"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_48, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 購入金額"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_49, [_hoisted_50, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_51, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-xxxs sm:text-sm md:text-basetext-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
     id: "purchase",
     name: "purchase",
     type: "number",
@@ -19371,7 +19364,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 512
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.purchase]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 払戻金額"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_52, [_hoisted_53, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_54, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-xxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
     id: "return-money",
     name: "return-money",
     type: "number",
@@ -19382,7 +19375,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 512
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.returnMoney]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 収支金額"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_55, [_hoisted_56, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_57, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-xxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
     id: "balance",
     name: "balance",
     type: "number",
@@ -19393,7 +19386,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 512
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.balance]])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 軸馬・騎手・購入方法のブロック"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_58, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 軸馬 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_59, [_hoisted_60, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_61, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-xxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
     id: "axis-horse",
     name: "axis-horse",
     type: "text",
@@ -19404,7 +19397,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 512
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.axisHorse]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 騎手 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_62, [_hoisted_63, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_64, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-xxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
     id: "jockey",
     name: "jockey",
     type: "text",
@@ -19415,7 +19408,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 512
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.jockey]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 購入方法 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_65, [_hoisted_66, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_67, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-xxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
     id: "purchase-mathod",
     name: "purchase-mathod",
     type: "text",
@@ -19426,7 +19419,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 512
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.purchaseMathod]])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 父親・母父・コンディションのブロック"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_68, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 父親 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_69, [_hoisted_70, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_71, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-xxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
     id: "father",
     name: "father",
     type: "text",
@@ -19437,18 +19430,18 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 512
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.father]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 母父 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_72, [_hoisted_73, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_74, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-xxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
     id: "mother-father",
     name: "mother-father",
     type: "text",
-    placeholder: "武豊",
+    placeholder: "キングカメハメハ",
     "onUpdate:modelValue": _cache[13] || (_cache[13] = function ($event) {
       return _ctx.data.motherFather = $event;
     })
   }, null, 512
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.data.motherFather]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" コンディション "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_75, [_hoisted_76, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_77, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
-    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
+    class: "w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-xxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none",
     id: "condition",
     name: "condition",
     "onUpdate:modelValue": _cache[14] || (_cache[14] = function ($event) {
@@ -19596,15 +19589,7 @@ var _hoisted_1 = {
   class: "w-full"
 };
 
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", {
-  class: "mt-4 flex justify-center text-3xl"
-}, "リリースノート", -1
-/* HOISTED */
-);
-
-var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "・2022/09/18 ver0.0リリース 基本機能　馬券購入情報入力・照会・集計、問合せ機能リリース"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "・2022/09/25 ver1.0リリース ユーザー作成機能・二要素認証機能リリース"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "・2022/09/28 ver1.1リリース ユーザー作成機能・二要素認証機能レスポンシブ対応済み"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "・アップデート予定:CSV取込機能追加、順次レスポンシブ対応"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "※本アプリは馬券収支を管理するアプリとなっています、ユーザー登録をしてご利用ください。"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "※メールでの二要素認証が標準仕様となっております。"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "※メールでの現在スマホ対応実施中で、PC使用を前提としています"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "・不明点がありましたら、kamorin.app19@gmail.comへお問い合わせください。")], -1
-/* HOISTED */
-);
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<h1 class=\"mt-4 flex justify-center text-3xl\">リリースノート</h1><ul><li>・2022/09/18 ver0.0リリース 基本機能　馬券購入情報入力・照会・集計、問合せ機能リリース</li><li>・2022/09/25 ver1.0リリース ユーザー作成機能・二要素認証機能リリース</li><li>・2022/09/28 ver1.1リリース ユーザー作成機能・二要素認証機能レスポンシブ対応済み</li><li>・2022/10/01 ver1.2リリース レスポンシブ対応実施、フォントサイズ要調整</li><li>・アップデート予定:CSV取込機能追加、順次UI対応</li><li>※本アプリは馬券収支を管理するアプリとなっています、ユーザー登録をしてご利用ください。</li><li>※メールでの二要素認証が標準仕様となっております。</li><li>※現在スマホ対応も進めておりますが、PC使用を推奨しています</li><li>・不明点がありましたら、kamorin.app19@gmail.comへお問い合わせください。</li></ul>", 2);
 
 var _hoisted_4 = {
   class: "flex justify-center mt-2 mb-2 sm:mt-4 sm:mb-4"
@@ -19613,7 +19598,7 @@ var _hoisted_4 = {
 var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" 　　");
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [_hoisted_2, _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
     class: "cursor-pointer text-sky-500 text-sm sm:text-base",
     onClick: _cache[0] || (_cache[0] = //@ts-ignore
     function () {
