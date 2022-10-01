@@ -1,6 +1,6 @@
 <template>
-  <div class="w-full h-full">
-    <div class="flex flex-row h-full">
+  <div class="w-full h-1/6 lg:h-full">
+    <div class="h-full">
       <router-view></router-view>
       <router-view name="contents"></router-view>
     </div>

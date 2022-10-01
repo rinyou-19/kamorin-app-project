@@ -2,8 +2,8 @@
   <div class="w-full">
     <h1 class="mt-4 flex justify-center text-3xl">二要素認証</h1>
     <div class="flex justify-center">
-      <form class="w-2/3 bg-white shadow-md rounded pt-6 pb-8 mt-4 px-16">
-        <div class="flex justify-center mt-8 text-xl">
+      <form class="w-2/3 bg-white shadow-md rounded pt-6 pb-8 mt-4 px-2 sm:px-16">
+        <div class="flex justify-center mt-8 text-xs sm:text-xl">
           <label for="name" class="block mt-2 inline-block text-gray-700">認証コード</label>
           <input type="text" id="name" name="name" class="ml-6 w-1/3 rounded border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1.5 text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none" v-model="data.password" placeholder="******" />
         </div>

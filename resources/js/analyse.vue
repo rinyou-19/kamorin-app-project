@@ -1,26 +1,26 @@
 <template>
-  <div class="w-5/6">
+  <div class="w-full h-full lg:w-5/6 lg:inline-block lg:align-top">
     <h5 class="p-3 text-2xl font-bold">購入情報分析</h5>
     <form>
       <!-- 集計月のブロック-->
       <div class="mb-6 flex items-center">
         <div class="w-1/6">
-          <label class="text-black-400 mb-1 block pr-4 text-right font-bold" for="purchase-month-from">集計月</label>
+          <label class="text-black-400 mb-1 block pr-4 text-xxxs sm:text-sm md:text-base text-right font-bold" for="purchase-month-from">集計月</label>
         </div>
         <div class="w-2/6">
-          <input class=" w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none" id="purchase-month-from" name="purchase-month-from" type="number" placeholder="202206" v-model="data.monthFrom" />
+          <input class=" w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-xxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none" id="purchase-month-from" name="purchase-month-from" type="number" placeholder="202206" v-model="data.monthFrom" />
         </div>
-        <div class="w-1/8 px-4">～</div>
+        <div class="w-1/8 px-4 text-xxxs sm:text-sm md:text-base ">～</div>
         <div class="w-2/6">
-          <input class="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none" id="purchase-month-to" name="purchase-month-to" type="number" placeholder="202206" v-model="data.monthTo" />
+          <input class="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tigh text-xxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none" id="purchase-month-to" name="purchase-month-to" type="number" placeholder="202206" v-model="data.monthTo" />
         </div>
       </div>
       <div class="flex justify-center text-xl">
         <button class="mt-1 mb-3 rounded-full bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700" v-on:click="summary">集計</button>
       </div>
-      <div class="mt-1 flex justify-center text-xl">
+      <div class="mt-1 flex justify-center">
         <Chart
-          :size="{ width: 1000, height: 350 }"
+          :size="size"
           :data="data.summaryData"
           :margin="margin"
           :direction="direction"
@@ -82,6 +82,18 @@ export default defineComponent({
       monthTo: "",
       message: "",
       isOpen: false
+    })
+
+    // チャートのサイズを設定
+    let windowWidth = window.innerWidth
+    let windowHeight = window.innerHeight
+    let height = 0
+    // 画面の解像度に応じて高さを調整
+    height = windowWidth <= 1024 ? windowHeight * 0.25 : windowHeight * 0.45
+    
+    const size = ref({
+      width: windowWidth * 0.7,
+      height: height
     })
 
     // チャートの設定
@@ -146,7 +158,7 @@ export default defineComponent({
       })
     }
 
-    return { data, direction, margin, closeModal, summary };
+    return { data, direction, margin, size, closeModal, summary };
   },
 })
 </script>

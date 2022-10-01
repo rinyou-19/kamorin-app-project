@@ -1,33 +1,33 @@
 <template>
-  <div class="w-5/6">
+  <div class="w-full h-full lg:w-5/6 lg:inline-block lg:align-top">
     <p class="p-3 text-2xl font-bold">お問い合わせ</p>
     <form>
       <!-- お問い合わせ件名 -->
-      <div class="mb-6 flex items-center">
+      <div class="mb-2 lg:mb-6 flex items-center">
         <!-- お名前 -->
         <div class="w-1/5">
-          <label class="text-black-400 mb-1 block pr-4 text-right font-bold" for="contact-name">お名前*</label>
+          <label class="text-black-400 mb-1 block pr-4 text-xxxs sm:text-sm md:text-base text-right font-bold" for="contact-name">お名前*</label>
         </div>
         <div class="w-4/5">
-          <input class="w-full appearance-none rounded border-2 border-gray-200  bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none" id="contact-name" name="contact-name" type="text" placeholder="山田太郎" v-model="data.sentName" />
+          <input class="w-full appearance-none rounded border-2 border-gray-200  bg-gray-200 py-2 px-4 leading-tight text-xxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none" id="contact-name" name="contact-name" type="text" placeholder="山田太郎" v-model="data.sentName" />
         </div>
       </div>
-            <div class="mb-6 flex items-center">
+            <div class="mb-2 lg:mb-6 flex items-center">
         <!-- ご連絡先 -->
         <div class="w-1/5">
-          <label class="text-black-400 mb-1 block pr-4 text-right font-bold" for="mail-address">ご連絡先*</label>
+          <label class="text-black-400 mb-1 block pr-4 text-xxxs sm:text-sm md:text-base text-right font-bold" for="mail-address">ご連絡先*</label>
         </div>
         <div class="w-4/5">
-          <input class=" w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none" id="mail-address" name="mail-address" type="email" placeholder="test@example.cpm" v-model="data.email" />
+          <input class=" w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-xxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none" id="mail-address" name="mail-address" type="email" placeholder="test@example.cpm" v-model="data.email" />
         </div>
       </div>
-      <div class="mb-6 flex items-center">
+      <div class="mb-2 lg:mb-6 flex items-center">
         <!-- お問い合わせ分類 -->
         <div class="w-1/5">
-          <label class="text-black-400 mb-1 block pr-4 text-right font-bold" for="category">お問い合わせ分類*</label>
+          <label class="text-black-400 mb-1 block pr-4 text-xxxs sm:text-sm md:text-base text-right font-bold" for="category">分類*</label>
         </div>
         <div class="w-4/5">
-          <select class=" w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none" id="category" name="category" v-model="data.category">
+          <select class=" w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-xxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none" id="category" name="category" v-model="data.category">
             <option value=""></option>
             <option value="改善要望">改善要望</option>
             <option value="障害報告">障害報告</option>
@@ -35,13 +35,13 @@
           </select>
         </div>
       </div>
-      <div class="mb-3 flex items-center">
+      <div class="mb-2 flex items-center h-1/3 lg:h-1/2">
         <!-- お問い合わせ詳細 -->
         <div class="w-1/5">
-          <label class="text-black-400 mb-1 block pr-4 text-right font-bold" for="detail">お問い合わせ詳細*</label>
+          <label class="text-black-400 mb-1 block pr-4 text-xxxs sm:text-sm md:text-base text-right font-bold" for="detail">詳細*</label>
         </div>
         <div class="w-4/5">
-          <textarea name="detail" id="detail" c rows="10" class="block p-2.5 w-full rounded border-2 border-gray-200 bg-gray-200 focus:border-purple-500 focus:bg-white focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Your message..." v-model="data.detail"></textarea>
+          <textarea name="detail" id="detail" rows="7" class="block p-2.5 w-full rounded border-2 border-gray-200 bg-gray-200 text-xxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Your message..." v-model="data.detail"></textarea>
         </div>
       </div>
       <div class="flex justify-center text-xl">

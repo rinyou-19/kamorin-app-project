@@ -6,4 +6,8 @@
         "module": "es2015",
         "moduleResolution": "node",
     },
+    "exclude": [
+        "node_modules",
+        "**/*.config.js"
+    ]
 }

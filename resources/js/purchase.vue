@@ -1,5 +1,5 @@
 <template>
-  <div class="w-5/6">
+  <div class="w-full h-full lg:w-5/6 lg:inline-block lg:align-top">
     <h5 class="p-3 text-2xl font-bold">購入情報入力</h5>
     <form>
       <!-- 購入日・格付・競馬場のブロック-->
@@ -7,19 +7,19 @@
         <!-- 購入日 -->
         <div class="flex w-1/3">
           <div class="w-1/3">
-            <label class="text-black-400 mb-1 block pr-4 text-right font-bold" for="purchase-date">購入日*</label>
+            <label class="text-black-400 mb-1 block pr-4 text-right text-xxxs sm:text-sm md:text-base font-bold" for="purchase-date">購入日*</label>
           </div>
           <div class="w-2/3">
-            <input class="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none" id="purchase-date" name="purchase-date" type="number" placeholder="20220101" v-model="data.purchaseDate" />
+            <input class="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-xxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none" id="purchase-date" name="purchase-date" type="number" placeholder="20220101" v-model="data.purchaseDate" />
           </div>
         </div>
         <!-- 格付 -->
         <div class="flex w-1/3">
           <div class="w-1/3">
-            <label class="text-black-400 mb-1 block pr-4 text-right font-bold" for="grade">格付*</label>
+            <label class="text-black-400 mb-1 block pr-4 text-xxxs sm:text-sm md:text-base text-right font-bold" for="grade">格付*</label>
           </div>
           <div class="w-2/3">
-            <select class="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none" id="grade" name="grade" v-model="data.grade">
+            <select class="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-xxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none" id="grade" name="grade" v-model="data.grade">
               <option value="G1">G1</option>
               <option value="G2">G2</option>
               <option value="G3">G3</option>
@@ -35,10 +35,10 @@
         <!-- 競馬場 -->
         <div class="flex w-1/3">
           <div class="w-1/3">
-            <label class="text-black-400 mb-1 block pr-4 text-right font-bold" for="race-course">競馬場*</label>
+            <label class="text-black-400 mb-1 block pr-4 text-xxxs sm:text-sm md:text-base text-right font-bold" for="race-course">競馬場*</label>
           </div>
           <div class="w-2/3">
-            <select class="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none" id="race-course" name="race-course" v-model="data.raceCourse">
+            <select class="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-xxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none" id="race-course" name="race-course" v-model="data.raceCourse">
               <option value="東京">東京</option>
               <option value="中山">中山</option>
               <option value="阪神">阪神</option>
@@ -59,19 +59,19 @@
         <!-- レース名 -->
         <div class="flex w-1/3">
           <div class="w-1/3">
-            <label class="text-black-400 mb-1 block pr-4 text-right font-bold" for="race-name">レース名*</label>
+            <label class="text-black-400 mb-1 block pr-4 text-xxxs sm:text-sm md:text-base text-right font-bold" for="race-name">レース名*</label>
           </div>
           <div class="w-2/3">
-            <input class="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none" id="race-name" name="race-name" type="text" placeholder="日本ダービー" v-model="data.raceName" />
+            <input class="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-xxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none" id="race-name" name="race-name" type="text" placeholder="日本ダービー" v-model="data.raceName" />
           </div>
         </div>
         <!-- コース -->
         <div class="flex w-1/3">
           <div class="w-1/3">
-            <label class="text-black-400 mb-1 block pr-4 text-right font-bold" for="race-course">コース*</label>
+            <label class="text-black-400 mb-1 block pr-4 text-xxxs sm:text-sm md:text-base text-right font-bold" for="race-course">コース*</label>
           </div>
           <div class="w-2/3">
-            <select class="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none" id="course" name="course" v-model="data.course">
+            <select class="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-xxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none" id="course" name="course" v-model="data.course">
               <option value="芝">芝</option>
               <option value="ダート">ダート</option>
             </select>
@@ -80,10 +80,10 @@
         <!-- 距離 -->
         <div class="flex w-1/3">
           <div class="w-1/3">
-            <label class="text-black-400 mb-1 block pr-4 text-right font-bold" for="distance">距離*</label>
+            <label class="text-black-400 mb-1 block pr-4 text-xxxs sm:text-sm md:text-base text-right font-bold" for="distance">距離*</label>
           </div>
           <div class="w-2/3">
-            <input class="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none" id="distance" name="distance" type="number" placeholder="1600" v-model="data.distance" />
+            <input class="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-xxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none" id="distance" name="distance" type="number" placeholder="1600" v-model="data.distance" />
           </div>
         </div>
       </div>
@@ -92,28 +92,28 @@
         <!-- 購入金額-->
         <div class="flex w-1/3">
           <div class="w-1/3">
-            <label class="text-black-400 mb-1 block pr-4 text-right font-bold" for="purchase">購入金額*</label>
+            <label class="text-black-400 mb-1 block pr-4 text-right font-bold text-xxxs sm:text-sm md:text-base" for="purchase">購入金額*</label>
           </div>
           <div class="w-2/3">
-            <input class="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none" id="purchase" name="purchase" type="number" placeholder="1000" v-model="data.purchase" />
+            <input class="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-xxxs sm:text-sm md:text-basetext-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none" id="purchase" name="purchase" type="number" placeholder="1000" v-model="data.purchase" />
           </div>
         </div>
         <!-- 払戻金額-->
         <div class="flex w-1/3">
           <div class="w-1/3">
-            <label class="text-black-400 mb-1 block pr-4 text-right font-bold" for="return-money">払戻金額*</label>
+            <label class="text-black-400 mb-1 block pr-4 text-xxxs sm:text-sm md:text-base text-right font-bold" for="return-money">払戻金額*</label>
           </div>
           <div class="w-2/3">
-            <input class="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none" id="return-money" name="return-money" type="number" placeholder="1000" v-model="data.returnMoney" />
+            <input class="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-xxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none" id="return-money" name="return-money" type="number" placeholder="1000" v-model="data.returnMoney" />
           </div>
         </div>
         <!-- 収支金額-->
         <div class="flex w-1/3">
           <div class="w-1/3">
-            <label class="text-black-400 mb-1 block pr-4 text-right font-bold" for="balance">収支金額*</label>
+            <label class="text-black-400 mb-1 block pr-4 text-xxxs sm:text-sm md:text-base text-right font-bold" for="balance">収支金額*</label>
           </div>
           <div class="w-2/3">
-            <input class="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none" id="balance" name="balance" type="number" placeholder="1000" v-model="data.balance" />
+            <input class="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-xxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none" id="balance" name="balance" type="number" placeholder="1000" v-model="data.balance" />
           </div>
         </div>
       </div>
@@ -122,28 +122,28 @@
         <!-- 軸馬 -->
         <div class="flex w-1/3">
           <div class="w-1/3">
-            <label class="text-black-400 mb-1 block pr-4 text-right font-bold" for="axis-horse">軸馬</label>
+            <label class="text-black-400 mb-1 block pr-4 text-xxxs sm:text-sm md:text-base text-right font-bold" for="axis-horse">軸馬</label>
           </div>
           <div class="w-2/3">
-            <input class="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none" id="axis-horse" name="axis-horse" type="text" placeholder="ディープインパクト" v-model="data.axisHorse" />
+            <input class="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-xxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none" id="axis-horse" name="axis-horse" type="text" placeholder="ディープインパクト" v-model="data.axisHorse" />
           </div>
         </div>
         <!-- 騎手 -->
         <div class="flex w-1/3">
          <div class="w-1/3">
-            <label class="text-black-400 mb-1 block pr-4 text-right font-bold" for="jockey">騎手</label>
+            <label class="text-black-400 mb-1 block pr-4 text-xxxs sm:text-sm md:text-base text-right font-bold" for="jockey">騎手</label>
           </div>
           <div class="w-2/3">
-            <input class="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none" id="jockey" name="jockey" type="text" placeholder="武豊" v-model="data.jockey" />
+            <input class="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-xxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none" id="jockey" name="jockey" type="text" placeholder="武豊" v-model="data.jockey" />
           </div>
         </div>
         <!-- 購入方法 -->
         <div class="flex w-1/3">
           <div class="w-1/3">
-            <label class="text-black-400 mb-1 block pr-4 text-right font-bold" for="purchase-mathod">購入方法</label>
+            <label class="text-black-400 mb-1 block pr-4 text-xxxs sm:text-sm md:text-base text-right font-bold" for="purchase-mathod">購入方法</label>
           </div>
           <div class="w-2/3">
-            <input class="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none" id="purchase-mathod" name="purchase-mathod" type="text" placeholder="単複ワイド" v-model="data.purchaseMathod" />
+            <input class="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-xxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none" id="purchase-mathod" name="purchase-mathod" type="text" placeholder="単複ワイド" v-model="data.purchaseMathod" />
           </div>
         </div>     
       </div>
@@ -152,28 +152,28 @@
         <!-- 父親 -->
         <div class="flex w-1/3">
           <div class="w-1/3">
-            <label class="text-black-400 mb-1 block pr-4 text-right font-bold" for="father">父親</label>
+            <label class="text-black-400 mb-1 block pr-4 text-xxxs sm:text-sm md:text-base text-right font-bold" for="father">父親</label>
           </div>
           <div class="w-2/3">
-            <input class="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none" id="father" name="father" type="text" placeholder="ディープインパクト" v-model="data.father" />
+            <input class="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-xxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none" id="father" name="father" type="text" placeholder="ディープインパクト" v-model="data.father" />
           </div>
         </div>
         <!-- 母父 -->
         <div class="flex w-1/3">
           <div class="w-1/3">
-            <label class="text-black-400 mb-1 block pr-4 text-right font-bold" for="mother-father">母父</label>
+            <label class="text-black-400 mb-1 block pr-4 text-xxxs sm:text-sm md:text-base text-right font-bold" for="mother-father">母父</label>
           </div>
           <div class="w-2/3">
-            <input class="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none" id="mother-father" name="mother-father" type="text" placeholder="武豊" v-model="data.motherFather" />
+            <input class="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-xxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none" id="mother-father" name="mother-father" type="text" placeholder="キングカメハメハ" v-model="data.motherFather" />
         </div>
         </div>
         <!-- コンディション -->
         <div class="flex w-1/3">
           <div class="w-1/3">
-            <label class="text-black-400 mb-1 block pr-4 text-right font-bold" for="condition">コンディション</label>
+            <label class="text-black-400 mb-1 block pr-4 text-xxxs sm:text-sm md:text-base text-right font-bold" for="condition">馬場状態</label>
           </div>
           <div class="w-2/3">
-            <select class="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none" id="condition" name="condition" v-model="data.condition" >
+            <select class="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-xxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none" id="condition" name="condition" v-model="data.condition" >
               <option value="良">良</option>
               <option value="稍重">稍重</option>
               <option value="重">重</option>
