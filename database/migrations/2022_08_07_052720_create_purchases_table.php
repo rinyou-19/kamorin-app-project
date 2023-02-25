@@ -24,13 +24,12 @@ return new class extends Migration
             $table->integer('purchase_m');
             $table->integer('return_m');
             $table->integer('balance_m');
-            $table->string('axis_h');
-            $table->string('purchase_method');
-            $table->string('jockey');
-            $table->string('father');
-            $table->string('mother_father');
-            $table->integer('gate_no');
-            $table->string('condition_course');
+            $table->string('axis_h')->nullable();
+            $table->string('purchase_method')->nullable();
+            $table->string('jockey')->nullable();
+            $table->string('father')->nullable();
+            $table->string('mother_father')->nullable();
+            $table->string('condition_course')->nullable();
             $table->timestamps();
         });
     }

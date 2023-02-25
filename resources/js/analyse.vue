@@ -27,7 +27,7 @@
         >
           <template #layers>
             <Grid strokeDasharray="2,2" />
-            <Line :dataKeys="['month', 'purchase']" :lineStyle="{ stroke: 'blue' }"  />
+            <Line :dataKeys="['month', 'purchase']" :lineStyle="{ stroke: 'blue' }" />
             <Line :dataKeys="['month', 'balance']" :lineStyle="{ stroke: 'red' }" />
             <Line :dataKeys="['month', 'return']" :lineStyle="{ stroke: 'green' }" />
           </template>

@@ -199,6 +199,7 @@ export default defineComponent({
           // 二要素認証画面へ遷移する
           sessionStorage.setItem('userName', data.userName)
           router.push("/twoFactorAuth")
+          router.push("/menu")
           return
         }
         // ユーザー名かパスワードが一致していなかった場合

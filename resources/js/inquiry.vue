@@ -20,7 +20,7 @@
         <button class="rounded-full bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700" v-on:click="getData">検索</button>
       </div>
       <!-- ヘッダーと表示内容の位置がずれるのは、幅を固定するしかないかも-->
-      <div class="mt-1 ml-12 flex items-center w-11/12">
+      <div class="mt-1 ml-12 flex items-center w-11/12" style="overflow-y:auto;">
         <table class="w-full">
           <thead style="display: block">
             <tr>
@@ -329,6 +329,7 @@ export default defineComponent({
       butonShow: false,
       dataProcess: ""
     })
+
     // 関数宣言
     // 確認ダイアログを閉じる処理
     const closeModal = (e: Event) => {
@@ -439,25 +440,24 @@ export default defineComponent({
     }
 
     // 行のデータを取得する
-    // 型は直したい
     const getRowData = (e: any) => {
       // テーブルのデータを設定
-      data.id = e.path[1]?.children.item(0).innerHTML
-      data.purchaseDate = e.path[1]?.children.item(1).innerHTML
-      data.raceCourse = e.path[1]?.children.item(2)?.innerHTML
-      data.grade = e.path[1]?.children.item(3)?.innerHTML
-      data.raceName = e.path[1]?.children.item(4)?.innerHTML
-      data.course = e.path[1]?.children.item(5)?.innerHTML
-      data.distance = e.path[1]?.children.item(6)?.innerHTML
-      data.purchase = e.path[1]?.children.item(7)?.innerHTML
-      data.returnMoney = e.path[1]?.children.item(8)?.innerHTML
-      data.balance = e.path[1]?.children.item(9)?.innerHTML
-      data.axisHorse = e.path[1]?.children.item(10)?.innerHTML
-      data.jockey = e.path[1]?.children.item(12)?.innerHTML
-      data.purchaseMathod = e.path[1]?.children.item(11)?.innerHTML
-      data.father = e.path[1]?.children.item(13)?.innerHTML
-      data.motherFather = e.path[1]?.children.item(14)?.innerHTML
-      data.condition = e.path[1]?.children.item(16)?.innerHTML
+      data.id = e.target?.parentElement?.children.item(0).innerHTML
+      data.purchaseDate = e.target?.parentElement?.children.item(1).innerHTML
+      data.raceCourse = e.target?.parentElement?.children.item(2).innerHTML
+      data.grade = e.target?.parentElement?.children.item(3).innerHTML
+      data.raceName = e.target?.parentElement?.children.item(4).innerHTML
+      data.course = e.target?.parentElement?.children.item(5).innerHTML
+      data.distance = e.target?.parentElement?.children.item(6).innerHTML
+      data.purchase = e.target?.parentElement?.children.item(7).innerHTML
+      data.returnMoney = e.target?.parentElement?.children.item(8).innerHTML
+      data.balance = e.target?.parentElement?.children.item(9).innerHTML
+      data.axisHorse = e.target?.parentElement?.children.item(10).innerHTML
+      data.jockey = e.target?.parentElement?.children.item(12).innerHTML
+      data.purchaseMathod = e.target?.parentElement?.children.item(11).innerHTML
+      data.father = e.target?.parentElement?.children.item(13).innerHTML
+      data.motherFather = e.target?.parentElement?.children.item(14).innerHTML
+      data.condition = e.target?.parentElement?.children.item(15).innerHTML
 
       // 購入情報修正ダイアログを表示
       data.isDataDialogOpen = true
@@ -479,7 +479,7 @@ export default defineComponent({
     // 削除ボタン押下時の処理
     const confirmDeleteModal = (e: Event) => {
       // デフォルトのイベントをキャンセルする
-      e.preventDefault();
+      e.preventDefault()
 
       data.butonShow = true
       data.dataProcess = "削除"
@@ -491,6 +491,9 @@ export default defineComponent({
 
     // データ操作処理
     const dataProcess = (e: Event) => {
+      // デフォルトのイベントをキャンセルする
+      e.preventDefault()
+
       // 確認ダイアログを閉じる
       data.isOpen = false
       const parameter = {
@@ -549,78 +552,79 @@ export default defineComponent({
         data.father = ""
         data.motherFather = ""
         data.condition = ""
-      })
 
-      const readParameter = {
-        dateFrom: data.dateFrom,
-        dateTo: data.dateTo,
-        userName: sessionStorage.getItem('userName')
-      }
-
-      // データの再取得
-      axios.post("getData", readParameter).then((res) => {
-
-        if(res.data.result === true) {
-
-          // テーブルの要素を取得
-          const element = document.querySelector<HTMLElement>("tbody");
-
-          if (
-            element?.firstChild !== undefined &&
-            element?.firstChild !== null
-          ) {
-             // 子要素を削除する
-            while (element?.firstChild) {
-               element.removeChild(element.firstChild);
-            }
-          }
-
-          // レコード数のループ
-          let rowCount = 1
-          for (let value of res.data.data) {
-            // テーブルに表示する要素
-            let tableParantElememt = document.createElement("tr");
-            tableParantElememt.setAttribute("id", `row-number-${rowCount}`)
-            // レコードごとのループ
-            for (let key in value) {
-              let talbleChildElement = document.createElement("td");
-              talbleChildElement.classList.add("border");
-              talbleChildElement.classList.add("px-2");
-              talbleChildElement.classList.add("py-2");
-              talbleChildElement.setAttribute("id", `key-${key}-${rowCount}`)
-              talbleChildElement.onclick = getRowData
-              talbleChildElement.innerHTML = value[key];
-              switch (key) {
-                case 'race_day':
-                  talbleChildElement.classList.add("w-32"); 
-                  break
-                case 'race_course':
-                case 'grade':
-                  talbleChildElement.classList.add("w-28"); 
-                  break
-                case 'race_name':
-                  talbleChildElement.classList.add("w-48"); 
-                  break
-                case 'dirt_or_turf':
-                case 'distance':
-                case 'purchase_m':
-                case 'return_m':
-                case 'balance_m':
-                  talbleChildElement.classList.add("w-24"); 
-                  break
-                default:
-                  talbleChildElement.style.display = 'none'
-                  break
-              }
-              tableParantElememt.appendChild(talbleChildElement);               
-            }
-            rowCount = rowCount + 1
-            element?.appendChild(tableParantElememt);
-          }
-        } else {
-          data.message = "データの取得に失敗しました"
-          data.isOpen = true
+        const readParameter = {
+          dateFrom: data.dateFrom,
+          dateTo: data.dateTo,
+          userName: sessionStorage.getItem('userName')
         }
+
+        // データの再取得
+        axios.post("getData", readParameter).then((res) => {
+
+          if(res.data.result === true) {
+            // テーブルの要素を取得
+            const element = document.querySelector<HTMLElement>("tbody")
+
+            if (
+              element?.firstChild != undefined ||
+              element?.firstChild != null
+            ) {
+               // 子要素を削除する
+              while (element?.firstChild) {
+                element?.removeChild(element.firstChild);
+              }
+            }
+
+            // レコード数のループ
+            let rowCount = 1
+            for (let value of res.data.data) {
+              console.log(value)
+              // テーブルに表示する要素
+              let tableParantElememt = document.createElement("tr");
+              tableParantElememt.setAttribute("id", `row-number-${rowCount}`)
+              // レコードごとのループ
+              for (let key in value) {
+                let talbleChildElement = document.createElement("td");
+                talbleChildElement.classList.add("border");
+                talbleChildElement.classList.add("px-2");
+                talbleChildElement.classList.add("py-2");
+                talbleChildElement.classList.add("text-xxxs");
+                talbleChildElement.classList.add("sm:text-sm");
+                talbleChildElement.classList.add("md:text-base");
+                talbleChildElement.setAttribute("id", `key-${key}-${rowCount}`)
+                talbleChildElement.onclick = getRowData
+                talbleChildElement.innerHTML = value[key];
+                switch (key) {
+                  case 'race_day':
+                    talbleChildElement.classList.add("w-32"); 
+                    break
+                  case 'race_course':
+                  case 'grade':
+                    talbleChildElement.classList.add("w-28"); 
+                    break
+                  case 'race_name':
+                    talbleChildElement.classList.add("w-48"); 
+                    break
+                  case 'purchase_m':
+                  case 'return_m':
+                  case 'balance_m':
+                    talbleChildElement.classList.add("w-24"); 
+                    break
+                  default:
+                    talbleChildElement.style.display = 'none'
+                    break
+                }
+                tableParantElememt.appendChild(talbleChildElement);               
+              }
+              rowCount = rowCount + 1
+              element?.appendChild(tableParantElememt);
+            }
+          } else {
+            data.message = "データの取得に失敗しました"
+            data.isOpen = true
+          }
+        })
       })
     }  
 

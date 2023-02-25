@@ -50,6 +50,7 @@
               <option value="新潟">新潟</option>
               <option value="小倉">小倉</option>
               <option value="地方">地方</option>
+              <option value="海外">海外</option>
             </select>
           </div>
         </div>
@@ -74,6 +75,7 @@
             <select class="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-xxxs sm:text-sm md:text-base text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none" id="course" name="course" v-model="data.course">
               <option value="芝">芝</option>
               <option value="ダート">ダート</option>
+              <option value="障害">障害</option>
             </select>
           </div>
         </div>
@@ -243,6 +245,7 @@ export default defineComponent({
       isOpen: boolean;
       isEntry: boolean;
       userName: string;
+      errorFlag: boolean;
     } = reactive({
       purchaseDate: "",
       grade: "",
@@ -264,6 +267,7 @@ export default defineComponent({
       isOpen: false,
       isEntry: true,
       userName: "",
+      errorFlag: false
     })
     // 関数宣言
     const closeModal = (e: Event) => {
@@ -279,6 +283,9 @@ export default defineComponent({
 
       // エラーメッセージ初期化
       data.message = ""
+
+      // エラーフラグをfalseに設定
+      data.errorFlag = false
 
       // 必須チェック
       if (data.purchaseDate == null || data.purchaseDate == "") {
@@ -336,16 +343,24 @@ export default defineComponent({
 
       // ダイアログのメッセージを設定
       data.message = "データを登録しますか？"
+      // データ登録フラグをtrueに設定
+      data.errorFlag = true
       // ダイアログを表示
       data.isOpen = true
 
     }
+
     const entry = (e: Event) => {
       // デフォルトのイベントをキャンセルする
       e.preventDefault()
 
       // ダイアログを閉じる
       data.isOpen = false
+ 
+      if (data.errorFlag === false) {
+        // エラーフラグが立っている時は処理をしない
+        return
+      }
 
       // 登録情報を設定
       const parameter = {

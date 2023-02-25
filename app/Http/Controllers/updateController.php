@@ -5,12 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\purchase;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class updateController extends Controller
 {
     public function update(Request $request) {
         try {
             $id = $request->id;
+
+            // トランザクション開始
+            DB::beginTransaction();
 
             $purchase = purchase::where('id', $id)->first();
 
@@ -32,8 +36,13 @@ class updateController extends Controller
             $purchase->condition_course = $request->condition;
             $purchase->save();
 
+            // コミット
+            DB::commit();
+
             return response()->json(['result' => true]);
         } catch (Exception $e) {
+            // ロールバック
+            DB::rollBack();
             return response()->json(['result' => false]);
         }
     }
